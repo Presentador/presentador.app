@@ -1,0 +1,12 @@
+@import "./vars.scss";
+@import "./helpers.scss";
+
+.normal {
+  @extend .container;
+  @include light-arrows;
+  @include light-pos;
+
+  background-color: $primary;
+  color: white;
+  min-height: 100%;
+}

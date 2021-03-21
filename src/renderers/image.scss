@@ -1,0 +1,17 @@
+@import "./vars.scss";
+@import "./helpers.scss";
+
+.image {
+  @include dark-arrows;
+  @include dark-pos;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    max-width: 100%;
+  }
+}

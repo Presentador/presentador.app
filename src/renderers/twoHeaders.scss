@@ -1,0 +1,23 @@
+@import "./vars.scss";
+@import "./helpers.scss";
+
+.twoHeaders {
+  @include light-arrows;
+  @include light-pos;
+
+  background-color: $primary;
+  color: white;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .top {
+    @extend .top-row-container;
+  }
+
+  .bottom {
+    @extend .bottom-row-container;
+  }
+}

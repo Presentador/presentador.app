@@ -1,0 +1,27 @@
+@import "./vars.scss";
+@import "./helpers.scss";
+
+.manyImages {
+  @include light-arrows;
+  @include light-pos;
+  @extend .container;
+
+  background-color: $primary;
+  color: white;
+
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  .image {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
