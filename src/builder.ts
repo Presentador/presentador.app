@@ -1,4 +1,6 @@
-export const states: any = {
+import { State } from "./types";
+
+export const states: Record<State, any> = {
   normal: {
     add: (type: string) => {
       if (type === "heading") return "singleHeader";

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Element } from "./types";
+import { Element } from "../../types";
 
 function Paragraph({
   item,
@@ -46,7 +46,7 @@ function Paragraph({
   }
 
   return (
-    <>
+    <span style={{ position: "relative", display: "inline-block" }}>
       <p
         onKeyDown={checkMouseDown}
         ref={editingElement}
@@ -62,8 +62,15 @@ function Paragraph({
       >
         {item.value}
       </p>
-      {selected && <button onMouseDown={remove}>X</button>}
-    </>
+      {selected && (
+        <button
+          style={{ position: "absolute", top: 0, right: 0 }}
+          onMouseDown={remove}
+        >
+          X
+        </button>
+      )}
+    </span>
   );
 }
 

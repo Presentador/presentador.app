@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Element } from "./types";
+import { Element } from "../../types";
 
 function Header({
   level,
@@ -114,10 +114,17 @@ function Header({
     );
 
   return (
-    <>
+    <span style={{ position: "relative", display: "inline-block" }}>
       {Tag}
-      {selected && <button onMouseDown={remove}>X</button>}
-    </>
+      {selected && (
+        <button
+          style={{ position: "absolute", top: 0, right: 0 }}
+          onMouseDown={remove}
+        >
+          X
+        </button>
+      )}
+    </span>
   );
 }
 

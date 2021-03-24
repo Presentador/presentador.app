@@ -1,3 +1,5 @@
+import { State } from "../types";
+
 import SingleHeader from "./singleHeader";
 import TwoHeaders from "./twoHeaders";
 import Normal from "./normal";
@@ -7,7 +9,7 @@ import ManyImages from "./manyImages";
 import HeaderImage from "./headerImage";
 import HeaderList from "./headerList";
 
-const map = {
+const map: Record<State, any> = {
   singleHeader: SingleHeader,
   twoHeaders: TwoHeaders,
   normal: Normal,
@@ -16,6 +18,8 @@ const map = {
   manyImages: ManyImages,
   headerImage: HeaderImage,
   headerList: HeaderList,
+  blockquote: HeaderList,
+  headerManyParagraphs: HeaderList,
 };
 
 export default map;

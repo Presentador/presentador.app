@@ -1,8 +1,4 @@
-import React from "react";
-
 import "./manyImages.scss";
-
-import { Element } from "../types";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
   const itemSize =
@@ -16,8 +12,8 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
 
   return (
     <>
-      {children.map((item) => (
-        <div className="image" style={{ flex: `${itemSize}` }}>
+      {children.map((item, index) => (
+        <div key={index} className="image" style={{ flex: `${itemSize}` }}>
           {item}
         </div>
       ))}

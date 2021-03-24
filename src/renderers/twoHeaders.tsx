@@ -1,8 +1,4 @@
-import React from "react";
-
 import "./twoHeaders.scss";
-
-import { Element } from "../types";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
   const [mainHeader, secondHeader] = children.filter(

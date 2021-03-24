@@ -1,8 +1,4 @@
-import React from "react";
-
 import "./headerSingleParagraph.scss";
-
-import { Element } from "../types";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
   const header = children.find((item) => item.type.name === "Header");

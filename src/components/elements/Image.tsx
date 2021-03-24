@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
-import { Element } from "./types";
+import { Element } from "../../types";
 
 function Image({
   item,
@@ -23,7 +23,7 @@ function Image({
   }
 
   return (
-    <>
+    <span style={{ position: "relative", display: "inline-block" }}>
       <img
         src={item.value}
         alt={item.value}
@@ -36,8 +36,15 @@ function Image({
           border: `${selected ? "1px solid red" : "none"}`,
         }}
       />
-      {selected && <button onMouseDown={remove}>X</button>}
-    </>
+      {selected && (
+        <button
+          style={{ position: "absolute", top: 0, right: 0 }}
+          onMouseDown={remove}
+        >
+          X
+        </button>
+      )}
+    </span>
   );
 }
 

@@ -1,8 +1,4 @@
-import React from "react";
-
 import "./singleHeader.scss";
-
-import { Element } from "../types";
 
 export default function SingleHeader({
   children,
