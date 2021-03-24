@@ -31,6 +31,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://kbariotis.github.io/presentatrice/",
   "browserslist": {
     "production": [
       ">0.2%",
