@@ -24,7 +24,7 @@ export function useSlideState() {
       }
     }
     update();
-  }, [currentSlide, elements]);
+  }, [currentSlide, elements]); // eslint-disable-line
 
   function addSlide() {
     setSlideState([...slideState, "normal"]);
