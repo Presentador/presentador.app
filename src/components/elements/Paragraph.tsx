@@ -74,4 +74,6 @@ function Paragraph({
   );
 }
 
+Paragraph.displayName = "Paragraph";
+
 export default Paragraph;

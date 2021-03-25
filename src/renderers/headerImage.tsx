@@ -1,8 +1,8 @@
 import "./headerImage.scss";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
-  const header = children.find((item) => item.type.name === "Header");
-  const image = children.find((item) => item.type.name === "Image");
+  const header = children.find((item) => item.type.displayName === "Header");
+  const image = children.find((item) => item.type.displayName === "Image");
 
   if (!header) {
     return <></>;

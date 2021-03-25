@@ -48,4 +48,6 @@ function Image({
   );
 }
 
+Image.displayName = "Image";
+
 export default Image;

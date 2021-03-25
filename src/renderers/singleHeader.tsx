@@ -5,7 +5,7 @@ export default function SingleHeader({
 }: {
   children: JSX.Element[];
 }) {
-  const header = children.find((item) => item.type.name === "Header");
+  const header = children.find((item) => item.type.displayName === "Header");
 
   if (!header) {
     return <></>;

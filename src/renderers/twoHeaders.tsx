@@ -2,7 +2,7 @@ import "./twoHeaders.scss";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
   const [mainHeader, secondHeader] = children.filter(
-    (item) => item.type.name === "Header"
+    (item) => item.type.displayName === "Header"
   );
 
   if (!mainHeader) {

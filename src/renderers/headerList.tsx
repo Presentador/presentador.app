@@ -1,8 +1,8 @@
 import "./headerList.scss";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
-  const header = children.find((item) => item.type.name === "Header");
-  const list = children.find((item) => item.type.name === "List");
+  const header = children.find((item) => item.type.displayName === "Header");
+  const list = children.find((item) => item.type.displayName === "List");
 
   if (!header) {
     return <></>;

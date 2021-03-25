@@ -92,4 +92,6 @@ function List({
   );
 }
 
+List.displayName = "List";
+
 export default List;
