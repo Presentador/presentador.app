@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+// import reset from "styled-reset";
 
 import { Context, useSlideState } from "./context";
 
@@ -24,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Roboto", sans-serif;
   }
   `;
+
 function App() {
   const {
     ref,
