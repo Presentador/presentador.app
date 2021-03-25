@@ -2,9 +2,6 @@
 @import "./helpers.scss";
 
 .singleHeader {
-  @include light-arrows;
-  @include light-pos;
-
   @extend .container;
 
   background-color: $primary;

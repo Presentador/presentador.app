@@ -2,9 +2,6 @@
 @import "./helpers.scss";
 
 .twoHeaders {
-  @include light-arrows;
-  @include light-pos;
-
   background-color: $primary;
   color: white;
 
