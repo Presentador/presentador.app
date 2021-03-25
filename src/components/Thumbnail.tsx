@@ -47,7 +47,7 @@ function Thumbnail({
       onMouseLeave={() => setHover(false)}
     >
       {Tag}
-      {(active || hover) && getThumbnails().length > 1 && (
+      {hover && getThumbnails().length > 1 && (
         <button
           style={{ position: "absolute", top: 0, right: 0 }}
           onMouseDown={() => {

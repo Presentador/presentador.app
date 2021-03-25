@@ -31,9 +31,7 @@ function List({
     }
   }
 
-  function changeHeadingText(event: any) {
-    // console.log(event.target.innerText.replace("\n", "\n * "));
-  }
+  function changeHeadingText(event: any) {}
 
   function remove() {
     removeElement(item.id);

@@ -68,7 +68,6 @@ export const states: Record<State, any> = {
       return "normal";
     },
     remove: (type: string) => {
-      console.log(type);
       if (type === "image") return "singleHeader";
       if (type === "heading") return "image";
     },
@@ -84,6 +83,33 @@ export const states: Record<State, any> = {
     },
   },
   headerManyParagraphs: {
+    add: (type: string) => {
+      if (type === "paragraph") return "headerManyParagraphs";
+      if (type === "image") return "headerManyParagraphsImage";
+    },
+    remove: (type: string) => {
+      return "normal";
+    },
+  },
+  headerCodeblock: {
+    add: (type: string) => {
+      if (type === "paragraph") return "headerManyParagraphs";
+      if (type === "image") return "headerManyParagraphsImage";
+    },
+    remove: (type: string) => {
+      return "normal";
+    },
+  },
+  headerManyParagraphsImage: {
+    add: (type: string) => {
+      if (type === "paragraph") return "headerManyParagraphs";
+      if (type === "image") return "headerManyParagraphsImage";
+    },
+    remove: (type: string) => {
+      return "normal";
+    },
+  },
+  headerParagraphImage: {
     add: (type: string) => {
       if (type === "paragraph") return "headerManyParagraphs";
       if (type === "image") return "headerManyParagraphsImage";

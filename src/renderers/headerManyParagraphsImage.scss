@@ -1,0 +1,54 @@
+@import "./vars.scss";
+@import "./helpers.scss";
+
+.headerManyParagraphsImage {
+  @include dark-arrows;
+  @include dark-pos;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .left {
+    @extend .left-column-container;
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $primary;
+    color: white;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      flex: 1;
+      @include margin-bottom(1rem);
+    }
+
+    .paragraphs {
+      flex: 2;
+
+      p {
+        @include margin-bottom(1rem);
+      }
+    }
+  }
+
+  .right {
+    @extend .right-column-container;
+
+    flex: 2;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
