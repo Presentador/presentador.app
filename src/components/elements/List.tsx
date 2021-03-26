@@ -1,6 +1,26 @@
 import React, { useRef, useState } from "react";
+import styled from "styled-components";
 
 import { Element } from "../../types";
+
+const Container = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const StyledButton = styled.button`
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const StyledList = styled.p<{ selected: boolean }>`
+  white-space: pre;
+  font-size: 1.3em;
+  padding: 5px;
+  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+`;
 
 function List({
   item,
@@ -61,8 +81,9 @@ function List({
   }
 
   return (
-    <span style={{ position: "relative", display: "inline-block" }}>
-      <p
+    <Container>
+      <StyledList
+        selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
         onInput={changeHeadingText}
@@ -70,23 +91,11 @@ function List({
         onFocus={editHeading}
         tabIndex={-1}
         data-id={item.id}
-        style={{
-          padding: "5px",
-          border: `${selected ? "1px solid red" : "none"}`,
-          whiteSpace: "pre",
-        }}
       >
         {item.value}
-      </p>
-      {selected && (
-        <button
-          style={{ position: "absolute", top: 0, right: 0 }}
-          onMouseDown={remove}
-        >
-          X
-        </button>
-      )}
-    </span>
+      </StyledList>
+      {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
+    </Container>
   );
 }
 

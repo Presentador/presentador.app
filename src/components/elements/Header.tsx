@@ -1,6 +1,19 @@
 import React, { useRef, useState } from "react";
+import styled from "styled-components";
 
 import { Element } from "../../types";
+
+const Container = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const StyledButton = styled.button`
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
 
 function Header({
   level,
@@ -57,6 +70,7 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
+          fontSize: "5em",
           padding: "5px",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
@@ -73,6 +87,7 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
+          fontSize: "4.5em",
           padding: "5px",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
@@ -89,6 +104,7 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
+          fontSize: "4em",
           padding: "5px",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
@@ -105,6 +121,7 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
+          fontSize: "3em",
           padding: "5px",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
@@ -114,17 +131,10 @@ function Header({
     );
 
   return (
-    <span style={{ position: "relative", display: "inline-block" }}>
+    <Container>
       {Tag}
-      {selected && (
-        <button
-          style={{ position: "absolute", top: 0, right: 0 }}
-          onMouseDown={remove}
-        >
-          X
-        </button>
-      )}
-    </span>
+      {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
+    </Container>
   );
 }
 

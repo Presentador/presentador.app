@@ -1,19 +1,18 @@
 import "./blockquote.scss";
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
-  const header = children.find((item) => item.type.displayName === "Header");
-  const paragraph = children.find(
-    (item) => item.type.displayName === "Paragraph"
+  const blockquote = children.find(
+    (item) => item.type.displayName === "Blockquote"
   );
 
-  if (!header) {
+  if (!blockquote) {
     return <></>;
   }
 
   return (
     <>
-      <div className="top">{header}</div>
-      <div className="bottom">{paragraph}</div>
+      <div className="top">{blockquote}</div>
+      <div className="bottom"></div>
     </>
   );
 }

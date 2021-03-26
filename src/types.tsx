@@ -24,7 +24,7 @@ export type Element = {
     | "list"
     | "code_block"
     | "paragraph"
-    | "block_quote";
+    | "blockquote";
   value: string;
   level?: number;
   id: number;

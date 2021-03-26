@@ -1,6 +1,25 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import { Element } from "../../types";
+
+const Container = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const StyledButton = styled.button`
+  padding: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const StyledImage = styled.img<{ selected: boolean }>`
+  font-size: 1.3em;
+  padding: 5px;
+  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+`;
 
 function Image({
   item,
@@ -23,28 +42,18 @@ function Image({
   }
 
   return (
-    <span style={{ position: "relative", display: "inline-block" }}>
-      <img
+    <Container>
+      <StyledImage
+        selected={selected}
         src={item.value}
         alt={item.value}
         onBlur={finishEditing}
         onFocus={edit}
         tabIndex={-1}
         data-id={item.id}
-        style={{
-          padding: "5px",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
       />
-      {selected && (
-        <button
-          style={{ position: "absolute", top: 0, right: 0 }}
-          onMouseDown={remove}
-        >
-          X
-        </button>
-      )}
-    </span>
+      {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
+    </Container>
   );
 }
 

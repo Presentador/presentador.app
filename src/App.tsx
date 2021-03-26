@@ -7,8 +7,6 @@ import Elements from "./components/Elements";
 import Controls from "./components/Controls";
 import Slide from "./components/Slide";
 
-import "./renderers/index.scss";
-
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;

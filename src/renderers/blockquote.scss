@@ -10,17 +10,11 @@
 
   color: $lightText;
 
-  blockquote {
-    @include font-size(4rem);
-  }
-
   .top {
     @extend .top-row-container;
   }
 
   .bottom {
     @extend .bottom-row-container;
-
-    @include font-size(2rem);
   }
 }

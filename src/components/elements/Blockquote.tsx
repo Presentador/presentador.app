@@ -15,13 +15,28 @@ const StyledButton = styled.button`
   right: 0;
 `;
 
-const StyledParagraph = styled.p<{ selected: boolean }>`
+const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
   font-size: 1.3em;
-  padding: 5px;
+  padding: 50px;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+
+  background: #f9f9f9;
+
+  &:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+
+  p {
+    display: inline;
+  }
 `;
 
-function Paragraph({
+function Blockquote({
   item,
   removeElement,
   changeElementValue,
@@ -64,7 +79,7 @@ function Paragraph({
 
   return (
     <Container>
-      <StyledParagraph
+      <StyledBlockquote
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
@@ -74,13 +89,13 @@ function Paragraph({
         tabIndex={-1}
         data-id={item.id}
       >
-        {item.value}
-      </StyledParagraph>
+        <p>{item.value}</p>
+      </StyledBlockquote>
       {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
     </Container>
   );
 }
 
-Paragraph.displayName = "Paragraph";
+Blockquote.displayName = "Blockquote";
 
-export default Paragraph;
+export default Blockquote;

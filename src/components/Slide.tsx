@@ -1,4 +1,5 @@
 import { useContext, forwardRef } from "react";
+import styled from "styled-components";
 
 import { Context } from "../context";
 
@@ -6,9 +7,27 @@ import Header from "./elements/Header";
 import Paragraph from "./elements/Paragraph";
 import Image from "./elements/Image";
 import List from "./elements/List";
+import Blockquote from "./elements/Blockquote";
+
 import renderers from "../renderers";
 
-function App(_: any, ref: any) {
+const StyledSlide = styled.div`
+  height: 100%;
+
+  a {
+    color: #51c2f7;
+  }
+
+  @media (min-width: 12em) {
+    font-size: calc(1rem + ((1vw - 0.48rem) * 0.6944));
+    min-height: 0vw;
+  }
+  @media (min-width: 120em) {
+    font-size: 1.5rem;
+  }
+`;
+
+function Slide(_: any, ref: any) {
   const {
     getCurrentSlide,
     getElementsForSlide,
@@ -19,7 +38,7 @@ function App(_: any, ref: any) {
   const Wrapper = renderers[getCurrentSlide().state];
 
   return (
-    <div className={getCurrentSlide().state} ref={ref}>
+    <StyledSlide className={getCurrentSlide().state} ref={ref}>
       <Wrapper>
         {getElementsForSlide(getCurrentSlide().number).map((item) => {
           switch (item.type) {
@@ -63,14 +82,24 @@ function App(_: any, ref: any) {
                 />
               );
             }
+            case "blockquote": {
+              return (
+                <Blockquote
+                  key={item.id}
+                  item={item}
+                  removeElement={removeElement}
+                  changeElementValue={changeElementValue}
+                />
+              );
+            }
             default: {
               return <></>;
             }
           }
         })}
       </Wrapper>
-    </div>
+    </StyledSlide>
   );
 }
 
-export default forwardRef<HTMLDivElement>(App);
+export default forwardRef<HTMLDivElement>(Slide);

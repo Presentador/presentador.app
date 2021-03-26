@@ -5,7 +5,7 @@ export const states: Record<State, any> = {
     add: (type: string) => {
       if (type === "heading") return "singleHeader";
       if (type === "image") return "image";
-      if (type === "block_quote") return "blockquote";
+      if (type === "blockquote") return "blockquote";
     },
     remove: (type: string) => {
       return "normal";
