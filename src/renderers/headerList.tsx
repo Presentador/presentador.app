@@ -32,10 +32,8 @@ const BottomContainer = styled.div`
   li {
     color: ${colours.lightText};
     list-style-type: circle;
-    @include margin-left(1rem);
 
     li {
-      @include margin-bottom(1rem);
     }
   }
 `;
