@@ -34,6 +34,10 @@ const StyledSlide = styled.div`
     color: #51c2f7;
   }
 
+  ul {
+    list-style-type: circle;
+  }
+
   :root {
     // taken from https://websemantics.uk/tools/responsive-font-calculator/
     font-size: calc(1rem + ((1vw - 0.48rem) * 0.6944));

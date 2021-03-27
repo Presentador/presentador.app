@@ -37,9 +37,6 @@ const BottomContainer = styled.div`
   li {
     color: ${colours.lightText};
     list-style-type: circle;
-
-    li {
-    }
   }
 `;
 

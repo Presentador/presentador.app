@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
-import { colours } from "../theme";
-
 const Container = styled.div`
   height: 100%;
-  background-color: ${colours.primary};
-  color: white;
+  background-color: white;
   padding: 1.5em;
+
+  * {
+    display: block;
+    padding-bottom: 0.5em;
+  }
 `;
 
 export default function Normal({ children }: { children: JSX.Element[] }) {

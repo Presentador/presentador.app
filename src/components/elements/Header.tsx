@@ -17,16 +17,16 @@ const StyledButton = styled.button`
 const StyledHeader = styled.div<{ level: number; selected: boolean }>`
   font-size: ${({ level }) =>
     level === 1
-      ? "4em"
-      : level === 2
-      ? "4.5em"
-      : level === 3
-      ? "4em"
-      : level === 4
       ? "3.5em"
+      : level === 2
+      ? "3.2em"
+      : level === 3
+      ? "2.9em"
+      : level === 4
+      ? "2.6em"
       : level === 5
-      ? "3em"
-      : "2.5em"};
+      ? "2.3em"
+      : "2em"};
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
