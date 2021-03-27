@@ -33,12 +33,16 @@ function Thumbnail({
   src,
   active,
   number,
+  thumbnails,
+  setThumbnails,
 }: {
+  thumbnails: string[];
+  setThumbnails: (thumbnails: string[]) => void;
   src: string;
   active: boolean;
   number: number;
 }) {
-  const { removeSlide, getThumbnails } = useContext(Context);
+  const { removeSlide, getCurrentSlide } = useContext(Context);
   const [hover, setHover] = useState(false);
 
   const Tag =
@@ -56,10 +60,15 @@ function Thumbnail({
       onMouseLeave={() => setHover(false)}
     >
       {Tag}
-      {hover && getThumbnails().length > 1 && (
+      {hover && thumbnails.length > 1 && (
         <StyledButton
           onMouseDown={() => {
             removeSlide(number);
+            setThumbnails(
+              thumbnails.filter(
+                (item, index) => index !== getCurrentSlide().number
+              )
+            );
           }}
         >
           X

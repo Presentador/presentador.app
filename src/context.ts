@@ -1,5 +1,4 @@
-import html2canvas from "html2canvas";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 import { Slide, Element, State } from "./types";
 
@@ -8,28 +7,12 @@ import { states } from "./builder";
 export function useSlideState() {
   const ref = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [thumbnails, setThumbnails] = useState<string[]>([""]);
   const [elements, setElements] = useState<Element[]>([]);
   const [slideState, setSlideState] = useState<State[]>(["normal"]);
-
-  useEffect(() => {
-    async function update() {
-      if (ref.current) {
-        const canvas = await html2canvas(ref.current);
-        setThumbnails(
-          thumbnails.map((item, index) =>
-            index === currentSlide ? canvas.toDataURL() : item
-          )
-        );
-      }
-    }
-    update();
-  }, [currentSlide, elements]); // eslint-disable-line
 
   function addSlide() {
     setSlideState([...slideState, "normal"]);
     setCurrentSlide(currentSlide + 1);
-    setThumbnails([...thumbnails, ""]);
   }
   function removeSlide(number: number) {
     setElements([
@@ -44,9 +27,8 @@ export function useSlideState() {
     // remove the state of that slide
     setSlideState([...slideState.filter((item, index) => index !== number)]);
     setCurrentSlide(
-      currentSlide === thumbnails.length - 1 ? currentSlide - 1 : currentSlide
+      currentSlide === slideState.length - 1 ? currentSlide - 1 : currentSlide
     );
-    setThumbnails(thumbnails.filter((item, index) => index !== currentSlide));
   }
 
   async function addElement(item: Element) {
@@ -119,10 +101,6 @@ export function useSlideState() {
     return elements.filter((item) => item.slide === id);
   }
 
-  function getThumbnails() {
-    return thumbnails;
-  }
-
   function getCurrentSlide() {
     return {
       number: currentSlide,
@@ -141,7 +119,6 @@ export function useSlideState() {
   return {
     getItemById,
     getNumbersOfSlide,
-    getThumbnails,
     getCurrentSlide,
     ref,
     addElement,
@@ -150,6 +127,7 @@ export function useSlideState() {
     changeCurrentSlide,
     getElementsForSlide,
     addSlide,
+    elements,
     removeSlide,
   };
 }
@@ -157,8 +135,8 @@ export function useSlideState() {
 export const Context = React.createContext<{
   getNumbersOfSlide: () => number;
   getCurrentSlide: () => Slide;
-  getThumbnails: () => string[];
   getElementsForSlide: (id: number) => Element[];
+  elements: Element[];
   removeSlide: (id: number) => void;
   getItemById: (id: number) => Element;
   addSlide: () => void;
@@ -167,10 +145,10 @@ export const Context = React.createContext<{
   changeElementValue: (id: number, value: string) => void;
   changeCurrentSlide: (number: number) => void;
 }>({
+  elements: [],
   getNumbersOfSlide: () => 1,
   getCurrentSlide: () => ({ number: 0, state: "normal" }),
   getItemById: () => ({} as Element),
-  getThumbnails: () => [],
   addSlide: () => {},
   removeSlide: () => {},
   changeCurrentSlide: () => {},

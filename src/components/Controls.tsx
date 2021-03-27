@@ -1,18 +1,35 @@
-import { useContext } from "react";
+import html2canvas from "html2canvas";
+import { useState, useContext, useEffect, forwardRef } from "react";
 
 import { Context } from "../context";
 import Thumbnail from "./Thumbnail";
 
-function App() {
+function App(_: any, ref: any) {
   const {
     changeCurrentSlide,
     getCurrentSlide,
     addSlide,
-    getThumbnails,
+    elements,
     getNumbersOfSlide,
   } = useContext(Context);
 
+  const [thumbnails, setThumbnails] = useState<string[]>([""]);
+
   const currentSlide = getCurrentSlide();
+
+  useEffect(() => {
+    async function update() {
+      if (ref.current) {
+        const canvas = await html2canvas(ref.current);
+        setThumbnails(
+          thumbnails.map((item, index) =>
+            index === getCurrentSlide().number ? canvas.toDataURL() : item
+          )
+        );
+      }
+    }
+    update();
+  }, [elements]); //eslint-disable-line
 
   return (
     <div style={{}}>
@@ -25,8 +42,10 @@ function App() {
       >
         {"<"}
       </button>
-      {getThumbnails().map((item, index) => (
+      {thumbnails.map((item, index) => (
         <Thumbnail
+          setThumbnails={setThumbnails}
+          thumbnails={thumbnails}
           key={index}
           src={item}
           number={index}
@@ -38,6 +57,7 @@ function App() {
         onClick={() => {
           if (currentSlide.number === getNumbersOfSlide() - 1) {
             addSlide();
+            setThumbnails([...thumbnails, ""]);
           } else {
             changeCurrentSlide(currentSlide.number + 1);
           }
@@ -49,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default forwardRef<HTMLDivElement>(App);

@@ -52,7 +52,7 @@ function App() {
     changeElementValue,
     getElementsForSlide,
     addSlide,
-    getThumbnails,
+    elements,
     getItemById,
     getNumbersOfSlide,
   } = useSlideState();
@@ -60,9 +60,9 @@ function App() {
   return (
     <Context.Provider
       value={{
+        elements,
         getNumbersOfSlide,
         getCurrentSlide,
-        getThumbnails,
         addElement,
         getItemById,
         removeElement,
@@ -82,7 +82,7 @@ function App() {
           <Slide ref={ref} />
         </SlideWrapper>
         <ControlsWrapper>
-          <Controls />
+          <Controls ref={ref} />
         </ControlsWrapper>
       </Wrapper>
     </Context.Provider>
