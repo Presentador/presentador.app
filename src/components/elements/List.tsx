@@ -16,7 +16,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledList = styled.p<{ selected: boolean }>`
-  white-space: pre;
+  white-space: pre-wrap;
   font-size: 1.3em;
   padding: 5px;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};

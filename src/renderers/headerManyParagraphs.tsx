@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
-
+  padding: 1.5em;
   background-color: ${colours.primary};
   flex: 1;
   display: flex;
@@ -27,9 +27,10 @@ const TopContainer = styled.div`
 `;
 const BottomContainer = styled.div`
   flex: 2;
-
+  padding: 1.5em;
   p {
     color: ${colours.lightText};
+    padding-bottom: 0.5em;
   }
 `;
 

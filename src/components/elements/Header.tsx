@@ -9,7 +9,6 @@ const Container = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 5px;
   position: absolute;
   top: 0;
   right: 0;
@@ -70,8 +69,7 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
-          fontSize: "5em",
-          padding: "5px",
+          fontSize: "4em",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
       >
@@ -87,8 +85,7 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
-          fontSize: "4.5em",
-          padding: "5px",
+          fontSize: "3.5em",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
       >
@@ -104,14 +101,13 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
-          fontSize: "4em",
-          padding: "5px",
+          fontSize: "3em",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
       >
         {item.value}
       </h3>
-    ) : (
+    ) : level === 4 ? (
       <h4
         ref={editingElement}
         onKeyDown={checkMouseDown}
@@ -121,13 +117,44 @@ function Header({
         data-id={item.id}
         tabIndex={-1}
         style={{
-          fontSize: "3em",
-          padding: "5px",
+          fontSize: "3.5em",
           border: `${selected ? "1px solid red" : "none"}`,
         }}
       >
         {item.value}
       </h4>
+    ) : level === 5 ? (
+      <h5
+        ref={editingElement}
+        onKeyDown={checkMouseDown}
+        onInput={changeHeadingText}
+        onBlur={finishEditing}
+        onFocus={editHeading}
+        data-id={item.id}
+        tabIndex={-1}
+        style={{
+          fontSize: "3em",
+          border: `${selected ? "1px solid red" : "none"}`,
+        }}
+      >
+        {item.value}
+      </h5>
+    ) : (
+      <h6
+        ref={editingElement}
+        onKeyDown={checkMouseDown}
+        onInput={changeHeadingText}
+        onBlur={finishEditing}
+        onFocus={editHeading}
+        data-id={item.id}
+        tabIndex={-1}
+        style={{
+          fontSize: "2.5em",
+          border: `${selected ? "1px solid red" : "none"}`,
+        }}
+      >
+        {item.value}
+      </h6>
     );
 
   return (

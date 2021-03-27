@@ -15,7 +15,7 @@ const LeftContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  padding: 1em;
   h1,
   h2,
   h3,
@@ -36,6 +36,7 @@ const RightContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+  padding: 1.5em;
 
   img {
     max-width: 100%;

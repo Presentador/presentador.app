@@ -5,6 +5,7 @@ import { colours } from "../theme";
 const Container = styled.div`
   background-color: ${colours.primary};
   color: white;
+  padding: 1.5em;
 
   min-height: 100%;
   display: flex;
@@ -15,6 +16,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     display: flex;
+    padding: 0.5em;
 
     img {
       max-width: 100%;

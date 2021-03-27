@@ -35,6 +35,7 @@ const SlideWrapper = styled.div`
 `;
 const ElementsWrapper = styled.div``;
 const Wrapper = styled.div`
+  background: #eee;
   display: flex;
   flex-direction: column;
   height: 100%;

@@ -28,17 +28,17 @@ const StyledSlide = styled.div`
   left: 0;
   right: 0;
 
+  background: white;
+
   a {
     color: #51c2f7;
   }
 
-  // taken from https://websemantics.uk/tools/responsive-font-calculator/
-  @media (min-width: 12em) {
+  :root {
+    // taken from https://websemantics.uk/tools/responsive-font-calculator/
     font-size: calc(1rem + ((1vw - 0.48rem) * 0.6944));
+    padding: calc(1rem + ((1vw - 0.48rem) * 0.6944));
     min-height: 0vw;
-  }
-  @media (min-width: 120em) {
-    font-size: 1.5rem;
   }
 `;
 

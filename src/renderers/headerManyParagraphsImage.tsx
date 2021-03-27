@@ -10,6 +10,7 @@ const Container = styled.div`
 `;
 
 const LeftContainer = styled.div`
+  padding: 1em;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -38,7 +39,7 @@ const RightContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-
+  padding: 1.5em;
   img {
     max-width: 100%;
   }

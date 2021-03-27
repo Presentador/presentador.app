@@ -10,6 +10,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  padding: 2em;
 `;
 
 export default function SingleHeader({
