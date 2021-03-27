@@ -1,6 +1,33 @@
 import { useContext, useState } from "react";
+import styled from "styled-components";
 
 import { Context } from "../context";
+
+const Container = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const StyledButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const StyledImage = styled.img<{ active: boolean }>`
+  display: inline-block;
+  width: 150px;
+  height: 100px;
+  vertical-align: middle;
+  border: ${({ active }) => (active ? "1px solid red" : "none")};
+`;
+const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
+  display: inline-block;
+  width: 150px;
+  height: 100px;
+  vertical-align: middle;
+  border: ${({ active }) => (active ? "1px solid red" : "none")};
+`;
 
 function Thumbnail({
   src,
@@ -16,48 +43,29 @@ function Thumbnail({
 
   const Tag =
     src !== "" ? (
-      <img
-        src={src}
-        alt={`Slide`}
-        style={{
-          width: "100px",
-          height: "100px",
-          verticalAlign: "middle",
-          border: active ? "1px solid red" : "none",
-        }}
-      />
+      <StyledImage active={active} src={src} alt={`Slide`} />
     ) : (
-      <div
-        style={{
-          display: "inline-block",
-          width: "100px",
-          height: "100px",
-          verticalAlign: "middle",
-          border: active ? "1px solid red" : "none",
-        }}
-      >
+      <StyledLoadingPlaceholder active={active}>
         Loading
-      </div>
+      </StyledLoadingPlaceholder>
     );
 
   return (
-    <span
-      style={{ position: "relative", display: "inline-block" }}
+    <Container
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       {Tag}
       {hover && getThumbnails().length > 1 && (
-        <button
-          style={{ position: "absolute", top: 0, right: 0 }}
+        <StyledButton
           onMouseDown={() => {
             removeSlide(number);
           }}
         >
           X
-        </button>
+        </StyledButton>
       )}
-    </span>
+    </Container>
   );
 }
 

@@ -17,7 +17,6 @@ const StyledButton = styled.button`
 
 const StyledImage = styled.img<{ selected: boolean }>`
   font-size: 1.3em;
-  padding: 5px;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 

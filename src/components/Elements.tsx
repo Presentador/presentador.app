@@ -125,7 +125,7 @@ function App() {
             id: new Date().getTime(),
             slide: currentSlide.number,
             type: "list",
-            value: " · hello there",
+            value: "Point one to make",
           })
         }
         style={{ padding: "10px", marginRight: "5px" }}

@@ -15,10 +15,10 @@ const StyledButton = styled.button`
   right: 0;
 `;
 
-const StyledList = styled.p<{ selected: boolean }>`
+const StyledList = styled.ul<{ selected: boolean }>`
   white-space: pre-wrap;
   font-size: 1.3em;
-  padding: 5px;
+  padding-left: 1em; // fix lists' left padding
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
@@ -32,21 +32,22 @@ function List({
   changeElementValue: (id: number, value: string) => void;
 }) {
   const [selected, setSelected] = useState(false);
-  const editingElement = useRef<HTMLDivElement | null>(null);
+  const editingElement = useRef<HTMLUListElement | null>(null);
 
-  function editHeading(event: React.FocusEvent<HTMLDivElement>) {
+  function editHeading() {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
     setSelected(true);
   }
 
-  function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
+  function finishEditing(event: React.FocusEvent<HTMLUListElement>) {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "false");
     setSelected(false);
     if (event.target.innerText === "") {
       removeElement(item.id);
     } else {
+      console.log(2, event.target.innerText);
       changeElementValue(item.id, event.target.innerText);
     }
   }
@@ -57,27 +58,15 @@ function List({
     removeElement(item.id);
   }
 
-  function insertTextAtCursor(text: string) {
-    const sel = window.getSelection();
-    if (!sel) {
-      return;
+  function checkMouseDown(event: React.KeyboardEvent<HTMLUListElement>) {
+    if (event.code === "Enter") {
     }
-    const range = sel.getRangeAt(0);
-    range.deleteContents();
-    const textNode = document.createTextNode(text);
-    range.insertNode(textNode);
-    range.setStartAfter(textNode);
-    sel.removeAllRanges();
-    sel.addRange(range);
   }
 
-  function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    if (event.code === "Enter") {
-      event.preventDefault();
-      if (editingElement.current) {
-        insertTextAtCursor("\n · ");
-      }
-    }
+  function sanitizeHTML(text: string) {
+    var element = document.createElement("div");
+    element.innerText = text;
+    return element.innerHTML;
   }
 
   return (
@@ -91,9 +80,14 @@ function List({
         onFocus={editHeading}
         tabIndex={-1}
         data-id={item.id}
-      >
-        {item.value}
-      </StyledList>
+        dangerouslySetInnerHTML={{
+          // React can't deal with a content editable list and manage its children
+          __html: item.value
+            .split("\n")
+            .map((item) => `<li>${sanitizeHTML(item)}</li>`)
+            .join(""),
+        }}
+      ></StyledList>
       {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
     </Container>
   );
