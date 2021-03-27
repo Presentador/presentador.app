@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-// import reset from "styled-reset";
+import { normalize } from "styled-normalize";
 
 import { Context, useSlideState } from "./context";
 
@@ -8,6 +8,8 @@ import Controls from "./components/Controls";
 import Slide from "./components/Slide";
 
 const GlobalStyle = createGlobalStyle`
+  ${normalize}
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -22,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Roboto", sans-serif;
   }
-  `;
+`;
 
 const ControlsWrapper = styled.div``;
 const SlideWrapper = styled.div`
