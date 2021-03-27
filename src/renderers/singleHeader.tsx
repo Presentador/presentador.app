@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { colours } from "../theme";
 
 const Container = styled.div`
+  height: 100%;
   background-color: ${colours.primary};
   color: white;
 
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

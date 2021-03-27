@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colours } from "../theme";
 
 const Container = styled.div`
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -37,9 +37,25 @@ const RightContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 1.5em;
+`;
+
+const ImageContainer = styled.div`
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100%;
 
   img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
     max-width: 100%;
+    max-height: 100%;
   }
 `;
 
@@ -60,7 +76,9 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
         {header}
         {paragraph}
       </LeftContainer>
-      <RightContainer>{image}</RightContainer>
+      <RightContainer>
+        <ImageContainer>{image}</ImageContainer>
+      </RightContainer>
     </Container>
   );
 }

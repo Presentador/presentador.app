@@ -3,18 +3,6 @@ import styled from "styled-components";
 
 import { Element } from "../../types";
 
-const Container = styled.div`
-  position: relative;
-  display: inline-block;
-`;
-
-const StyledButton = styled.button`
-  padding: 5px;
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
 const StyledImage = styled.img<{ selected: boolean }>`
   font-size: 1.3em;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
@@ -36,23 +24,23 @@ function Image({
     setSelected(true);
   }
 
-  function remove() {
-    removeElement(item.id);
+  function keydown(event: React.KeyboardEvent<HTMLImageElement>) {
+    if (event.key === "Backspace") {
+      removeElement(item.id);
+    }
   }
 
   return (
-    <Container>
-      <StyledImage
-        selected={selected}
-        src={item.value}
-        alt={item.value}
-        onBlur={finishEditing}
-        onFocus={edit}
-        tabIndex={-1}
-        data-id={item.id}
-      />
-      {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
-    </Container>
+    <StyledImage
+      selected={selected}
+      src={item.value}
+      alt={item.value}
+      onBlur={finishEditing}
+      onKeyDown={keydown}
+      onFocus={edit}
+      tabIndex={-1}
+      data-id={item.id}
+    />
   );
 }
 
