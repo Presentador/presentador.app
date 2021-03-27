@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 // import reset from "styled-reset";
 
 import { Context, useSlideState } from "./context";
@@ -23,6 +23,20 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Roboto", sans-serif;
   }
   `;
+
+const ControlsWrapper = styled.div``;
+const SlideWrapper = styled.div`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`;
+const ElementsWrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 function App() {
   const {
@@ -55,9 +69,17 @@ function App() {
       }}
     >
       <GlobalStyle />
-      <Elements />
-      <Slide ref={ref} />
-      <Controls />
+      <Wrapper>
+        <ElementsWrapper>
+          <Elements />
+        </ElementsWrapper>
+        <SlideWrapper>
+          <Slide ref={ref} />
+        </SlideWrapper>
+        <ControlsWrapper>
+          <Controls />
+        </ControlsWrapper>
+      </Wrapper>
     </Context.Provider>
   );
 }

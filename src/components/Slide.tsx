@@ -11,6 +11,10 @@ import Blockquote from "./elements/Blockquote";
 
 import renderers from "../renderers";
 
+const WidthWrapper = styled.div`
+  width: 80vw;
+`;
+
 const AspectRatioWrapper = styled.div`
   width: 100%;
   padding-bottom: 56.25%; /* 16:9 */
@@ -49,69 +53,71 @@ function Slide(_: any, ref: any) {
   const Wrapper = renderers[getCurrentSlide().state];
 
   return (
-    <AspectRatioWrapper>
-      <StyledSlide className={getCurrentSlide().state} ref={ref}>
-        <Wrapper>
-          {getElementsForSlide(getCurrentSlide().number).map((item) => {
-            switch (item.type) {
-              case "heading": {
-                return (
-                  <Header
-                    key={item.id}
-                    removeElement={removeElement}
-                    changeElementValue={changeElementValue}
-                    level={item.level as number}
-                    item={item}
-                  />
-                );
+    <WidthWrapper>
+      <AspectRatioWrapper>
+        <StyledSlide className={getCurrentSlide().state} ref={ref}>
+          <Wrapper>
+            {getElementsForSlide(getCurrentSlide().number).map((item) => {
+              switch (item.type) {
+                case "heading": {
+                  return (
+                    <Header
+                      key={item.id}
+                      removeElement={removeElement}
+                      changeElementValue={changeElementValue}
+                      level={item.level as number}
+                      item={item}
+                    />
+                  );
+                }
+                case "paragraph": {
+                  return (
+                    <Paragraph
+                      key={item.id}
+                      item={item}
+                      removeElement={removeElement}
+                      changeElementValue={changeElementValue}
+                    />
+                  );
+                }
+                case "image": {
+                  return (
+                    <Image
+                      key={item.id}
+                      item={item}
+                      removeElement={removeElement}
+                    />
+                  );
+                }
+                case "list": {
+                  return (
+                    <List
+                      key={item.id}
+                      item={item}
+                      removeElement={removeElement}
+                      changeElementValue={changeElementValue}
+                    />
+                  );
+                }
+                case "blockquote": {
+                  return (
+                    <Blockquote
+                      key={item.id}
+                      item={item}
+                      removeElement={removeElement}
+                      changeElementValue={changeElementValue}
+                    />
+                  );
+                }
+                default: {
+                  return <></>;
+                }
               }
-              case "paragraph": {
-                return (
-                  <Paragraph
-                    key={item.id}
-                    item={item}
-                    removeElement={removeElement}
-                    changeElementValue={changeElementValue}
-                  />
-                );
-              }
-              case "image": {
-                return (
-                  <Image
-                    key={item.id}
-                    item={item}
-                    removeElement={removeElement}
-                  />
-                );
-              }
-              case "list": {
-                return (
-                  <List
-                    key={item.id}
-                    item={item}
-                    removeElement={removeElement}
-                    changeElementValue={changeElementValue}
-                  />
-                );
-              }
-              case "blockquote": {
-                return (
-                  <Blockquote
-                    key={item.id}
-                    item={item}
-                    removeElement={removeElement}
-                    changeElementValue={changeElementValue}
-                  />
-                );
-              }
-              default: {
-                return <></>;
-              }
-            }
-          })}
-        </Wrapper>
-      </StyledSlide>
-    </AspectRatioWrapper>
+            })}
+          </Wrapper>
+        </StyledSlide>
+      </AspectRatioWrapper>
+    </WidthWrapper>
   );
 }
 
