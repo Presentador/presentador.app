@@ -1,4 +1,27 @@
-import "./manyImages.scss";
+import styled from "styled-components";
+
+import { colours } from "../theme";
+
+const Container = styled.div`
+  background-color: ${colours.primary};
+  color: white;
+
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  .image {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+`;
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
   const itemSize =
@@ -11,12 +34,12 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
       : 0;
 
   return (
-    <>
+    <Container>
       {children.map((item, index) => (
         <div key={index} className="image" style={{ flex: `${itemSize}` }}>
           {item}
         </div>
       ))}
-    </>
+    </Container>
   );
 }

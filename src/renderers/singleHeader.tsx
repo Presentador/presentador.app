@@ -1,4 +1,27 @@
-import "./singleHeader.scss";
+import styled from "styled-components";
+
+import { colours } from "../theme";
+
+const Container = styled.div`
+  background-color: ${colours.primary};
+  color: white;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+  }
+
+  .container {
+  }
+`;
 
 export default function SingleHeader({
   children,
@@ -11,5 +34,9 @@ export default function SingleHeader({
     return <></>;
   }
 
-  return <div className="container">{children}</div>;
+  return (
+    <Container>
+      <div className="container">{children}</div>
+    </Container>
+  );
 }
