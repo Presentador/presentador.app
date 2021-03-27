@@ -7,7 +7,7 @@ function App() {
 
   const currentSlide = getCurrentSlide();
   return (
-    <div style={{ position: "absolute" }}>
+    <div style={{}}>
       <button
         onClick={() =>
           addElement({

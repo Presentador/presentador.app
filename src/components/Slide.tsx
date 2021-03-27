@@ -11,8 +11,18 @@ import Blockquote from "./elements/Blockquote";
 
 import renderers from "../renderers";
 
+const AspectRatioWrapper = styled.div`
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  position: relative;
+`;
+
 const StyledSlide = styled.div`
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   a {
     color: #51c2f7;
@@ -39,67 +49,69 @@ function Slide(_: any, ref: any) {
   const Wrapper = renderers[getCurrentSlide().state];
 
   return (
-    <StyledSlide className={getCurrentSlide().state} ref={ref}>
-      <Wrapper>
-        {getElementsForSlide(getCurrentSlide().number).map((item) => {
-          switch (item.type) {
-            case "heading": {
-              return (
-                <Header
-                  key={item.id}
-                  removeElement={removeElement}
-                  changeElementValue={changeElementValue}
-                  level={item.level as number}
-                  item={item}
-                />
-              );
+    <AspectRatioWrapper>
+      <StyledSlide className={getCurrentSlide().state} ref={ref}>
+        <Wrapper>
+          {getElementsForSlide(getCurrentSlide().number).map((item) => {
+            switch (item.type) {
+              case "heading": {
+                return (
+                  <Header
+                    key={item.id}
+                    removeElement={removeElement}
+                    changeElementValue={changeElementValue}
+                    level={item.level as number}
+                    item={item}
+                  />
+                );
+              }
+              case "paragraph": {
+                return (
+                  <Paragraph
+                    key={item.id}
+                    item={item}
+                    removeElement={removeElement}
+                    changeElementValue={changeElementValue}
+                  />
+                );
+              }
+              case "image": {
+                return (
+                  <Image
+                    key={item.id}
+                    item={item}
+                    removeElement={removeElement}
+                  />
+                );
+              }
+              case "list": {
+                return (
+                  <List
+                    key={item.id}
+                    item={item}
+                    removeElement={removeElement}
+                    changeElementValue={changeElementValue}
+                  />
+                );
+              }
+              case "blockquote": {
+                return (
+                  <Blockquote
+                    key={item.id}
+                    item={item}
+                    removeElement={removeElement}
+                    changeElementValue={changeElementValue}
+                  />
+                );
+              }
+              default: {
+                return <></>;
+              }
             }
-            case "paragraph": {
-              return (
-                <Paragraph
-                  key={item.id}
-                  item={item}
-                  removeElement={removeElement}
-                  changeElementValue={changeElementValue}
-                />
-              );
-            }
-            case "image": {
-              return (
-                <Image
-                  key={item.id}
-                  item={item}
-                  removeElement={removeElement}
-                />
-              );
-            }
-            case "list": {
-              return (
-                <List
-                  key={item.id}
-                  item={item}
-                  removeElement={removeElement}
-                  changeElementValue={changeElementValue}
-                />
-              );
-            }
-            case "blockquote": {
-              return (
-                <Blockquote
-                  key={item.id}
-                  item={item}
-                  removeElement={removeElement}
-                  changeElementValue={changeElementValue}
-                />
-              );
-            }
-            default: {
-              return <></>;
-            }
-          }
-        })}
-      </Wrapper>
-    </StyledSlide>
+          })}
+        </Wrapper>
+      </StyledSlide>
+    </AspectRatioWrapper>
   );
 }
 

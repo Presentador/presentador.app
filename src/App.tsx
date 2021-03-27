@@ -56,8 +56,8 @@ function App() {
     >
       <GlobalStyle />
       <Elements />
-      <Controls />
       <Slide ref={ref} />
+      <Controls />
     </Context.Provider>
   );
 }

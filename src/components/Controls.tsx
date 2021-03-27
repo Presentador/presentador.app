@@ -15,7 +15,7 @@ function App() {
   const currentSlide = getCurrentSlide();
 
   return (
-    <div style={{ position: "absolute", bottom: 0 }}>
+    <div style={{}}>
       <button
         onClick={() => {
           changeCurrentSlide(currentSlide.number - 1);
