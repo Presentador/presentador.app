@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-import { normalize } from "styled-normalize";
+import reset from "styled-reset";
 
 import { Context, useSlideState } from "./context";
 
@@ -8,7 +8,7 @@ import Controls from "./components/Controls";
 import Slide from "./components/Slide";
 
 const GlobalStyle = createGlobalStyle`
-  ${normalize}
+  ${reset}
 
   * {
     box-sizing: border-box;
