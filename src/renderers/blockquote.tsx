@@ -10,12 +10,6 @@ const Container = styled.div`
   align-items: center;
 
   color: ${colours.lightText};
-
-  .top {
-  }
-
-  .bottom {
-  }
 `;
 
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
@@ -27,10 +21,5 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     return <></>;
   }
 
-  return (
-    <Container>
-      <div className="top">{blockquote}</div>
-      <div className="bottom"></div>
-    </Container>
-  );
+  return <Container>{blockquote}</Container>;
 }

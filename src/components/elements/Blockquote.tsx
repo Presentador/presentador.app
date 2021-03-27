@@ -75,6 +75,7 @@ function Blockquote({
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.code === "Enter") {
       event.preventDefault();
+      editingElement.current && editingElement.current.blur();
     }
   }
 

@@ -14,6 +14,22 @@ const StyledButton = styled.button`
   right: 0;
 `;
 
+const StyledHeader = styled.div<{ level: number; selected: boolean }>`
+  font-size: ${({ level }) =>
+    level === 1
+      ? "4em"
+      : level === 2
+      ? "4.5em"
+      : level === 3
+      ? "4em"
+      : level === 4
+      ? "3.5em"
+      : level === 5
+      ? "3em"
+      : "2.5em"};
+  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+`;
+
 function Header({
   level,
   item,
@@ -49,6 +65,7 @@ function Header({
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.code === "Enter") {
       event.preventDefault();
+      editingElement.current && editingElement.current.blur();
     }
   }
 
@@ -58,108 +75,24 @@ function Header({
     removeElement(item.id);
   }
 
-  const Tag =
-    level === 1 ? (
-      <h1
-        ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onInput={changeHeadingText}
-        onBlur={finishEditing}
-        onFocus={editHeading}
-        data-id={item.id}
-        tabIndex={-1}
-        style={{
-          fontSize: "4em",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
-      >
-        {item.value}
-      </h1>
-    ) : level === 2 ? (
-      <h2
-        ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onInput={changeHeadingText}
-        onBlur={finishEditing}
-        onFocus={editHeading}
-        data-id={item.id}
-        tabIndex={-1}
-        style={{
-          fontSize: "3.5em",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
-      >
-        {item.value}
-      </h2>
-    ) : level === 3 ? (
-      <h3
-        ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onInput={changeHeadingText}
-        onBlur={finishEditing}
-        onFocus={editHeading}
-        data-id={item.id}
-        tabIndex={-1}
-        style={{
-          fontSize: "3em",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
-      >
-        {item.value}
-      </h3>
-    ) : level === 4 ? (
-      <h4
-        ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onInput={changeHeadingText}
-        onBlur={finishEditing}
-        onFocus={editHeading}
-        data-id={item.id}
-        tabIndex={-1}
-        style={{
-          fontSize: "3.5em",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
-      >
-        {item.value}
-      </h4>
-    ) : level === 5 ? (
-      <h5
-        ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onInput={changeHeadingText}
-        onBlur={finishEditing}
-        onFocus={editHeading}
-        data-id={item.id}
-        tabIndex={-1}
-        style={{
-          fontSize: "3em",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
-      >
-        {item.value}
-      </h5>
-    ) : (
-      <h6
-        ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onInput={changeHeadingText}
-        onBlur={finishEditing}
-        onFocus={editHeading}
-        data-id={item.id}
-        tabIndex={-1}
-        style={{
-          fontSize: "2.5em",
-          border: `${selected ? "1px solid red" : "none"}`,
-        }}
-      >
-        {item.value}
-      </h6>
-    );
+  const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
   return (
     <Container>
-      {Tag}
+      <StyledHeader
+        as={Tag}
+        level={level}
+        selected={selected}
+        ref={editingElement}
+        onKeyDown={checkMouseDown}
+        onInput={changeHeadingText}
+        onBlur={finishEditing}
+        onFocus={editHeading}
+        data-id={item.id}
+        tabIndex={-1}
+      >
+        {item.value}
+      </StyledHeader>
       {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
     </Container>
   );

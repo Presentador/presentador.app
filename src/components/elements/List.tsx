@@ -58,11 +58,6 @@ function List({
     removeElement(item.id);
   }
 
-  function checkMouseDown(event: React.KeyboardEvent<HTMLUListElement>) {
-    if (event.code === "Enter") {
-    }
-  }
-
   function sanitizeHTML(text: string) {
     var element = document.createElement("div");
     element.innerText = text;
@@ -73,7 +68,6 @@ function List({
     <Container>
       <StyledList
         selected={selected}
-        onKeyDown={checkMouseDown}
         ref={editingElement}
         onInput={changeHeadingText}
         onBlur={finishEditing}
