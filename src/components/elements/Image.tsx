@@ -1,21 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Element } from "../../types";
+import { Context } from "../../context";
 
 const StyledImage = styled.img<{ selected: boolean }>`
   font-size: 1.3em;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function Image({
-  item,
-  removeElement,
-}: {
-  item: Element;
-  removeElement: (id: number) => void;
-}) {
+function Image({ itemId }: { itemId: number }) {
   const [selected, setSelected] = useState(false);
+
+  const { getItemById, removeElement } = useContext(Context);
+
+  const item = getItemById(itemId);
 
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
     setSelected(false);

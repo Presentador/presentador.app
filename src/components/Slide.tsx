@@ -43,12 +43,7 @@ const StyledSlide = styled.div`
 `;
 
 function Slide(_: any, ref: any) {
-  const {
-    getCurrentSlide,
-    getElementsForSlide,
-    removeElement,
-    changeElementValue,
-  } = useContext(Context);
+  const { getCurrentSlide, getElementsForSlide } = useContext(Context);
 
   const Wrapper = renderers[getCurrentSlide().state];
 
@@ -60,54 +55,19 @@ function Slide(_: any, ref: any) {
             {getElementsForSlide(getCurrentSlide().number).map((item) => {
               switch (item.type) {
                 case "heading": {
-                  return (
-                    <Header
-                      key={item.id}
-                      removeElement={removeElement}
-                      changeElementValue={changeElementValue}
-                      level={item.level as number}
-                      item={item}
-                    />
-                  );
+                  return <Header key={item.id} itemId={item.id} />;
                 }
                 case "paragraph": {
-                  return (
-                    <Paragraph
-                      key={item.id}
-                      item={item}
-                      removeElement={removeElement}
-                      changeElementValue={changeElementValue}
-                    />
-                  );
+                  return <Paragraph key={item.id} itemId={item.id} />;
                 }
                 case "image": {
-                  return (
-                    <Image
-                      key={item.id}
-                      item={item}
-                      removeElement={removeElement}
-                    />
-                  );
+                  return <Image key={item.id} itemId={item.id} />;
                 }
                 case "list": {
-                  return (
-                    <List
-                      key={item.id}
-                      item={item}
-                      removeElement={removeElement}
-                      changeElementValue={changeElementValue}
-                    />
-                  );
+                  return <List key={item.id} itemId={item.id} />;
                 }
                 case "blockquote": {
-                  return (
-                    <Blockquote
-                      key={item.id}
-                      item={item}
-                      removeElement={removeElement}
-                      changeElementValue={changeElementValue}
-                    />
-                  );
+                  return <Blockquote key={item.id} itemId={item.id} />;
                 }
                 default: {
                   return <></>;

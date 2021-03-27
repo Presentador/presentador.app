@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Element } from "../../types";
+import { Context } from "../../context";
 
 const Container = styled.div`
   position: relative;
@@ -30,19 +30,15 @@ const StyledHeader = styled.div<{ level: number; selected: boolean }>`
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function Header({
-  level,
-  item,
-  removeElement,
-  changeElementValue,
-}: {
-  level: number;
-  item: Element;
-  removeElement: (id: number) => void;
-  changeElementValue: (id: number, value: string) => void;
-}) {
+function Header({ itemId }: { itemId: number }) {
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
+
+  const { getItemById, removeElement, changeElementValue } = useContext(
+    Context
+  );
+
+  const item = getItemById(itemId);
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&
@@ -75,13 +71,13 @@ function Header({
     removeElement(item.id);
   }
 
-  const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
   return (
     <Container>
       <StyledHeader
         as={Tag}
-        level={level}
+        level={item.level as number}
         selected={selected}
         ref={editingElement}
         onKeyDown={checkMouseDown}

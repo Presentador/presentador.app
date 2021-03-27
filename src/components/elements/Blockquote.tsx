@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Element } from "../../types";
+import { Context } from "../../context";
 
 const Container = styled.div`
   position: relative;
@@ -37,17 +37,15 @@ const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
   }
 `;
 
-function Blockquote({
-  item,
-  removeElement,
-  changeElementValue,
-}: {
-  item: Element;
-  removeElement: (id: number) => void;
-  changeElementValue: (id: number, value: string) => void;
-}) {
+function Blockquote({ itemId }: { itemId: number }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLDivElement | null>(null);
+
+  const { getItemById, removeElement, changeElementValue } = useContext(
+    Context
+  );
+
+  const item = getItemById(itemId);
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&

@@ -134,7 +134,12 @@ export function useSlideState() {
     return slideState.length;
   }
 
+  function getItemById(id: number) {
+    return elements.find((item) => item.id === id) as Element;
+  }
+
   return {
+    getItemById,
     getNumbersOfSlide,
     getThumbnails,
     getCurrentSlide,
@@ -155,6 +160,7 @@ export const Context = React.createContext<{
   getThumbnails: () => string[];
   getElementsForSlide: (id: number) => Element[];
   removeSlide: (id: number) => void;
+  getItemById: (id: number) => Element;
   addSlide: () => void;
   addElement: (item: Element) => void;
   removeElement: (id: number) => void;
@@ -163,6 +169,7 @@ export const Context = React.createContext<{
 }>({
   getNumbersOfSlide: () => 1,
   getCurrentSlide: () => ({ number: 0, state: "normal" }),
+  getItemById: () => ({} as Element),
   getThumbnails: () => [],
   addSlide: () => {},
   removeSlide: () => {},

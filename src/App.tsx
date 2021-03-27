@@ -53,6 +53,7 @@ function App() {
     getElementsForSlide,
     addSlide,
     getThumbnails,
+    getItemById,
     getNumbersOfSlide,
   } = useSlideState();
 
@@ -63,6 +64,7 @@ function App() {
         getCurrentSlide,
         getThumbnails,
         addElement,
+        getItemById,
         removeElement,
         changeElementValue,
         removeSlide,
