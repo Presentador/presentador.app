@@ -7,27 +7,29 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
 
-  .top {
-    background-color: ${colours.primary};
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
+const TopContainer = styled.div`
+  box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-      color: white;
-    }
+  background-color: ${colours.primary};
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: white;
   }
-  .bottom {
-    flex: 2;
+`;
+const BottomContainer = styled.div`
+  flex: 2;
 
-    p {
-      color: ${colours.lightText};
-    }
+  p {
+    color: ${colours.lightText};
   }
 `;
 
@@ -43,8 +45,8 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
 
   return (
     <Container>
-      <div className="top">{header}</div>
-      <div className="bottom">{paragraph}</div>
+      <TopContainer>{header}</TopContainer>
+      <BottomContainer>{paragraph}</BottomContainer>
     </Container>
   );
 }

@@ -18,6 +18,11 @@ const Container = styled.div`
   }
 `;
 
+const TopContainer = styled.div`
+  box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
+`;
+const BottomContainer = styled.div``;
+
 export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
   const [mainHeader, secondHeader] = children.filter(
     (item) => item.type.displayName === "Header"
@@ -29,8 +34,8 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
 
   return (
     <Container>
-      <div className="top">{mainHeader}</div>
-      <div className="bottom">{secondHeader}</div>
+      <TopContainer>{mainHeader}</TopContainer>
+      <BottomContainer>{secondHeader}</BottomContainer>
     </Container>
   );
 }
