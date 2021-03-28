@@ -93,7 +93,6 @@ function App() {
       }}
     >
       <GlobalStyle />
-
       <Wrapper>
         {!present && (
           <Elements
