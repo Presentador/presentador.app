@@ -20,6 +20,7 @@ const StyledImage = styled.img<{ active: boolean }>`
   height: 100px;
   vertical-align: middle;
   border: ${({ active }) => (active ? "1px solid red" : "none")};
+  cursor: pointer;
 `;
 const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
   display: inline-block;
@@ -42,12 +43,19 @@ function Thumbnail({
   active: boolean;
   number: number;
 }) {
-  const { removeSlide, getCurrentSlide } = useContext(Context);
+  const { removeSlide, getCurrentSlide, changeCurrentSlide } = useContext(
+    Context
+  );
   const [hover, setHover] = useState(false);
 
   const Tag =
     src !== "" ? (
-      <StyledImage active={active} src={src} alt={`Slide`} />
+      <StyledImage
+        active={active}
+        src={src}
+        alt={`Slide`}
+        onClick={() => changeCurrentSlide(number)}
+      />
     ) : (
       <StyledLoadingPlaceholder active={active}>
         Loading
