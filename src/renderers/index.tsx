@@ -1,4 +1,4 @@
-import { State } from "../types";
+import { Builder, State } from "../types";
 
 import { SingleHeaderRenderer, SingleHeaderBuilder } from "./singleHeader";
 import { TwoHeadersRenderer, TwoHeadersBuilder } from "./twoHeaders";
@@ -45,7 +45,7 @@ export const renderersMap: Record<State, any> = {
   headerManyParagraphs: HeaderManyParagraphsRenderer,
 };
 
-export const buildersMap: Record<State, any> = {
+export const buildersMap: Record<State, Builder> = {
   singleHeader: SingleHeaderBuilder,
   twoHeaders: TwoHeadersBuilder,
   normal: NormalBuilder,
