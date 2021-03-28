@@ -93,7 +93,19 @@ function App() {
       }}
     >
       <GlobalStyle />
-      <Wrapper>
+      <Wrapper
+        onKeyDown={(event) => {
+          if (event.code === "ArrowLeft") {
+            const previous = getCurrentSlide().number - 1;
+            changeCurrentSlide(previous === -1 ? 0 : previous);
+          }
+          if (event.code === "ArrowRight") {
+            const next = getCurrentSlide().number + 1;
+            const totalSlides = getNumbersOfSlide();
+            changeCurrentSlide(next === totalSlides ? totalSlides - 1 : next);
+          }
+        }}
+      >
         {!present && (
           <Elements
             togglePresent={() => {
