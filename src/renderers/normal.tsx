@@ -6,22 +6,27 @@ const Container = styled.div`
   height: 100%;
   background-color: white;
   padding: 1.5em;
-
-  * {
-    display: block;
-    padding-bottom: 0.5em;
-  }
+`;
+const BlockContainer = styled.div`
+  display: block;
+  padding-bottom: 0.5em;
 `;
 
 export function NormalRenderer({ children }: { children: JSX.Element[] }) {
-  return <Container>{children}</Container>;
+  return (
+    <Container>
+      {children.map((child) => (
+        <BlockContainer>{child}</BlockContainer>
+      ))}
+    </Container>
+  );
 }
 
 export const NormalBuilder: Builder = {
   add: (type, elements) => {
-    if (type === "heading") return "singleHeader";
-    if (type === "image") return "image";
-    if (type === "blockquote") return "blockquote";
+    if (type === "heading" && !elements.length) return "singleHeader";
+    if (type === "image" && !elements.length) return "image";
+    if (type === "blockquote" && !elements.length) return "blockquote";
 
     return "normal";
   },
