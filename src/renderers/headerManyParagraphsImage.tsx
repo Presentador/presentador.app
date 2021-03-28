@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -62,7 +63,11 @@ const ImageContainer = styled.div`
   }
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function HeaderManyParagraphsImageRenderer({
+  children,
+}: {
+  children: JSX.Element[];
+}) {
   const header = children.find((item) => item.type.displayName === "Header");
   const image = children.find((item) => item.type.displayName === "Image");
   const paragraphs = children.filter(
@@ -85,3 +90,14 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+
+export const HeaderManyParagraphsImageBuilder: Builder = {
+  add: (type) => {
+    if (type === "paragraph") return "headerManyParagraphs";
+    if (type === "image") return "headerManyParagraphsImage";
+    return "normal";
+  },
+  remove: (type) => {
+    return "normal";
+  },
+};

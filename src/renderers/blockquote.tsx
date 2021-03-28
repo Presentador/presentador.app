@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -12,7 +13,7 @@ const Container = styled.div`
   color: ${colours.lightText};
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function BlockquoteRenderer({ children }: { children: JSX.Element[] }) {
   const blockquote = children.find(
     (item) => item.type.displayName === "Blockquote"
   );
@@ -23,3 +24,13 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
 
   return <Container>{blockquote}</Container>;
 }
+
+export const BlockquoteBuilder: Builder = {
+  add: (type) => {
+    if (type === "paragraph") return "blockquote";
+    return "normal";
+  },
+  remove: (type) => {
+    return "normal";
+  },
+};

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
+
 const Container = styled.div`
   height: 100%;
   display: flex;
@@ -26,7 +28,7 @@ const ImageContainer = styled.div`
   }
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function ImageRenderer({ children }: { children: JSX.Element[] }) {
   const image = children.find((item) => item.type.displayName === "Image");
 
   if (!image) {
@@ -39,3 +41,13 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+
+export const ImageBuilder: Builder = {
+  add: (type) => {
+    if (type === "image") return "manyImages";
+    return "normal";
+  },
+  remove: (type) => {
+    return "normal";
+  },
+};

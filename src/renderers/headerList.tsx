@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -40,7 +41,7 @@ const BottomContainer = styled.div`
   }
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function HeaderListRenderer({ children }: { children: JSX.Element[] }) {
   const header = children.find((item) => item.type.displayName === "Header");
   const list = children.find((item) => item.type.displayName === "List");
 
@@ -55,3 +56,12 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+
+export const HeaderListBuilder: Builder = {
+  add: (type) => {
+    return "normal";
+  },
+  remove: (type) => {
+    return "singleHeader";
+  },
+};

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -14,7 +15,7 @@ const Container = styled.div`
   padding: 2em;
 `;
 
-export default function SingleHeader({
+export function SingleHeaderRenderer({
   children,
 }: {
   children: JSX.Element[];
@@ -31,3 +32,16 @@ export default function SingleHeader({
     </Container>
   );
 }
+export const SingleHeaderBuilder: Builder = {
+  add: (type) => {
+    if (type === "heading") return "twoHeaders";
+    if (type === "paragraph") return "headerSingleParagraph";
+    if (type === "list") return "headerList";
+    if (type === "image") return "headerImage";
+    if (type === "code_block") return "headerCodeblock";
+    return "normal";
+  },
+  remove: (type) => {
+    return "normal";
+  },
+};

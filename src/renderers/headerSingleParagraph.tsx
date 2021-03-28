@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -35,7 +36,11 @@ const BottomContainer = styled.div`
   }
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function HeaderSingleParagraphRenderer({
+  children,
+}: {
+  children: JSX.Element[];
+}) {
   const header = children.find((item) => item.type.displayName === "Header");
   const paragraph = children.find(
     (item) => item.type.displayName === "Paragraph"
@@ -52,3 +57,16 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+
+export const HeaderSingleParagraphBuilder: Builder = {
+  add: (type) => {
+    if (type === "paragraph") return "headerManyParagraphs";
+    if (type === "image") return "headerParagraphImage";
+    return "normal";
+  },
+  remove: (type) => {
+    if (type === "heading") return "normal";
+    if (type === "paragraph") return "singleHeader";
+    return "normal";
+  },
+};

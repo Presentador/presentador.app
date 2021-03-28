@@ -1,33 +1,62 @@
 import { State } from "../types";
 
-import SingleHeader from "./singleHeader";
-import TwoHeaders from "./twoHeaders";
-import Normal from "./normal";
-import HeaderSingleParagraph from "./headerSingleParagraph";
-import Blockquote from "./blockquote";
-import HeaderManyParagraphs from "./headerManyParagraphs";
-import HeaderCodeblock from "./headerCodeblock";
-import HeaderManyParagraphsImage from "./headerManyParagraphsImage";
-import HeaderParagraphImage from "./headerParagraphImage";
-import Image from "./image";
-import ManyImages from "./manyImages";
-import HeaderImage from "./headerImage";
-import HeaderList from "./headerList";
+import { SingleHeaderRenderer, SingleHeaderBuilder } from "./singleHeader";
+import { TwoHeadersRenderer, TwoHeadersBuilder } from "./twoHeaders";
+import { NormalRenderer, NormalBuilder } from "./normal";
+import {
+  HeaderSingleParagraphRenderer,
+  HeaderSingleParagraphBuilder,
+} from "./headerSingleParagraph";
+import { BlockquoteRenderer, BlockquoteBuilder } from "./blockquote";
+import {
+  HeaderManyParagraphsRenderer,
+  HeaderManyParagraphsBuilder,
+} from "./headerManyParagraphs";
+import {
+  HeaderCodeblockRenderer,
+  HeaderCodeblockBuilder,
+} from "./headerCodeblock";
+import {
+  HeaderManyParagraphsImageRenderer,
+  HeaderManyParagraphsImageBuilder,
+} from "./headerManyParagraphsImage";
+import {
+  HeaderParagraphImageRenderer,
+  HeaderParagraphImageBuilder,
+} from "./headerParagraphImage";
+import { ImageRenderer, ImageBuilder } from "./image";
+import { ManyImagesRenderer, ManyImagesBuilder } from "./manyImages";
+import { HeaderImageRenderer, HeaderImageBuilder } from "./headerImage";
+import { HeaderListRenderer, HeaderListBuilder } from "./headerList";
 
-const map: Record<State, any> = {
-  singleHeader: SingleHeader,
-  twoHeaders: TwoHeaders,
-  normal: Normal,
-  headerSingleParagraph: HeaderSingleParagraph,
-  headerCodeblock: HeaderCodeblock,
-  headerManyParagraphsImage: HeaderManyParagraphsImage,
-  headerParagraphImage: HeaderParagraphImage,
-  image: Image,
-  manyImages: ManyImages,
-  headerImage: HeaderImage,
-  headerList: HeaderList,
-  blockquote: Blockquote,
-  headerManyParagraphs: HeaderManyParagraphs,
+export const renderersMap: Record<State, any> = {
+  singleHeader: SingleHeaderRenderer,
+  twoHeaders: TwoHeadersRenderer,
+  normal: NormalRenderer,
+  headerSingleParagraph: HeaderSingleParagraphRenderer,
+  headerCodeblock: HeaderCodeblockRenderer,
+  headerManyParagraphsImage: HeaderManyParagraphsImageRenderer,
+  headerParagraphImage: HeaderParagraphImageRenderer,
+  image: ImageRenderer,
+  manyImages: ManyImagesRenderer,
+  headerImage: HeaderImageRenderer,
+  headerList: HeaderListRenderer,
+  blockquote: BlockquoteRenderer,
+  headerManyParagraphs: HeaderManyParagraphsRenderer,
 };
 
-export default map;
+export const buildersMap: Record<State, any> = {
+  singleHeader: SingleHeaderBuilder,
+  twoHeaders: TwoHeadersBuilder,
+  normal: NormalBuilder,
+  headerSingleParagraph: HeaderSingleParagraphBuilder,
+  headerCodeblock: HeaderCodeblockBuilder,
+  headerManyParagraphsImage: HeaderManyParagraphsImageBuilder,
+  headerParagraphImage: HeaderParagraphImageBuilder,
+  image: ImageBuilder,
+  manyImages: ManyImagesBuilder,
+  headerImage: HeaderImageBuilder,
+  headerList: HeaderListBuilder,
+  blockquote: BlockquoteBuilder,
+  headerManyParagraphs: HeaderManyParagraphsBuilder,
+};

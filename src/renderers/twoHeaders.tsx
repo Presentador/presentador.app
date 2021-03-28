@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -20,7 +21,7 @@ const BottomContainer = styled.div`
   padding: 1.5em;
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function TwoHeadersRenderer({ children }: { children: JSX.Element[] }) {
   const [mainHeader, secondHeader] = children.filter(
     (item) => item.type.displayName === "Header"
   );
@@ -36,3 +37,11 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+export const TwoHeadersBuilder: Builder = {
+  add: (type) => {
+    return "normal";
+  },
+  remove: (type) => {
+    return "singleHeader";
+  },
+};

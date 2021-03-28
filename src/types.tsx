@@ -17,14 +17,16 @@ export type State =
   | "singleHeader"
   | "headerManyParagraphs";
 
+export type ElementType =
+  | "heading"
+  | "image"
+  | "list"
+  | "code_block"
+  | "paragraph"
+  | "blockquote";
+
 export type Element = {
-  type:
-    | "heading"
-    | "image"
-    | "list"
-    | "code_block"
-    | "paragraph"
-    | "blockquote";
+  type: ElementType;
   value: string;
   level?: number;
   id: number;
@@ -35,3 +37,8 @@ export type Slide = {
   number: number;
   state: State;
 };
+
+export interface Builder {
+  add: (type: ElementType, elements: Element[]) => State;
+  remove: (type: ElementType, elements: Element[]) => State;
+}

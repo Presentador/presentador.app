@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 
 import { Slide, Element, State } from "./types";
 
-import { states } from "./builder";
+import { buildersMap } from "./renderers";
 
 export function useSlideState() {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,22 +34,12 @@ export function useSlideState() {
   async function addElement(item: Element) {
     setElements([...elements, item]);
 
-    if (states[slideState[item.slide]]) {
-      const nextState = states[slideState[item.slide]].add(item.type);
-      if (nextState) {
-        setSlideState(
-          slideState.map((state, index) =>
-            index === item.slide ? nextState : state
-          )
-        );
-      }
-    } else {
-      setSlideState(
-        slideState.map((state, index) =>
-          index === item.slide ? "normal" : state
-        )
-      );
-    }
+    const nextState = buildersMap[slideState[item.slide]].add(item.type);
+    setSlideState(
+      slideState.map((state, index) =>
+        index === item.slide ? nextState : state
+      )
+    );
   }
 
   function removeElement(id: number) {
@@ -61,24 +51,14 @@ export function useSlideState() {
 
     setElements([...elements.filter((item) => item.id !== id)]);
 
-    if (states[slideState[item.slide]]) {
-      const nextState = states[slideState[item.slide]].remove(
-        item && item.type
-      );
-      if (nextState) {
-        setSlideState(
-          slideState.map((state, index) =>
-            index === item.slide ? nextState : state
-          )
-        );
-      }
-    } else {
-      setSlideState(
-        slideState.map((state, index) =>
-          index === item.slide ? "normal" : state
-        )
-      );
-    }
+    const nextState = buildersMap[slideState[item.slide]].remove(
+      item && item.type
+    );
+    setSlideState(
+      slideState.map((state, index) =>
+        index === item.slide ? nextState : state
+      )
+    );
   }
 
   function changeElementValue(id: number, value: string) {

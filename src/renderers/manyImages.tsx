@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -25,7 +26,7 @@ const Container = styled.div`
   }
 `;
 
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+export function ManyImagesRenderer({ children }: { children: JSX.Element[] }) {
   const itemSize =
     children.length >= 2 && children.length <= 4
       ? "50%"
@@ -45,3 +46,13 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+
+export const ManyImagesBuilder: Builder = {
+  add: (type) => {
+    if (type === "image") return "manyImages";
+    return "normal";
+  },
+  remove: (type: string) => {
+    return "normal";
+  },
+};

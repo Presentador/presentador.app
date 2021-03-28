@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -34,7 +35,7 @@ const BottomContainer = styled.div`
   }
 `;
 
-export default function HeaderManyParagraphs({
+export function HeaderManyParagraphsRenderer({
   children,
 }: {
   children: JSX.Element[];
@@ -55,3 +56,14 @@ export default function HeaderManyParagraphs({
     </Container>
   );
 }
+
+export const HeaderManyParagraphsBuilder: Builder = {
+  add: (type) => {
+    if (type === "paragraph") return "headerManyParagraphs";
+    if (type === "image") return "headerManyParagraphsImage";
+    return "normal";
+  },
+  remove: (type) => {
+    return "normal";
+  },
+};

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import { Builder } from "../types";
 import { colours } from "../theme";
 
 const Container = styled.div`
@@ -51,7 +52,8 @@ const ImageContainer = styled.div`
     max-height: 100%;
   }
 `;
-export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
+
+export function HeaderImageRenderer({ children }: { children: JSX.Element[] }) {
   const header = children.find((item) => item.type.displayName === "Header");
   const image = children.find((item) => item.type.displayName === "Image");
 
@@ -68,3 +70,14 @@ export default function TwoHeaders({ children }: { children: JSX.Element[] }) {
     </Container>
   );
 }
+
+export const HeaderImageBuilder: Builder = {
+  add: (type) => {
+    return "normal";
+  },
+  remove: (type) => {
+    if (type === "image") return "singleHeader";
+    if (type === "heading") return "image";
+    return "normal";
+  },
+};

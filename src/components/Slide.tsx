@@ -9,7 +9,7 @@ import Image from "./elements/Image";
 import List from "./elements/List";
 import Blockquote from "./elements/Blockquote";
 
-import renderers from "../renderers";
+import { renderersMap } from "../renderers";
 
 const WidthWrapper = styled.div`
   width: 80vw;
@@ -49,7 +49,7 @@ const StyledSlide = styled.div`
 function Slide(_: any, ref: any) {
   const { getCurrentSlide, getElementsForSlide } = useContext(Context);
 
-  const Wrapper = renderers[getCurrentSlide().state];
+  const Wrapper = renderersMap[getCurrentSlide().state];
 
   return (
     <WidthWrapper>
