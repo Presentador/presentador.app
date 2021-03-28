@@ -1,11 +1,11 @@
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
-import { Context, useSlideState } from "./context";
+import { Context, useSlideState } from "../context";
 
-import Elements from "./components/Elements";
-import Controls from "./components/Controls";
-import Slide from "./components/Slide";
+import Elements from "./Elements";
+import Controls from "./Controls";
+import Slide from "./Slide";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
