@@ -20,7 +20,7 @@ const SizeWrapper = styled.div<{ scaleSize: number }>`
   left: 0;
   bottom: 0;
   right: 0;
-  transform-origin: left center;
+  transform-origin: center center;
   transform: ${({ scaleSize }) => `scale(${scaleSize})`};
 `;
 
@@ -52,35 +52,25 @@ const StyledSlide = styled.div`
   ul {
     list-style-type: circle;
   }
-
-  :root {
-    // taken from https://websemantics.uk/tools/responsive-font-calculator/
-    font-size: calc(1rem + ((1vw - 0.48rem) * 0.6944));
-    padding: calc(1rem + ((1vw - 0.48rem) * 0.6944));
-    min-height: 0vw;
-  }
 `;
 
-function Slide(_: any, ref: any) {
+function Slide({ present }: { present: boolean }, ref: any) {
   const { getCurrentSlide, getElementsForSlide } = useContext(Context);
   const [size, setSize] = useState(1);
 
   const Wrapper = renderersMap[getCurrentSlide().state];
 
+  function updateSize() {
+    const scale = Math.min(window.innerWidth / 960, window.innerHeight / 700);
+    setSize(scale);
+  }
   useLayoutEffect(() => {
-    function updateSize() {
-      const scale = Math.min(window.innerWidth / 960, window.innerHeight / 700);
-      if (scale > 1) {
-        return;
-      }
-      setSize(scale);
-    }
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
   return (
-    <SizeWrapper scaleSize={size}>
+    <SizeWrapper scaleSize={size > 1 && !present ? 1 : size}>
       <FlexWrapper>
         <AspectRatioWrapper>
           <StyledSlide className={getCurrentSlide().state} ref={ref}>
@@ -115,4 +105,4 @@ function Slide(_: any, ref: any) {
   );
 }
 
-export default forwardRef<HTMLDivElement>(Slide);
+export default forwardRef<HTMLDivElement, { present: boolean }>(Slide);

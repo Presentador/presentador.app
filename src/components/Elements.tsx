@@ -1,14 +1,36 @@
+import styled from "styled-components";
 import { useContext } from "react";
+import screenfull from "screenfull";
 
 import { Context } from "../context";
 
-function Elements() {
+const StyledButton = styled.button`
+  padding: 10px;
+  margin-right: 5px;
+`;
+
+const LeftStyledButton = styled.button`
+  padding: 10px;
+  margin-right: 50px;
+`;
+
+function Elements({ togglePresent }: { togglePresent: () => void }) {
   const { addElement, getCurrentSlide } = useContext(Context);
 
   const currentSlide = getCurrentSlide();
   return (
-    <div style={{}}>
-      <button
+    <div>
+      <LeftStyledButton
+        onClick={() => {
+          togglePresent();
+          if (screenfull.isEnabled) {
+            screenfull.toggle();
+          }
+        }}
+      >
+        Present
+      </LeftStyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -18,11 +40,10 @@ function Elements() {
             value: "Heading 1",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         H1
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -32,11 +53,10 @@ function Elements() {
             value: "Heading 2",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         H2
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -46,11 +66,10 @@ function Elements() {
             value: "Heading 3",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         H3
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -60,11 +79,10 @@ function Elements() {
             value: "Heading 4",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         H4
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -74,11 +92,10 @@ function Elements() {
             value: "Heading 5",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         H5
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -88,11 +105,10 @@ function Elements() {
             value: "Heading 6",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         H6
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -102,11 +118,10 @@ function Elements() {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         P
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -115,11 +130,10 @@ function Elements() {
             value: "https://via.placeholder.com/500x500",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         Img
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -128,11 +142,10 @@ function Elements() {
             value: "Point one to make",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         Li
-      </button>
-      <button
+      </StyledButton>
+      <StyledButton
         onClick={() =>
           addElement({
             id: new Date().getTime(),
@@ -141,10 +154,9 @@ function Elements() {
             value: "A wise man once said...",
           })
         }
-        style={{ padding: "10px", marginRight: "5px" }}
       >
         Q
-      </button>
+      </StyledButton>
     </div>
   );
 }

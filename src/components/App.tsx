@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -53,6 +54,8 @@ function App() {
     getNumbersOfSlide,
   } = useSlideState();
 
+  const [present, setPresent] = useState(false);
+
   return (
     <Context.Provider
       value={{
@@ -70,12 +73,13 @@ function App() {
       }}
     >
       <GlobalStyle />
+
       <Wrapper>
-        <Elements />
+        {!present && <Elements togglePresent={() => setPresent(!present)} />}
         <SlideWrapper>
-          <Slide ref={ref} />
+          <Slide present={present} ref={ref} />
         </SlideWrapper>
-        <Controls ref={ref} />
+        {!present && <Controls ref={ref} />}
       </Wrapper>
     </Context.Provider>
   );
