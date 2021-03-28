@@ -34,7 +34,10 @@ export function useSlideState() {
   async function addElement(item: Element) {
     setElements([...elements, item]);
 
-    const nextState = buildersMap[slideState[item.slide]].add(item.type);
+    const nextState = buildersMap[slideState[item.slide]].add(
+      item.type,
+      getElementsForSlide(item.slide)
+    );
     setSlideState(
       slideState.map((state, index) =>
         index === item.slide ? nextState : state
@@ -52,7 +55,8 @@ export function useSlideState() {
     setElements([...elements.filter((item) => item.id !== id)]);
 
     const nextState = buildersMap[slideState[item.slide]].remove(
-      item && item.type
+      item.type,
+      getElementsForSlide(item.slide)
     );
     setSlideState(
       slideState.map((state, index) =>
