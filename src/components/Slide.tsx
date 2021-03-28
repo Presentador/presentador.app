@@ -1,4 +1,4 @@
-import { useContext, forwardRef } from "react";
+import { useLayoutEffect, useState, useContext, forwardRef } from "react";
 import styled from "styled-components";
 
 import { Context } from "../context";
@@ -11,8 +11,23 @@ import Blockquote from "./elements/Blockquote";
 
 import { renderersMap } from "../renderers";
 
-const WidthWrapper = styled.div`
-  width: 80vw;
+const SizeWrapper = styled.div<{ scaleSize: number }>`
+  width: 960px;
+  height: 700px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform-origin: left center;
+  transform: ${({ scaleSize }) => `scale(${scaleSize})`};
+`;
+
+const FlexWrapper = styled.div`
+  justify-content: center;
+  align-items: center;
+  display: flex;
 `;
 
 const AspectRatioWrapper = styled.div`
@@ -48,40 +63,55 @@ const StyledSlide = styled.div`
 
 function Slide(_: any, ref: any) {
   const { getCurrentSlide, getElementsForSlide } = useContext(Context);
+  const [size, setSize] = useState(1);
 
   const Wrapper = renderersMap[getCurrentSlide().state];
 
+  useLayoutEffect(() => {
+    function updateSize() {
+      const scale = Math.min(window.innerWidth / 960, window.innerHeight / 700);
+      if (scale > 1) {
+        return;
+      }
+      setSize(scale);
+    }
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   return (
-    <WidthWrapper>
-      <AspectRatioWrapper>
-        <StyledSlide className={getCurrentSlide().state} ref={ref}>
-          <Wrapper>
-            {getElementsForSlide(getCurrentSlide().number).map((item) => {
-              switch (item.type) {
-                case "heading": {
-                  return <Header key={item.id} itemId={item.id} />;
+    <SizeWrapper scaleSize={size}>
+      <FlexWrapper>
+        <AspectRatioWrapper>
+          <StyledSlide className={getCurrentSlide().state} ref={ref}>
+            <Wrapper>
+              {getElementsForSlide(getCurrentSlide().number).map((item) => {
+                switch (item.type) {
+                  case "heading": {
+                    return <Header key={item.id} itemId={item.id} />;
+                  }
+                  case "paragraph": {
+                    return <Paragraph key={item.id} itemId={item.id} />;
+                  }
+                  case "image": {
+                    return <Image key={item.id} itemId={item.id} />;
+                  }
+                  case "list": {
+                    return <List key={item.id} itemId={item.id} />;
+                  }
+                  case "blockquote": {
+                    return <Blockquote key={item.id} itemId={item.id} />;
+                  }
+                  default: {
+                    return <></>;
+                  }
                 }
-                case "paragraph": {
-                  return <Paragraph key={item.id} itemId={item.id} />;
-                }
-                case "image": {
-                  return <Image key={item.id} itemId={item.id} />;
-                }
-                case "list": {
-                  return <List key={item.id} itemId={item.id} />;
-                }
-                case "blockquote": {
-                  return <Blockquote key={item.id} itemId={item.id} />;
-                }
-                default: {
-                  return <></>;
-                }
-              }
-            })}
-          </Wrapper>
-        </StyledSlide>
-      </AspectRatioWrapper>
-    </WidthWrapper>
+              })}
+            </Wrapper>
+          </StyledSlide>
+        </AspectRatioWrapper>
+      </FlexWrapper>
+    </SizeWrapper>
   );
 }
 

@@ -26,19 +26,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const ControlsWrapper = styled.div``;
-const SlideWrapper = styled.div`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-`;
-const ElementsWrapper = styled.div``;
 const Wrapper = styled.div`
   background: #eee;
   display: flex;
   flex-direction: column;
   height: 100%;
+`;
+
+const SlideWrapper = styled.div`
+  flex: 1;
 `;
 
 function App() {
@@ -75,15 +71,11 @@ function App() {
     >
       <GlobalStyle />
       <Wrapper>
-        <ElementsWrapper>
-          <Elements />
-        </ElementsWrapper>
+        <Elements />
         <SlideWrapper>
           <Slide ref={ref} />
         </SlideWrapper>
-        <ControlsWrapper>
-          <Controls ref={ref} />
-        </ControlsWrapper>
+        <Controls ref={ref} />
       </Wrapper>
     </Context.Provider>
   );
