@@ -1,4 +1,5 @@
-import { useState } from "react";
+import screenfull from "screenfull";
+import { useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -56,6 +57,25 @@ function App() {
 
   const [present, setPresent] = useState(false);
 
+  useEffect(() => {
+    const callback = () => {
+      if (screenfull.isEnabled) {
+        if (!screenfull.isFullscreen) {
+          setPresent(false);
+        }
+      }
+    };
+    if (screenfull.isEnabled) {
+      screenfull.on("change", callback);
+    }
+    const unsubscribe = () => {
+      if (screenfull.isEnabled) {
+        screenfull.off("change", callback);
+      }
+    };
+    return unsubscribe;
+  }, [present]);
+
   return (
     <Context.Provider
       value={{
@@ -75,7 +95,16 @@ function App() {
       <GlobalStyle />
 
       <Wrapper>
-        {!present && <Elements togglePresent={() => setPresent(!present)} />}
+        {!present && (
+          <Elements
+            togglePresent={() => {
+              setPresent(!present);
+              if (screenfull.isEnabled) {
+                screenfull.request();
+              }
+            }}
+          />
+        )}
         <SlideWrapper>
           <Slide present={present} ref={ref} />
         </SlideWrapper>

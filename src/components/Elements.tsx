@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import screenfull from "screenfull";
 
 import { Context } from "../context";
 
@@ -23,9 +22,6 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       <LeftStyledButton
         onClick={() => {
           togglePresent();
-          if (screenfull.isEnabled) {
-            screenfull.toggle();
-          }
         }}
       >
         Present

@@ -61,7 +61,8 @@ function Slide({ present }: { present: boolean }, ref: any) {
   const Wrapper = renderersMap[getCurrentSlide().state];
 
   function updateSize() {
-    const scale = Math.min(window.innerWidth / 960, window.innerHeight / 700);
+    // scale to fit window width
+    const scale = window.innerWidth / 960;
     setSize(scale);
   }
   useLayoutEffect(() => {
