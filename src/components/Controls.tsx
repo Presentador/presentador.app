@@ -4,7 +4,7 @@ import { useState, useContext, useEffect, forwardRef } from "react";
 import { Context } from "../context";
 import Thumbnail from "./Thumbnail";
 
-function App(_: any, ref: any) {
+function Controls(_: any, ref: any) {
   const {
     changeCurrentSlide,
     getCurrentSlide,
@@ -69,4 +69,4 @@ function App(_: any, ref: any) {
   );
 }
 
-export default forwardRef<HTMLDivElement>(App);
+export default forwardRef<HTMLDivElement>(Controls);

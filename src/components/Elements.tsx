@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Context } from "../context";
 
-function App() {
+function Elements() {
   const { addElement, getCurrentSlide } = useContext(Context);
 
   const currentSlide = getCurrentSlide();
@@ -149,4 +149,4 @@ function App() {
   );
 }
 
-export default App;
+export default Elements;
