@@ -1,5 +1,5 @@
 import screenfull from "screenfull";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -76,6 +76,26 @@ function App() {
     return unsubscribe;
   }, [present]);
 
+  useEffect(() => {
+    const callback = (event: any) => {
+      if (event.code === "ArrowLeft") {
+        const currentNumber = getCurrentSlide().number;
+        changeCurrentSlide(currentNumber === 0 ? 0 : currentNumber - 1);
+      }
+      if (event.code === "ArrowRight") {
+        const currentNumber = getCurrentSlide().number;
+        const totalSlides = getNumbersOfSlide();
+        changeCurrentSlide(
+          currentNumber === totalSlides - 1 ? currentNumber : currentNumber + 1
+        );
+      }
+    };
+
+    window.addEventListener("keydown", callback);
+
+    return () => window.removeEventListener("keydown", callback);
+  }, []); // eslint-disable-line
+
   return (
     <Context.Provider
       value={{
@@ -93,19 +113,7 @@ function App() {
       }}
     >
       <GlobalStyle />
-      <Wrapper
-        onKeyDown={(event) => {
-          if (event.code === "ArrowLeft") {
-            const previous = getCurrentSlide().number - 1;
-            changeCurrentSlide(previous === -1 ? 0 : previous);
-          }
-          if (event.code === "ArrowRight") {
-            const next = getCurrentSlide().number + 1;
-            const totalSlides = getNumbersOfSlide();
-            changeCurrentSlide(next === totalSlides ? totalSlides - 1 : next);
-          }
-        }}
-      >
+      <Wrapper>
         {!present && (
           <Elements
             togglePresent={() => {
