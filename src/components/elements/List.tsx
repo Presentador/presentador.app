@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 
 import { Context } from "../../context";
+import { Element } from "../../types";
 
 const Container = styled.div`
   position: relative;
@@ -22,15 +23,11 @@ const StyledList = styled.ul<{ selected: boolean }>`
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function List({ itemId }: { itemId: number }) {
+function List({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLUListElement | null>(null);
 
-  const { getItemById, removeElement, changeElementValue } = useContext(
-    Context
-  );
-
-  const item = getItemById(itemId);
+  const { removeElement, changeElementValue } = useContext(Context);
 
   function editHeading() {
     editingElement.current &&

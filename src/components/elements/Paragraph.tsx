@@ -2,6 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 
 import { Context } from "../../context";
+import { Element } from "../../types";
 
 const Container = styled.div`
   position: relative;
@@ -21,15 +22,11 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function Paragraph({ itemId }: { itemId: number }) {
+function Paragraph({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLDivElement | null>(null);
 
-  const { getItemById, removeElement, changeElementValue } = useContext(
-    Context
-  );
-
-  const item = getItemById(itemId);
+  const { removeElement, changeElementValue } = useContext(Context);
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&

@@ -6,18 +6,16 @@ import Thumbnail from "./Thumbnail";
 import ThumbnailAdd from "./ThumbnailAdd";
 
 function Controls(_: any, ref: any) {
-  const { getCurrentSlide, addSlide, elements } = useContext(Context);
+  const { currentSlide, addSlide, elements } = useContext(Context);
 
   const [thumbnails, setThumbnails] = useState<string[]>([""]);
-
-  const currentSlide = getCurrentSlide();
 
   async function update() {
     if (ref.current) {
       const canvas = await html2canvas(ref.current);
       setThumbnails(
         thumbnails.map((item, index) =>
-          index === getCurrentSlide().number ? canvas.toDataURL() : item
+          index === currentSlide.number ? canvas.toDataURL() : item
         )
       );
     }
@@ -30,7 +28,7 @@ function Controls(_: any, ref: any) {
 
   // Update when a slide is added
   useEffect(() => {
-    if (thumbnails[getCurrentSlide().number] === "") {
+    if (thumbnails[currentSlide.number] === "") {
       update();
     }
   }, [thumbnails]); //eslint-disable-line

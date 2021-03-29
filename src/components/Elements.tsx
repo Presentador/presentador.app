@@ -14,9 +14,8 @@ const LeftStyledButton = styled.button`
 `;
 
 function Elements({ togglePresent }: { togglePresent: () => void }) {
-  const { addElement, getCurrentSlide } = useContext(Context);
+  const { addElement, currentSlide } = useContext(Context);
 
-  const currentSlide = getCurrentSlide();
   return (
     <div>
       <LeftStyledButton

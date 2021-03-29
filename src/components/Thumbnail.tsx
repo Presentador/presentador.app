@@ -43,9 +43,7 @@ function Thumbnail({
   active: boolean;
   number: number;
 }) {
-  const { removeSlide, getCurrentSlide, changeCurrentSlide } = useContext(
-    Context
-  );
+  const { removeSlide, currentSlide, changeCurrentSlide } = useContext(Context);
   const [hover, setHover] = useState(false);
 
   const Tag =
@@ -73,9 +71,7 @@ function Thumbnail({
           onMouseDown={() => {
             removeSlide(number);
             setThumbnails(
-              thumbnails.filter(
-                (item, index) => index !== getCurrentSlide().number
-              )
+              thumbnails.filter((item, index) => index !== currentSlide.number)
             );
           }}
         >

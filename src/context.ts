@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { Slide, Element, State } from "./types";
+import { Element, State } from "./types";
 
 import { buildersMap } from "./renderers";
 
@@ -36,7 +36,7 @@ export function useSlideState() {
 
     const nextState = buildersMap[slideState[item.slide]].add(
       item.type,
-      getElementsForSlide(item.slide)
+      elements.filter((element) => element.slide === item.slide)
     );
     setSlideState(
       slideState.map((state, index) =>
@@ -56,7 +56,7 @@ export function useSlideState() {
 
     const nextState = buildersMap[slideState[item.slide]].remove(
       item.type,
-      getElementsForSlide(item.slide)
+      elements.filter((element) => element.slide === item.slide)
     );
     setSlideState(
       slideState.map((state, index) =>
@@ -81,35 +81,17 @@ export function useSlideState() {
     setCurrentSlide(number);
   }
 
-  function getElementsForSlide(id: number) {
-    return elements.filter((item) => item.slide === id);
-  }
-
-  function getCurrentSlide() {
-    return {
+  return {
+    numberOfSlides: slideState.length,
+    currentSlide: {
       number: currentSlide,
       state: slideState[currentSlide],
-    };
-  }
-
-  function getNumbersOfSlide() {
-    return slideState.length;
-  }
-
-  function getItemById(id: number) {
-    return elements.find((item) => item.id === id) as Element;
-  }
-
-  return {
-    getItemById,
-    getNumbersOfSlide,
-    getCurrentSlide,
+    },
     ref,
     addElement,
     removeElement,
     changeElementValue,
     changeCurrentSlide,
-    getElementsForSlide,
     addSlide,
     elements,
     removeSlide,
@@ -117,12 +99,10 @@ export function useSlideState() {
 }
 
 export const Context = React.createContext<{
-  getNumbersOfSlide: () => number;
-  getCurrentSlide: () => Slide;
-  getElementsForSlide: (id: number) => Element[];
+  numberOfSlides: number;
+  currentSlide: { state: State; number: number };
   elements: Element[];
   removeSlide: (id: number) => void;
-  getItemById: (id: number) => Element;
   addSlide: () => void;
   addElement: (item: Element) => void;
   removeElement: (id: number) => void;
@@ -130,13 +110,11 @@ export const Context = React.createContext<{
   changeCurrentSlide: (number: number) => void;
 }>({
   elements: [],
-  getNumbersOfSlide: () => 1,
-  getCurrentSlide: () => ({ number: 0, state: "normal" }),
-  getItemById: () => ({} as Element),
+  numberOfSlides: 1,
+  currentSlide: { number: 0, state: "normal" },
   addSlide: () => {},
   removeSlide: () => {},
   changeCurrentSlide: () => {},
-  getElementsForSlide: () => [],
   addElement: () => {},
   removeElement: () => {},
   changeElementValue: () => {},

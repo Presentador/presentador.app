@@ -42,17 +42,15 @@ const SlideWrapper = styled.div`
 function App() {
   const {
     ref,
-    getCurrentSlide,
+    currentSlide,
     addElement,
     changeCurrentSlide,
     removeSlide,
     removeElement,
     changeElementValue,
-    getElementsForSlide,
     addSlide,
     elements,
-    getItemById,
-    getNumbersOfSlide,
+    numberOfSlides,
   } = useSlideState();
 
   const [present, setPresent] = useState(false);
@@ -79,12 +77,12 @@ function App() {
   useEffect(() => {
     const callback = (event: any) => {
       if (event.code === "ArrowLeft") {
-        const currentNumber = getCurrentSlide().number;
+        const currentNumber = currentSlide.number;
         changeCurrentSlide(currentNumber === 0 ? 0 : currentNumber - 1);
       }
       if (event.code === "ArrowRight") {
-        const currentNumber = getCurrentSlide().number;
-        const totalSlides = getNumbersOfSlide();
+        const currentNumber = currentSlide.number;
+        const totalSlides = numberOfSlides;
         changeCurrentSlide(
           currentNumber === totalSlides - 1 ? currentNumber : currentNumber + 1
         );
@@ -94,21 +92,19 @@ function App() {
     window.addEventListener("keydown", callback);
 
     return () => window.removeEventListener("keydown", callback);
-  }, []); // eslint-disable-line
+  }, [currentSlide, numberOfSlides]); // eslint-disable-line
 
   return (
     <Context.Provider
       value={{
         elements,
-        getNumbersOfSlide,
-        getCurrentSlide,
+        numberOfSlides,
+        currentSlide,
         addElement,
-        getItemById,
         removeElement,
         changeElementValue,
         removeSlide,
         addSlide,
-        getElementsForSlide,
         changeCurrentSlide,
       }}
     >
