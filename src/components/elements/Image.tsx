@@ -4,13 +4,16 @@ import styled from "styled-components";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 
-const StyledImage = styled.img<{ selected: boolean }>`
+const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
   font-size: 1.3em;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+  background: ${({ loadingState }) =>
+    loadingState ? "rgba(0, 0, 0, 0.1)" : "none"};
 `;
 
 function Image({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { removeElement } = useContext(SlidesContext);
 
@@ -29,6 +32,8 @@ function Image({ item }: { item: Element }) {
 
   return (
     <StyledImage
+      onLoad={() => setLoading(false)}
+      loadingState={loading}
       selected={selected}
       src={item.value}
       alt={item.value}
