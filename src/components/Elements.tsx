@@ -122,7 +122,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
             id: new Date().getTime(),
             slide: currentSlide.number,
             type: "image",
-            value: "https://via.placeholder.com/500x500",
+            value: "https://placeimg.com/640/480/any",
           })
         }
       >
