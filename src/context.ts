@@ -1,11 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import { Element, State } from "./types";
 
 import { buildersMap } from "./renderers";
 
 export function useSlideState() {
-  const ref = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [elements, setElements] = useState<Element[]>([]);
   const [slideState, setSlideState] = useState<State[]>(["normal"]);
@@ -87,7 +86,6 @@ export function useSlideState() {
       number: currentSlide,
       state: slideState[currentSlide],
     },
-    ref,
     addElement,
     removeElement,
     changeElementValue,

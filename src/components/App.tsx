@@ -1,5 +1,5 @@
 import screenfull from "screenfull";
-import React, { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
@@ -40,8 +40,9 @@ const SlideWrapper = styled.div`
 `;
 
 function App() {
+  const slideWrapperRef = useRef<HTMLDivElement>(null);
+
   const {
-    ref,
     currentSlide,
     addElement,
     changeCurrentSlide,
@@ -121,9 +122,9 @@ function App() {
           />
         )}
         <SlideWrapper>
-          <Slide present={present} ref={ref} />
+          <Slide present={present} ref={slideWrapperRef} />
         </SlideWrapper>
-        {!present && <Controls ref={ref} />}
+        {!present && <Controls ref={slideWrapperRef} />}
       </Wrapper>
     </Context.Provider>
   );
