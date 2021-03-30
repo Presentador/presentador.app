@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/presentatrice/static/js/main.6f3045fe.chunk.js",
-    "main.js.map": "/presentatrice/static/js/main.6f3045fe.chunk.js.map",
+    "main.js": "/presentatrice/static/js/main.c46842a2.chunk.js",
+    "main.js.map": "/presentatrice/static/js/main.c46842a2.chunk.js.map",
     "runtime-main.js": "/presentatrice/static/js/runtime-main.ff38ec78.js",
     "runtime-main.js.map": "/presentatrice/static/js/runtime-main.ff38ec78.js.map",
-    "static/js/2.7af72273.chunk.js": "/presentatrice/static/js/2.7af72273.chunk.js",
-    "static/js/2.7af72273.chunk.js.map": "/presentatrice/static/js/2.7af72273.chunk.js.map",
+    "static/js/2.4f7e1675.chunk.js": "/presentatrice/static/js/2.4f7e1675.chunk.js",
+    "static/js/2.4f7e1675.chunk.js.map": "/presentatrice/static/js/2.4f7e1675.chunk.js.map",
     "static/js/3.66592773.chunk.js": "/presentatrice/static/js/3.66592773.chunk.js",
     "static/js/3.66592773.chunk.js.map": "/presentatrice/static/js/3.66592773.chunk.js.map",
     "index.html": "/presentatrice/index.html",
-    "static/js/2.7af72273.chunk.js.LICENSE.txt": "/presentatrice/static/js/2.7af72273.chunk.js.LICENSE.txt"
+    "static/js/2.4f7e1675.chunk.js.LICENSE.txt": "/presentatrice/static/js/2.4f7e1675.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ff38ec78.js",
-    "static/js/2.7af72273.chunk.js",
-    "static/js/main.6f3045fe.chunk.js"
+    "static/js/2.4f7e1675.chunk.js",
+    "static/js/main.c46842a2.chunk.js"
   ]
 }
