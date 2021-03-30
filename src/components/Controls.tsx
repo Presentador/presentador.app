@@ -13,8 +13,8 @@ function Controls(_: any, ref: any) {
   async function update() {
     if (ref.current) {
       const canvas = await html2canvas(ref.current);
-      setThumbnails(
-        thumbnails.map((item, index) =>
+      setThumbnails((currentThumbnails) =>
+        currentThumbnails.map((item, index) =>
           index === currentSlide.number ? canvas.toDataURL() : item
         )
       );

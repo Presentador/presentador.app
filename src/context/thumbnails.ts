@@ -8,7 +8,9 @@ export function useThumbnailsState() {
 
 export const ThumbnailsContext = React.createContext<{
   thumbnails: string[];
-  setThumbnails: (thumbnails: string[]) => void;
+  setThumbnails: (
+    callback: string[] | ((thumbnails: string[]) => string[])
+  ) => void;
 }>({
   thumbnails: [],
   setThumbnails: () => {},
