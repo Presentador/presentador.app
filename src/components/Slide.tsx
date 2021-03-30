@@ -24,26 +24,10 @@ const SizeWrapper = styled.div<{ scaleSize: number }>`
   transform: ${({ scaleSize }) => `scale(${scaleSize})`};
 `;
 
-const FlexWrapper = styled.div`
-  justify-content: center;
-  align-items: center;
-  display: flex;
-`;
-
-const AspectRatioWrapper = styled.div`
-  width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
-  position: relative;
-`;
-
 const StyledSlide = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
   background: white;
+  width: 100%;
+  height: 100%;
 
   a {
     color: #51c2f7;
@@ -61,8 +45,8 @@ function Slide({ present }: { present: boolean }, ref: any) {
   const Wrapper = renderersMap[currentSlide.state];
 
   function updateSize() {
-    // scale to fit window width
-    const scale = window.innerWidth / 960;
+    // scale to fit window width and/or height
+    const scale = Math.min(window.innerWidth / 960, window.innerHeight / 700);
     setSize(scale);
   }
   useLayoutEffect(() => {
@@ -72,38 +56,34 @@ function Slide({ present }: { present: boolean }, ref: any) {
 
   return (
     <SizeWrapper scaleSize={size > 1 && !present ? 1 : size}>
-      <FlexWrapper>
-        <AspectRatioWrapper>
-          <StyledSlide className={currentSlide.state} ref={ref}>
-            <Wrapper>
-              {elements
-                .filter((item) => item.slide === currentSlide.number)
-                .map((item) => {
-                  switch (item.type) {
-                    case "heading": {
-                      return <Header key={item.id} item={item} />;
-                    }
-                    case "paragraph": {
-                      return <Paragraph key={item.id} item={item} />;
-                    }
-                    case "image": {
-                      return <Image key={item.id} item={item} />;
-                    }
-                    case "list": {
-                      return <List key={item.id} item={item} />;
-                    }
-                    case "blockquote": {
-                      return <Blockquote key={item.id} item={item} />;
-                    }
-                    default: {
-                      return <></>;
-                    }
-                  }
-                })}
-            </Wrapper>
-          </StyledSlide>
-        </AspectRatioWrapper>
-      </FlexWrapper>
+      <StyledSlide className={currentSlide.state} ref={ref}>
+        <Wrapper>
+          {elements
+            .filter((item) => item.slide === currentSlide.number)
+            .map((item) => {
+              switch (item.type) {
+                case "heading": {
+                  return <Header key={item.id} item={item} />;
+                }
+                case "paragraph": {
+                  return <Paragraph key={item.id} item={item} />;
+                }
+                case "image": {
+                  return <Image key={item.id} item={item} />;
+                }
+                case "list": {
+                  return <List key={item.id} item={item} />;
+                }
+                case "blockquote": {
+                  return <Blockquote key={item.id} item={item} />;
+                }
+                default: {
+                  return <></>;
+                }
+              }
+            })}
+        </Wrapper>
+      </StyledSlide>
     </SizeWrapper>
   );
 }
