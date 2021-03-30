@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Context } from "../../context";
+import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 
 const Container = styled.div`
@@ -26,7 +26,7 @@ function Paragraph({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLDivElement | null>(null);
 
-  const { removeElement, changeElementValue } = useContext(Context);
+  const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&

@@ -1,14 +1,14 @@
 import html2canvas from "html2canvas";
-import { useState, useContext, useEffect, forwardRef } from "react";
+import { useContext, useEffect, forwardRef } from "react";
 
-import { Context } from "../context";
+import { SlidesContext } from "../context/slides";
+import { ThumbnailsContext } from "../context/thumbnails";
 import Thumbnail from "./Thumbnail";
 import ThumbnailAdd from "./ThumbnailAdd";
 
 function Controls(_: any, ref: any) {
-  const { currentSlide, addSlide, elements } = useContext(Context);
-
-  const [thumbnails, setThumbnails] = useState<string[]>([""]);
+  const { currentSlide, addSlide, elements } = useContext(SlidesContext);
+  const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
   async function update() {
     if (ref.current) {
@@ -37,8 +37,6 @@ function Controls(_: any, ref: any) {
     <div>
       {thumbnails.map((item, index) => (
         <Thumbnail
-          setThumbnails={setThumbnails}
-          thumbnails={thumbnails}
           key={index}
           src={item}
           number={index}

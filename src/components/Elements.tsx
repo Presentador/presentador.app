@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext } from "react";
 
-import { Context } from "../context";
+import { SlidesContext } from "../context/slides";
 
 const StyledButton = styled.button`
   padding: 10px;
@@ -14,7 +14,7 @@ const LeftStyledButton = styled.button`
 `;
 
 function Elements({ togglePresent }: { togglePresent: () => void }) {
-  const { addElement, currentSlide } = useContext(Context);
+  const { addElement, currentSlide } = useContext(SlidesContext);
 
   return (
     <div>

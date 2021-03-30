@@ -3,7 +3,8 @@ import { useRef, useState, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
-import { Context, useSlideState } from "../context";
+import { SlidesContext, useSlidesState } from "../context/slides";
+import { ThumbnailsContext, useThumbnailsState } from "../context/thumbnails";
 
 import Elements from "./Elements";
 import Controls from "./Controls";
@@ -52,7 +53,9 @@ function App() {
     addSlide,
     elements,
     numberOfSlides,
-  } = useSlideState();
+  } = useSlidesState();
+
+  const { thumbnails, setThumbnails } = useThumbnailsState();
 
   const [present, setPresent] = useState(false);
 
@@ -96,37 +99,39 @@ function App() {
   }, [currentSlide, numberOfSlides]); // eslint-disable-line
 
   return (
-    <Context.Provider
-      value={{
-        elements,
-        numberOfSlides,
-        currentSlide,
-        addElement,
-        removeElement,
-        changeElementValue,
-        removeSlide,
-        addSlide,
-        changeCurrentSlide,
-      }}
-    >
-      <GlobalStyle />
-      <Wrapper>
-        {!present && (
-          <Elements
-            togglePresent={() => {
-              setPresent(!present);
-              if (screenfull.isEnabled) {
-                screenfull.request();
-              }
-            }}
-          />
-        )}
-        <SlideWrapper>
-          <Slide present={present} ref={slideWrapperRef} />
-        </SlideWrapper>
-        {!present && <Controls ref={slideWrapperRef} />}
-      </Wrapper>
-    </Context.Provider>
+    <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
+      <SlidesContext.Provider
+        value={{
+          elements,
+          numberOfSlides,
+          currentSlide,
+          addElement,
+          removeElement,
+          changeElementValue,
+          removeSlide,
+          addSlide,
+          changeCurrentSlide,
+        }}
+      >
+        <GlobalStyle />
+        <Wrapper>
+          {!present && (
+            <Elements
+              togglePresent={() => {
+                setPresent(!present);
+                if (screenfull.isEnabled) {
+                  screenfull.request();
+                }
+              }}
+            />
+          )}
+          <SlideWrapper>
+            <Slide present={present} ref={slideWrapperRef} />
+          </SlideWrapper>
+          {!present && <Controls ref={slideWrapperRef} />}
+        </Wrapper>
+      </SlidesContext.Provider>
+    </ThumbnailsContext.Provider>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Context } from "../../context";
+import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 
 const Container = styled.div`
@@ -27,7 +27,7 @@ function List({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLUListElement | null>(null);
 
-  const { removeElement, changeElementValue } = useContext(Context);
+  const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading() {
     editingElement.current &&

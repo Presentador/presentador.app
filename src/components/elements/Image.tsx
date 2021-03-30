@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
-import { Context } from "../../context";
+import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 
 const StyledImage = styled.img<{ selected: boolean }>`
@@ -12,7 +12,7 @@ const StyledImage = styled.img<{ selected: boolean }>`
 function Image({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
 
-  const { removeElement } = useContext(Context);
+  const { removeElement } = useContext(SlidesContext);
 
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
     setSelected(false);

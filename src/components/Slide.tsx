@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState, useContext, forwardRef } from "react";
 import styled from "styled-components";
 
-import { Context } from "../context";
+import { SlidesContext } from "../context/slides";
 
 import Header from "./elements/Header";
 import Paragraph from "./elements/Paragraph";
@@ -55,7 +55,7 @@ const StyledSlide = styled.div`
 `;
 
 function Slide({ present }: { present: boolean }, ref: any) {
-  const { elements, currentSlide } = useContext(Context);
+  const { elements, currentSlide } = useContext(SlidesContext);
   const [size, setSize] = useState(1);
 
   const Wrapper = renderersMap[currentSlide.state];

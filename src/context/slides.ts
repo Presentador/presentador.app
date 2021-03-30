@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { Element, State } from "./types";
+import { Element, State } from "../types";
 
-import { buildersMap } from "./renderers";
+import { buildersMap } from "../renderers";
 
-export function useSlideState() {
+export function useSlidesState() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [elements, setElements] = useState<Element[]>([]);
   const [slideState, setSlideState] = useState<State[]>(["normal"]);
@@ -96,7 +96,7 @@ export function useSlideState() {
   };
 }
 
-export const Context = React.createContext<{
+export const SlidesContext = React.createContext<{
   numberOfSlides: number;
   currentSlide: { state: State; number: number };
   elements: Element[];

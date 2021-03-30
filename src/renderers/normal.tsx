@@ -15,8 +15,8 @@ const BlockContainer = styled.div`
 export function NormalRenderer({ children }: { children: JSX.Element[] }) {
   return (
     <Container>
-      {children.map((child) => (
-        <BlockContainer>{child}</BlockContainer>
+      {children.map((child, index) => (
+        <BlockContainer key={index}>{child}</BlockContainer>
       ))}
     </Container>
   );

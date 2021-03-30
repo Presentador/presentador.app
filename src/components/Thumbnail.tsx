@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 
-import { Context } from "../context";
+import { SlidesContext } from "../context/slides";
+import { ThumbnailsContext } from "../context/thumbnails";
 
 const Container = styled.div`
   position: relative;
@@ -34,16 +35,15 @@ function Thumbnail({
   src,
   active,
   number,
-  thumbnails,
-  setThumbnails,
 }: {
-  thumbnails: string[];
-  setThumbnails: (thumbnails: string[]) => void;
   src: string;
   active: boolean;
   number: number;
 }) {
-  const { removeSlide, currentSlide, changeCurrentSlide } = useContext(Context);
+  const { removeSlide, currentSlide, changeCurrentSlide } = useContext(
+    SlidesContext
+  );
+  const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
   const Tag =
@@ -68,7 +68,7 @@ function Thumbnail({
       {Tag}
       {hover && thumbnails.length > 1 && (
         <StyledButton
-          onMouseDown={() => {
+          onClick={() => {
             removeSlide(number);
             setThumbnails(
               thumbnails.filter((item, index) => index !== currentSlide.number)
