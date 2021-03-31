@@ -9,10 +9,21 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const StyledButton = styled.button`
+const StyledRemoveButton = styled.button`
+  padding: 5px;
+  font-size: 1.1em;
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 9999;
+`;
+const StyledAddButton = styled.button`
+  padding: 5px;
+  font-size: 1.1em;
+  position: absolute;
+  top: 0;
+  right: -25px;
+  z-index: 9999;
 `;
 
 const StyledImage = styled.img<{ active: boolean }>`
@@ -40,7 +51,7 @@ function Thumbnail({
   active: boolean;
   number: number;
 }) {
-  const { removeSlide, currentSlide, changeCurrentSlide } = useContext(
+  const { addSlide, removeSlide, changeCurrentSlide } = useContext(
     SlidesContext
   );
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
@@ -66,17 +77,31 @@ function Thumbnail({
       onMouseLeave={() => setHover(false)}
     >
       {Tag}
-      {hover && thumbnails.length > 1 && (
-        <StyledButton
-          onClick={() => {
-            removeSlide(number);
-            setThumbnails(
-              thumbnails.filter((item, index) => index !== currentSlide.number)
-            );
-          }}
-        >
-          X
-        </StyledButton>
+      {hover && (
+        <>
+          {thumbnails.length > 1 && (
+            <StyledRemoveButton
+              onClick={() => {
+                removeSlide(number);
+                setThumbnails(
+                  thumbnails.filter((item, index) => index !== number)
+                );
+              }}
+            >
+              X
+            </StyledRemoveButton>
+          )}
+          <StyledAddButton
+            onClick={() => {
+              addSlide(number + 1);
+              const first = thumbnails.slice(0, number + 1);
+              const rest = thumbnails.slice(number + 1);
+              setThumbnails([...first, "", ...rest]);
+            }}
+          >
+            +
+          </StyledAddButton>
+        </>
       )}
     </Container>
   );

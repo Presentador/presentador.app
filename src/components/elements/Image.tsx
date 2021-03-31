@@ -15,7 +15,7 @@ function Image({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { removeElement } = useContext(SlidesContext);
+  const { currentSlide, removeElement } = useContext(SlidesContext);
 
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
     setSelected(false);
@@ -26,7 +26,7 @@ function Image({ item }: { item: Element }) {
 
   function keydown(event: React.KeyboardEvent<HTMLImageElement>) {
     if (event.key === "Backspace") {
-      removeElement(item.id);
+      removeElement(currentSlide, item.id);
     }
   }
 

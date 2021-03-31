@@ -27,9 +27,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </LeftStyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "heading",
             level: 1,
             value: "Heading 1",
@@ -40,9 +39,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "heading",
             level: 2,
             value: "Heading 2",
@@ -53,9 +51,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "heading",
             level: 3,
             value: "Heading 3",
@@ -66,9 +63,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "heading",
             level: 4,
             value: "Heading 4",
@@ -79,9 +75,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "heading",
             level: 5,
             value: "Heading 5",
@@ -92,9 +87,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "heading",
             level: 6,
             value: "Heading 6",
@@ -105,9 +99,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "paragraph",
             value:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
@@ -118,9 +111,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "image",
             value: "https://placeimg.com/640/480/any",
           })
@@ -130,9 +122,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "list",
             value: "Point one to make",
           })
@@ -142,9 +133,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </StyledButton>
       <StyledButton
         onClick={() =>
-          addElement({
+          addElement(currentSlide, {
             id: new Date().getTime(),
-            slide: currentSlide.number,
             type: "blockquote",
             value: "A wise man once said...",
           })

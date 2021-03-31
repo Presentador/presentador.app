@@ -30,12 +30,11 @@ export type Element = {
   value: string;
   level?: number;
   id: number;
-  slide: number;
 };
 
 export type Slide = {
-  number: number;
   state: State;
+  elements: Element[];
 };
 
 export interface Builder {

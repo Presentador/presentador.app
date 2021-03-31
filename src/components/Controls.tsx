@@ -4,10 +4,9 @@ import { useContext, useEffect, forwardRef } from "react";
 import { SlidesContext } from "../context/slides";
 import { ThumbnailsContext } from "../context/thumbnails";
 import Thumbnail from "./Thumbnail";
-import ThumbnailAdd from "./ThumbnailAdd";
 
 function Controls(_: any, ref: any) {
-  const { currentSlide, addSlide, elements } = useContext(SlidesContext);
+  const { currentSlide, slides } = useContext(SlidesContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
   async function update() {
@@ -15,7 +14,7 @@ function Controls(_: any, ref: any) {
       const canvas = await html2canvas(ref.current);
       setThumbnails((currentThumbnails) =>
         currentThumbnails.map((item, index) =>
-          index === currentSlide.number ? canvas.toDataURL() : item
+          index === currentSlide ? canvas.toDataURL() : item
         )
       );
     }
@@ -24,11 +23,11 @@ function Controls(_: any, ref: any) {
   // Update on elements change
   useEffect(() => {
     update();
-  }, [elements]); //eslint-disable-line
+  }, [slides]); //eslint-disable-line
 
   // Update when a slide is added
   useEffect(() => {
-    if (thumbnails[currentSlide.number] === "") {
+    if (thumbnails[currentSlide] === "") {
       update();
     }
   }, [thumbnails]); //eslint-disable-line
@@ -40,15 +39,9 @@ function Controls(_: any, ref: any) {
           key={index}
           src={item}
           number={index}
-          active={currentSlide.number === index}
+          active={currentSlide === index}
         />
       ))}
-      <ThumbnailAdd
-        addSlide={() => {
-          addSlide();
-          setThumbnails([...thumbnails, ""]);
-        }}
-      />
     </div>
   );
 }

@@ -26,7 +26,9 @@ function Paragraph({ item }: { item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLDivElement | null>(null);
 
-  const { removeElement, changeElementValue } = useContext(SlidesContext);
+  const { currentSlide, removeElement, changeElementValue } = useContext(
+    SlidesContext
+  );
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&
@@ -39,16 +41,16 @@ function Paragraph({ item }: { item: Element }) {
       editingElement.current.setAttribute("contenteditable", "false");
     setSelected(false);
     if (event.target.innerText === "") {
-      removeElement(item.id);
+      removeElement(currentSlide, item.id);
     } else {
-      changeElementValue(item.id, event.target.innerText);
+      changeElementValue(currentSlide, item.id, event.target.innerText);
     }
   }
 
   function changeHeadingText(event: any) {}
 
   function remove() {
-    removeElement(item.id);
+    removeElement(currentSlide, item.id);
   }
 
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {

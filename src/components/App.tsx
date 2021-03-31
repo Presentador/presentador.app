@@ -44,6 +44,7 @@ function App() {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
 
   const {
+    slides,
     currentSlide,
     addElement,
     changeCurrentSlide,
@@ -51,8 +52,6 @@ function App() {
     removeElement,
     changeElementValue,
     addSlide,
-    elements,
-    numberOfSlides,
   } = useSlidesState();
 
   const { thumbnails, setThumbnails } = useThumbnailsState();
@@ -81,14 +80,12 @@ function App() {
   useEffect(() => {
     const callback = (event: any) => {
       if (event.code === "ArrowLeft") {
-        const currentNumber = currentSlide.number;
-        changeCurrentSlide(currentNumber === 0 ? 0 : currentNumber - 1);
+        changeCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
       }
       if (event.code === "ArrowRight") {
-        const currentNumber = currentSlide.number;
-        const totalSlides = numberOfSlides;
+        const totalSlides = slides.length;
         changeCurrentSlide(
-          currentNumber === totalSlides - 1 ? currentNumber : currentNumber + 1
+          currentSlide === totalSlides - 1 ? currentSlide : currentSlide + 1
         );
       }
     };
@@ -96,14 +93,13 @@ function App() {
     window.addEventListener("keydown", callback);
 
     return () => window.removeEventListener("keydown", callback);
-  }, [currentSlide, numberOfSlides]); // eslint-disable-line
+  }, [currentSlide, slides]); // eslint-disable-line
 
   return (
     <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
       <SlidesContext.Provider
         value={{
-          elements,
-          numberOfSlides,
+          slides,
           currentSlide,
           addElement,
           removeElement,

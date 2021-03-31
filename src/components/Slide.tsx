@@ -39,10 +39,11 @@ const StyledSlide = styled.div`
 `;
 
 function Slide({ present }: { present: boolean }, ref: any) {
-  const { elements, currentSlide } = useContext(SlidesContext);
+  const { slides, currentSlide } = useContext(SlidesContext);
   const [size, setSize] = useState(1);
 
-  const Wrapper = renderersMap[currentSlide.state];
+  const slide = slides[currentSlide];
+  const Wrapper = renderersMap[slide.state];
 
   function updateSize() {
     // scale to fit window width and/or height
@@ -56,32 +57,30 @@ function Slide({ present }: { present: boolean }, ref: any) {
 
   return (
     <SizeWrapper scaleSize={size > 1 && !present ? 1 : size}>
-      <StyledSlide className={currentSlide.state} ref={ref}>
+      <StyledSlide className={slide.state} ref={ref}>
         <Wrapper>
-          {elements
-            .filter((item) => item.slide === currentSlide.number)
-            .map((item) => {
-              switch (item.type) {
-                case "heading": {
-                  return <Header key={item.id} item={item} />;
-                }
-                case "paragraph": {
-                  return <Paragraph key={item.id} item={item} />;
-                }
-                case "image": {
-                  return <Image key={item.id} item={item} />;
-                }
-                case "list": {
-                  return <List key={item.id} item={item} />;
-                }
-                case "blockquote": {
-                  return <Blockquote key={item.id} item={item} />;
-                }
-                default: {
-                  return <></>;
-                }
+          {slide.elements.map((item) => {
+            switch (item.type) {
+              case "heading": {
+                return <Header key={item.id} item={item} />;
               }
-            })}
+              case "paragraph": {
+                return <Paragraph key={item.id} item={item} />;
+              }
+              case "image": {
+                return <Image key={item.id} item={item} />;
+              }
+              case "list": {
+                return <List key={item.id} item={item} />;
+              }
+              case "blockquote": {
+                return <Blockquote key={item.id} item={item} />;
+              }
+              default: {
+                return <></>;
+              }
+            }
+          })}
         </Wrapper>
       </StyledSlide>
     </SizeWrapper>

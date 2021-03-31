@@ -35,7 +35,9 @@ function Header({ item }: { item: Element }) {
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
 
-  const { removeElement, changeElementValue } = useContext(SlidesContext);
+  const { currentSlide, removeElement, changeElementValue } = useContext(
+    SlidesContext
+  );
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&
@@ -49,9 +51,9 @@ function Header({ item }: { item: Element }) {
     setSelected(false);
 
     if (event.target.innerText === "") {
-      removeElement(item.id);
+      removeElement(currentSlide, item.id);
     } else {
-      changeElementValue(item.id, event.target.innerText);
+      changeElementValue(currentSlide, item.id, event.target.innerText);
     }
   }
 
@@ -65,7 +67,7 @@ function Header({ item }: { item: Element }) {
   function changeHeadingText(event: any) {}
 
   function remove() {
-    removeElement(item.id);
+    removeElement(currentSlide, item.id);
   }
 
   const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
