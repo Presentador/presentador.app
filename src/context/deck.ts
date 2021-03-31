@@ -3,11 +3,14 @@ import React, { useState } from "react";
 export function useDeckState() {
   const [present, setPresent] = useState(false);
   const [size, setSize] = useState<[number, number]>([960, 700]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  return { present, setPresent, size, setSize };
+  return { currentSlide, setCurrentSlide, present, setPresent, size, setSize };
 }
 
 export const DeckContext = React.createContext<{
+  currentSlide: number;
+  setCurrentSlide: (number: number) => void;
   present: boolean;
   setPresent: (present: boolean) => void;
   size: [number, number];
@@ -17,4 +20,6 @@ export const DeckContext = React.createContext<{
   setSize: () => {},
   present: false,
   setPresent: () => {},
+  currentSlide: 0,
+  setCurrentSlide: () => {},
 });

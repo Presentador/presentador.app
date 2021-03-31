@@ -46,9 +46,7 @@ function App() {
 
   const {
     slides,
-    currentSlide,
     addElement,
-    changeCurrentSlide,
     removeSlide,
     removeElement,
     changeElementValue,
@@ -56,7 +54,14 @@ function App() {
   } = useSlidesState();
 
   const { thumbnails, setThumbnails } = useThumbnailsState();
-  const { present, setPresent, size, setSize } = useDeckState();
+  const {
+    currentSlide,
+    setCurrentSlide,
+    present,
+    setPresent,
+    size,
+    setSize,
+  } = useDeckState();
 
   useEffect(() => {
     const callback = () => {
@@ -80,11 +85,11 @@ function App() {
   useEffect(() => {
     const callback = (event: any) => {
       if (event.code === "ArrowLeft") {
-        changeCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
+        setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
       }
       if (event.code === "ArrowRight") {
         const totalSlides = slides.length;
-        changeCurrentSlide(
+        setCurrentSlide(
           currentSlide === totalSlides - 1 ? currentSlide : currentSlide + 1
         );
       }
@@ -97,17 +102,24 @@ function App() {
 
   return (
     <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
-      <DeckContext.Provider value={{ present, setPresent, size, setSize }}>
+      <DeckContext.Provider
+        value={{
+          currentSlide,
+          setCurrentSlide,
+          present,
+          setPresent,
+          size,
+          setSize,
+        }}
+      >
         <SlidesContext.Provider
           value={{
             slides,
-            currentSlide,
             addElement,
             removeElement,
             changeElementValue,
             removeSlide,
             addSlide,
-            changeCurrentSlide,
           }}
         >
           <GlobalStyle />

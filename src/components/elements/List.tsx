@@ -23,13 +23,11 @@ const StyledList = styled.ul<{ selected: boolean }>`
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function List({ item }: { item: Element }) {
+function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLUListElement | null>(null);
 
-  const { currentSlide, removeElement, changeElementValue } = useContext(
-    SlidesContext
-  );
+  const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading() {
     editingElement.current &&
@@ -42,16 +40,16 @@ function List({ item }: { item: Element }) {
       editingElement.current.setAttribute("contenteditable", "false");
     setSelected(false);
     if (event.target.innerText === "") {
-      removeElement(currentSlide, item.id);
+      removeElement(slideNumber, item.id);
     } else {
-      changeElementValue(currentSlide, item.id, event.target.innerText);
+      changeElementValue(slideNumber, item.id, event.target.innerText);
     }
   }
 
   function changeHeadingText(event: any) {}
 
   function remove() {
-    removeElement(currentSlide, item.id);
+    removeElement(slideNumber, item.id);
   }
 
   function sanitizeHTML(text: string) {

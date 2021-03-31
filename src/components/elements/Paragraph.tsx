@@ -22,13 +22,17 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function Paragraph({ item }: { item: Element }) {
+function Paragraph({
+  slideNumber,
+  item,
+}: {
+  slideNumber: number;
+  item: Element;
+}) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLDivElement | null>(null);
 
-  const { currentSlide, removeElement, changeElementValue } = useContext(
-    SlidesContext
-  );
+  const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&
@@ -41,16 +45,16 @@ function Paragraph({ item }: { item: Element }) {
       editingElement.current.setAttribute("contenteditable", "false");
     setSelected(false);
     if (event.target.innerText === "") {
-      removeElement(currentSlide, item.id);
+      removeElement(slideNumber, item.id);
     } else {
-      changeElementValue(currentSlide, item.id, event.target.innerText);
+      changeElementValue(slideNumber, item.id, event.target.innerText);
     }
   }
 
   function changeHeadingText(event: any) {}
 
   function remove() {
-    removeElement(currentSlide, item.id);
+    removeElement(slideNumber, item.id);
   }
 
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {

@@ -31,13 +31,11 @@ const StyledHeader = styled.div<{ level: number; selected: boolean }>`
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
 `;
 
-function Header({ item }: { item: Element }) {
+function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
 
-  const { currentSlide, removeElement, changeElementValue } = useContext(
-    SlidesContext
-  );
+  const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading(event: React.FocusEvent<HTMLDivElement>) {
     editingElement.current &&
@@ -51,9 +49,9 @@ function Header({ item }: { item: Element }) {
     setSelected(false);
 
     if (event.target.innerText === "") {
-      removeElement(currentSlide, item.id);
+      removeElement(slideNumber, item.id);
     } else {
-      changeElementValue(currentSlide, item.id, event.target.innerText);
+      changeElementValue(slideNumber, item.id, event.target.innerText);
     }
   }
 
@@ -67,7 +65,7 @@ function Header({ item }: { item: Element }) {
   function changeHeadingText(event: any) {}
 
   function remove() {
-    removeElement(currentSlide, item.id);
+    removeElement(slideNumber, item.id);
   }
 
   const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";

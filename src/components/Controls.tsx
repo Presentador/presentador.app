@@ -2,11 +2,13 @@ import html2canvas from "html2canvas";
 import { useContext, useEffect, forwardRef } from "react";
 
 import { SlidesContext } from "../context/slides";
+import { DeckContext } from "../context/deck";
 import { ThumbnailsContext } from "../context/thumbnails";
 import Thumbnail from "./Thumbnail";
 
 function Controls(_: any, ref: any) {
-  const { currentSlide, slides } = useContext(SlidesContext);
+  const { slides } = useContext(SlidesContext);
+  const { currentSlide } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
   async function update() {

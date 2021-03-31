@@ -11,11 +11,11 @@ const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
     loadingState ? "rgba(0, 0, 0, 0.1)" : "none"};
 `;
 
-function Image({ item }: { item: Element }) {
+function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
   const [selected, setSelected] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const { currentSlide, removeElement } = useContext(SlidesContext);
+  const { removeElement } = useContext(SlidesContext);
 
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
     setSelected(false);
@@ -26,7 +26,7 @@ function Image({ item }: { item: Element }) {
 
   function keydown(event: React.KeyboardEvent<HTMLImageElement>) {
     if (event.key === "Backspace") {
-      removeElement(currentSlide, item.id);
+      removeElement(slideNumber, item.id);
     }
   }
 

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../context/slides";
+import { DeckContext } from "../context/deck";
 import { ThumbnailsContext } from "../context/thumbnails";
 
 const Container = styled.div`
@@ -51,9 +52,8 @@ function Thumbnail({
   active: boolean;
   number: number;
 }) {
-  const { addSlide, removeSlide, changeCurrentSlide } = useContext(
-    SlidesContext
-  );
+  const { addSlide, removeSlide } = useContext(SlidesContext);
+  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
@@ -63,7 +63,7 @@ function Thumbnail({
         active={active}
         src={src}
         alt={`Slide`}
-        onClick={() => changeCurrentSlide(number)}
+        onClick={() => setCurrentSlide(number)}
       />
     ) : (
       <StyledLoadingPlaceholder active={active}>
@@ -83,6 +83,7 @@ function Thumbnail({
             <StyledRemoveButton
               onClick={() => {
                 removeSlide(number);
+                setCurrentSlide(number === 0 ? number : number - 1);
                 setThumbnails(
                   thumbnails.filter((item, index) => index !== number)
                 );
@@ -94,6 +95,7 @@ function Thumbnail({
           <StyledAddButton
             onClick={() => {
               addSlide(number + 1);
+              setCurrentSlide(currentSlide + 1);
               const first = thumbnails.slice(0, number + 1);
               const rest = thumbnails.slice(number + 1);
               setThumbnails([...first, "", ...rest]);

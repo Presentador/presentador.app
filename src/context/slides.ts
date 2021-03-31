@@ -5,7 +5,6 @@ import { Slide, Element } from "../types";
 import { buildersMap } from "../renderers";
 
 export function useSlidesState() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [slides, setSlides] = useState<Slide[]>([
     { state: "normal", elements: [] },
   ]);
@@ -14,13 +13,9 @@ export function useSlidesState() {
     const first = slides.slice(0, at);
     const rest = slides.slice(at);
     setSlides([...first, { state: "normal", elements: [] }, ...rest]);
-    setCurrentSlide(at);
   }
   function removeSlide(number: number) {
     setSlides(slides.filter((_, index) => index !== number));
-    setCurrentSlide(
-      currentSlide === slides.length - 1 ? currentSlide - 1 : currentSlide
-    );
   }
 
   async function addElement(slideNumber: number, item: Element) {
@@ -86,37 +81,27 @@ export function useSlidesState() {
     );
   }
 
-  function changeCurrentSlide(number: number) {
-    setCurrentSlide(number);
-  }
-
   return {
     slides,
-    currentSlide,
     addElement,
     removeElement,
     changeElementValue,
-    changeCurrentSlide,
     addSlide,
     removeSlide,
   };
 }
 
 export const SlidesContext = React.createContext<{
-  currentSlide: number;
   slides: Slide[];
   removeSlide: (id: number) => void;
   addSlide: (id?: number) => void;
   addElement: (slideNumber: number, item: Element) => void;
   removeElement: (slideNumber: number, id: number) => void;
   changeElementValue: (slideNumber: number, id: number, value: string) => void;
-  changeCurrentSlide: (number: number) => void;
 }>({
-  currentSlide: 0,
   slides: [],
   addSlide: () => {},
   removeSlide: () => {},
-  changeCurrentSlide: () => {},
   addElement: () => {},
   removeElement: () => {},
   changeElementValue: () => {},
