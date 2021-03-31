@@ -2,6 +2,7 @@ import { useLayoutEffect, useState, useContext, forwardRef } from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../context/slides";
+import { DeckContext } from "../context/deck";
 
 import Header from "./elements/Header";
 import Paragraph from "./elements/Paragraph";
@@ -40,23 +41,27 @@ const StyledSlide = styled.div`
 
 function Slide({ present }: { present: boolean }, ref: any) {
   const { slides, currentSlide } = useContext(SlidesContext);
-  const [size, setSize] = useState(1);
+  const { size } = useContext(DeckContext);
+  const [scale, setScale] = useState(1);
 
   const slide = slides[currentSlide];
   const Wrapper = renderersMap[slide.state];
 
   function updateSize() {
     // scale to fit window width and/or height
-    const scale = Math.min(window.innerWidth / 960, window.innerHeight / 700);
-    setSize(scale);
+    const scale = Math.min(
+      window.innerWidth / size[0],
+      window.innerHeight / size[1]
+    );
+    setScale(scale);
   }
   useLayoutEffect(() => {
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
-    <SizeWrapper scaleSize={size > 1 && !present ? 1 : size}>
+    <SizeWrapper scaleSize={scale > 1 && !present ? 1 : scale}>
       <StyledSlide className={slide.state} ref={ref}>
         <Wrapper>
           {slide.elements.map((item) => {

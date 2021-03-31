@@ -1,10 +1,11 @@
 import screenfull from "screenfull";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 import { SlidesContext, useSlidesState } from "../context/slides";
 import { ThumbnailsContext, useThumbnailsState } from "../context/thumbnails";
+import { DeckContext, useDeckState } from "../context/deck";
 
 import Elements from "./Elements";
 import Controls from "./Controls";
@@ -55,8 +56,7 @@ function App() {
   } = useSlidesState();
 
   const { thumbnails, setThumbnails } = useThumbnailsState();
-
-  const [present, setPresent] = useState(false);
+  const { present, setPresent, size, setSize } = useDeckState();
 
   useEffect(() => {
     const callback = () => {
@@ -75,7 +75,7 @@ function App() {
       }
     };
     return unsubscribe;
-  }, [present]);
+  }, [present]); // eslint-disable-line
 
   useEffect(() => {
     const callback = (event: any) => {
@@ -97,36 +97,38 @@ function App() {
 
   return (
     <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
-      <SlidesContext.Provider
-        value={{
-          slides,
-          currentSlide,
-          addElement,
-          removeElement,
-          changeElementValue,
-          removeSlide,
-          addSlide,
-          changeCurrentSlide,
-        }}
-      >
-        <GlobalStyle />
-        <Wrapper>
-          {!present && (
-            <Elements
-              togglePresent={() => {
-                setPresent(!present);
-                if (screenfull.isEnabled) {
-                  screenfull.request();
-                }
-              }}
-            />
-          )}
-          <SlideWrapper>
-            <Slide present={present} ref={slideWrapperRef} />
-          </SlideWrapper>
-          {!present && <Controls ref={slideWrapperRef} />}
-        </Wrapper>
-      </SlidesContext.Provider>
+      <DeckContext.Provider value={{ present, setPresent, size, setSize }}>
+        <SlidesContext.Provider
+          value={{
+            slides,
+            currentSlide,
+            addElement,
+            removeElement,
+            changeElementValue,
+            removeSlide,
+            addSlide,
+            changeCurrentSlide,
+          }}
+        >
+          <GlobalStyle />
+          <Wrapper>
+            {!present && (
+              <Elements
+                togglePresent={() => {
+                  setPresent(!present);
+                  if (screenfull.isEnabled) {
+                    screenfull.request();
+                  }
+                }}
+              />
+            )}
+            <SlideWrapper>
+              <Slide present={present} ref={slideWrapperRef} />
+            </SlideWrapper>
+            {!present && <Controls ref={slideWrapperRef} />}
+          </Wrapper>
+        </SlidesContext.Provider>
+      </DeckContext.Provider>
     </ThumbnailsContext.Provider>
   );
 }
