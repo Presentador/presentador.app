@@ -95,7 +95,7 @@ function Thumbnail({
           <StyledAddButton
             onClick={() => {
               addSlide(number + 1);
-              setCurrentSlide(currentSlide + 1);
+              setCurrentSlide(number + 1);
               const first = thumbnails.slice(0, number + 1);
               const rest = thumbnails.slice(number + 1);
               setThumbnails([...first, "", ...rest]);
