@@ -4,6 +4,7 @@ export type State =
   | "twoHeaders"
   | "singleHeader"
   | "headerCodeblock"
+  | "headerBlockquote"
   | "headerManyParagraphs"
   | "headerManyParagraphsImage"
   | "headerParagraphImage"

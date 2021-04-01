@@ -27,6 +27,10 @@ import {
 import { ImageRenderer, ImageBuilder } from "./image";
 import { ManyImagesRenderer, ManyImagesBuilder } from "./manyImages";
 import { HeaderImageRenderer, HeaderImageBuilder } from "./headerImage";
+import {
+  HeaderBlockquoteRenderer,
+  HeaderBlockquoteBuilder,
+} from "./headerBlockquote";
 import { HeaderListRenderer, HeaderListBuilder } from "./headerList";
 
 export const renderersMap: Record<State, any> = {
@@ -43,6 +47,7 @@ export const renderersMap: Record<State, any> = {
   headerList: HeaderListRenderer,
   blockquote: BlockquoteRenderer,
   headerManyParagraphs: HeaderManyParagraphsRenderer,
+  headerBlockquote: HeaderBlockquoteRenderer,
 };
 
 export const buildersMap: Record<State, Builder> = {
@@ -59,4 +64,5 @@ export const buildersMap: Record<State, Builder> = {
   headerList: HeaderListBuilder,
   blockquote: BlockquoteBuilder,
   headerManyParagraphs: HeaderManyParagraphsBuilder,
+  headerBlockquote: HeaderBlockquoteBuilder,
 };

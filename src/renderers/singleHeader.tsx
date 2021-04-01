@@ -39,6 +39,7 @@ export const SingleHeaderBuilder: Builder = {
     if (type === "list") return "headerList";
     if (type === "image") return "headerImage";
     if (type === "code_block") return "headerCodeblock";
+    if (type === "blockquote") return "headerBlockquote";
     return "normal";
   },
   remove: (type) => {
