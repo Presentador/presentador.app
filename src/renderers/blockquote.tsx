@@ -11,6 +11,11 @@ const Container = styled.div`
   align-items: center;
 
   color: ${colours.lightText};
+
+  blockquote {
+    padding: 50px;
+    background: #f9f9f9;
+  }
 `;
 
 export function BlockquoteRenderer({ children }: { children: JSX.Element[] }) {

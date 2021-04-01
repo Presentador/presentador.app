@@ -19,11 +19,8 @@ const StyledButton = styled.button`
 const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
   font-size: 1.3em;
   line-height: 1.4em;
-  padding: 50px;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
   quotes: "“" "”" "‘" "’";
-
-  background: #f9f9f9;
 
   &:before {
     color: #ccc;
