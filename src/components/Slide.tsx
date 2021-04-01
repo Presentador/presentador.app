@@ -33,10 +33,6 @@ const StyledSlide = styled.div`
   a {
     color: #51c2f7;
   }
-
-  ul {
-    list-style-type: circle;
-  }
 `;
 
 function Slide({ present }: { present: boolean }, ref: any) {

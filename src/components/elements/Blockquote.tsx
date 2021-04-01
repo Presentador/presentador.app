@@ -18,6 +18,7 @@ const StyledButton = styled.button`
 
 const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
   font-size: 1.3em;
+  line-height: 1.4em;
   padding: 50px;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
   quotes: "“" "”" "‘" "’";
@@ -31,10 +32,6 @@ const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
     line-height: 0.1em;
     margin-right: 0.25em;
     vertical-align: -0.4em;
-  }
-
-  p {
-    display: inline;
   }
 `;
 
@@ -92,7 +89,7 @@ function Blockquote({
         tabIndex={-1}
         data-id={item.id}
       >
-        <p>{item.value}</p>
+        {item.value}
       </StyledBlockquote>
       {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
     </Container>

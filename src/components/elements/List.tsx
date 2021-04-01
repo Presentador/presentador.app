@@ -21,6 +21,9 @@ const StyledList = styled.ul<{ selected: boolean }>`
   font-size: 1.3em;
   padding-left: 1em; // fix lists' left padding
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+
+  line-height: 1.4em;
+  list-style-type: circle;
 `;
 
 function List({ slideNumber, item }: { slideNumber: number; item: Element }) {

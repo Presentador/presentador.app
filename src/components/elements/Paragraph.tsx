@@ -20,6 +20,7 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
   font-size: 1.3em;
   padding: 5px;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+  line-height: 1.4em;
 `;
 
 function Paragraph({
