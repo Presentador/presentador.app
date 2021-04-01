@@ -53,7 +53,7 @@ function Thumbnail({
   number: number;
 }) {
   const { addSlide, removeSlide } = useContext(SlidesContext);
-  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
+  const { setCurrentSlide } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 

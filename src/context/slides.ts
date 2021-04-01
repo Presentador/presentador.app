@@ -10,17 +10,19 @@ export function useSlidesState() {
   ]);
 
   function addSlide(at: number = slides.length) {
-    const first = slides.slice(0, at);
-    const rest = slides.slice(at);
-    setSlides([...first, { state: "normal", elements: [] }, ...rest]);
+    setSlides((prev) => {
+      const first = prev.slice(0, at);
+      const rest = prev.slice(at);
+      return [...first, { state: "normal", elements: [] }, ...rest];
+    });
   }
   function removeSlide(number: number) {
-    setSlides(slides.filter((_, index) => index !== number));
+    setSlides((prev) => prev.filter((_, index) => index !== number));
   }
 
   async function addElement(slideNumber: number, item: Element) {
-    setSlides(
-      slides.map((slide, index) => {
+    setSlides((prev) =>
+      prev.map((slide, index) => {
         if (index !== slideNumber) {
           return slide;
         }
@@ -39,8 +41,8 @@ export function useSlidesState() {
   }
 
   function removeElement(slideNumber: number, id: number) {
-    setSlides(
-      slides.map((slide, index) => {
+    setSlides((prev) =>
+      prev.map((slide, index) => {
         if (index !== slideNumber) {
           return slide;
         }
@@ -65,8 +67,8 @@ export function useSlidesState() {
   }
 
   function changeElementValue(slideNumber: number, id: number, value: string) {
-    setSlides(
-      slides.map((slide, index) => {
+    setSlides((prev) =>
+      prev.map((slide, index) => {
         if (index !== slideNumber) {
           return slide;
         }

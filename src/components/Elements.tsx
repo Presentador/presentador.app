@@ -4,10 +4,8 @@ import { useContext } from "react";
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
 
-const StyledButton = styled.button`
-  padding: 10px;
-  margin-right: 5px;
-`;
+import StyledButton from "./menu/StyledButton";
+import Image from "./menu/Image";
 
 const LeftStyledButton = styled.button`
   padding: 10px;
@@ -111,17 +109,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       >
         P
       </StyledButton>
-      <StyledButton
-        onClick={() =>
-          addElement(currentSlide, {
-            id: new Date().getTime(),
-            type: "image",
-            value: "https://placeimg.com/640/480/any",
-          })
-        }
-      >
-        Img
-      </StyledButton>
+      <Image />
       <StyledButton
         onClick={() =>
           addElement(currentSlide, {
