@@ -13,6 +13,7 @@ const BlockContainer = styled.div`
 
   & > * {
     padding-bottom: 1em;
+    max-width: 100%;
   }
 `;
 
