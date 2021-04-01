@@ -10,6 +10,10 @@ const Container = styled.div`
 const BlockContainer = styled.div`
   display: block;
   padding-bottom: 0.5em;
+
+  & > * {
+    padding-bottom: 1em;
+  }
 `;
 
 export function NormalRenderer({ children }: { children: JSX.Element[] }) {
