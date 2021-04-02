@@ -18,8 +18,8 @@ const StyledButton = styled.button`
 
 const StyledParagraph = styled.p<{ selected: boolean }>`
   font-size: 1.3em;
-  padding: 5px;
-  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+  padding: 0.1em;
+  border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")};
   line-height: 1.4em;
 `;
 

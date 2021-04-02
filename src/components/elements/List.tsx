@@ -19,8 +19,9 @@ const StyledButton = styled.button`
 const StyledList = styled.ul<{ selected: boolean }>`
   white-space: pre-wrap;
   font-size: 1.3em;
+  padding: 0.1em;
   padding-left: 1em; // fix lists' left padding
-  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+  border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")};
 
   line-height: 1.4em;
   list-style-type: circle;

@@ -37,6 +37,10 @@ const StyledSlide = styled.div`
   a {
     color: #51c2f7;
   }
+
+  *:focus {
+    outline: none;
+  }
 `;
 
 const Footer = styled.div`

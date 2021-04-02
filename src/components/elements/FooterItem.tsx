@@ -26,10 +26,10 @@ const StyledButton = styled.button`
 `;
 
 const StyledFooterItem = styled.div<{ selected: boolean }>`
-  font-size: 0.8em;
+  font-size: 0.9em;
   line-height: 1.4em;
-  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
-  padding: 1em;
+  padding: 0.5em;
+  border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")}; ;
 `;
 
 function FooterItem({

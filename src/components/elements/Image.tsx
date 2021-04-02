@@ -7,7 +7,8 @@ import { Element } from "../../types";
 
 const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
   font-size: 1.3em;
-  border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+  padding: 0.5em;
+  border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")};
   background: ${({ loadingState }) =>
     loadingState ? "rgba(0, 0, 0, 0.1)" : "none"};
 `;
