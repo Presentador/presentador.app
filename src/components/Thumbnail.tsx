@@ -53,7 +53,7 @@ function Thumbnail({
   number: number;
 }) {
   const { addSlide, removeSlide } = useContext(SlidesContext);
-  const { setCurrentSlide } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
@@ -83,7 +83,15 @@ function Thumbnail({
             <StyledRemoveButton
               onClick={() => {
                 removeSlide(number);
-                setCurrentSlide(number === 0 ? number : number - 1);
+                setCurrentSlide(
+                  currentSlide === number
+                    ? number === 0
+                      ? number
+                      : number - 1
+                    : currentSlide === 0
+                    ? currentSlide
+                    : currentSlide - 1
+                );
                 setThumbnails(
                   thumbnails.filter((item, index) => index !== number)
                 );

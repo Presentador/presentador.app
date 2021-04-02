@@ -1,10 +1,16 @@
 import html2canvas from "html2canvas";
+import styled from "styled-components";
 import { useContext, useEffect, forwardRef } from "react";
 
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
 import { ThumbnailsContext } from "../context/thumbnails";
 import Thumbnail from "./Thumbnail";
+
+const Container = styled.div`
+  overflow-y: scroll;
+  white-space: nowrap;
+`;
 
 function Controls(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);
@@ -35,7 +41,7 @@ function Controls(_: any, ref: any) {
   }, [thumbnails]); //eslint-disable-line
 
   return (
-    <div>
+    <Container>
       {thumbnails.map((item, index) => (
         <Thumbnail
           key={index}
@@ -44,7 +50,7 @@ function Controls(_: any, ref: any) {
           active={currentSlide === index}
         />
       ))}
-    </div>
+    </Container>
   );
 }
 
