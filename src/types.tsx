@@ -25,6 +25,7 @@ export type ElementType =
   | "list"
   | "code_block"
   | "paragraph"
+  | "footer"
   | "blockquote";
 
 export type Element = {

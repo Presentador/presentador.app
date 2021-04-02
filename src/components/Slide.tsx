@@ -9,6 +9,7 @@ import Paragraph from "./elements/Paragraph";
 import Image from "./elements/Image";
 import List from "./elements/List";
 import Blockquote from "./elements/Blockquote";
+import FooterItem from "./elements/FooterItem";
 
 import { renderersMap } from "../renderers";
 
@@ -26,6 +27,9 @@ const SizeWrapper = styled.div<{ scaleSize: number }>`
 `;
 
 const StyledSlide = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   background: white;
   width: 100%;
   height: 100%;
@@ -33,6 +37,15 @@ const StyledSlide = styled.div`
   a {
     color: #51c2f7;
   }
+`;
+
+const Footer = styled.div`
+  max-height: 1em;
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
 `;
 
 function Slide({ present }: { present: boolean }, ref: any) {
@@ -105,6 +118,17 @@ function Slide({ present }: { present: boolean }, ref: any) {
             }
           })}
         </Wrapper>
+        <Footer>
+          {slide.elements
+            .filter((item) => item.type === "footer")
+            .map((item) => (
+              <FooterItem
+                key={item.id}
+                item={item}
+                slideNumber={currentSlide}
+              />
+            ))}
+        </Footer>
       </StyledSlide>
     </SizeWrapper>
   );

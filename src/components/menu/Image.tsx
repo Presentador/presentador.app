@@ -44,10 +44,10 @@ function Image() {
   useEffect(() => {
     const callback = (event: any) => {
       const items = event.clipboardData.items;
-      setLoading(true);
       for (const index in items) {
         const item = items[index];
         if (item.kind === "file") {
+          setLoading(true);
           const blob = item.getAsFile();
           const reader = new FileReader();
           reader.onload = function (event) {

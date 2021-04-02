@@ -44,10 +44,10 @@ export function useSlidesState() {
           return slide;
         }
 
-        const nextState = buildersMap[slide.state].add(
-          item.type,
-          slide.elements
-        );
+        const nextState =
+          item.type === "footer"
+            ? slide.state
+            : buildersMap[slide.state].add(item.type, slide.elements);
 
         return {
           elements: [...slide.elements, item],
@@ -70,10 +70,10 @@ export function useSlidesState() {
           return slide;
         }
 
-        const nextState = buildersMap[slide.state].remove(
-          element.type,
-          slide.elements
-        );
+        const nextState =
+          element.type === "footer"
+            ? slide.state
+            : buildersMap[slide.state].remove(element.type, slide.elements);
 
         return {
           elements: slide.elements.filter((item) => item.id !== id),

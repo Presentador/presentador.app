@@ -148,6 +148,17 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
         >
           Q
         </StyledButton>
+        <StyledButton
+          onClick={() =>
+            addElement(currentSlide, {
+              id: new Date().getTime(),
+              type: "footer",
+              value: "Copyright 2020",
+            })
+          }
+        >
+          F
+        </StyledButton>
       </Center>
       <Right></Right>
     </Container>
