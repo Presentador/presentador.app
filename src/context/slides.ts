@@ -19,7 +19,7 @@ export function useSlidesState() {
           id: 2,
           type: "list",
           value:
-            "It places your elements in the right place so you don't have to.\nIt's open-source.\nTry to add an image to this slide.",
+            "It places your elements in the right place so you don't have to.\nIt's open-source.\nTry removing this list element and add another one.",
           level: 1,
         },
       ],
