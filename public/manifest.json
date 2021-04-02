@@ -1,6 +1,7 @@
 {
   "short_name": "Presentador.app",
   "name": "The opinionated presentation app.",
+  "display": "standalone",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +19,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
+  "start_url": "https://presentador.app",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
