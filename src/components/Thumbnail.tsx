@@ -1,6 +1,9 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
 
+import { ReactComponent as TrashIcon } from "../trash.svg";
+import { ReactComponent as AddIcon } from "../add.svg";
+
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
 import { ThumbnailsContext } from "../context/thumbnails";
@@ -11,20 +14,18 @@ const Container = styled.div`
 `;
 
 const StyledRemoveButton = styled.button`
-  padding: 0.5em;
-  font-size: 1.1em;
+  padding: 0.3em;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   z-index: 9999;
 `;
 const StyledAddButton = styled.button`
-  padding: 0.5em;
-  font-size: 1.1em;
-  position: absolute;
-  top: 0;
-  right: -30px;
-  z-index: 9999;
+  display: inline-block;
+  width: 20px;
+  height: 100px;
+  vertical-align: middle;
+  cursor: pointer;
 `;
 
 const StyledImage = styled.img<{ active: boolean }>`
@@ -97,7 +98,7 @@ function Thumbnail({
                 );
               }}
             >
-              X
+              <TrashIcon />
             </StyledRemoveButton>
           )}
           <StyledAddButton
@@ -109,7 +110,7 @@ function Thumbnail({
               setThumbnails([...first, "", ...rest]);
             }}
           >
-            +
+            <AddIcon />
           </StyledAddButton>
         </>
       )}

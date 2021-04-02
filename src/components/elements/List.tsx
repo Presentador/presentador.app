@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
+import { ReactComponent as TrashIcon } from "../../trash.svg";
 
 const Container = styled.div`
   position: relative;
@@ -84,7 +85,11 @@ function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
             .join(""),
         }}
       ></StyledList>
-      {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
+      {selected && (
+        <StyledButton onMouseDown={remove}>
+          <TrashIcon />
+        </StyledButton>
+      )}
     </Container>
   );
 }

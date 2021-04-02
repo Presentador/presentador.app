@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
+import { ReactComponent as TrashIcon } from "../../trash.svg";
 
 const Container = styled.div`
   position: relative;
@@ -89,7 +90,11 @@ function Blockquote({
       >
         {item.value}
       </StyledBlockquote>
-      {selected && <StyledButton onMouseDown={remove}>X</StyledButton>}
+      {selected && (
+        <StyledButton onMouseDown={remove}>
+          <TrashIcon />
+        </StyledButton>
+      )}
     </Container>
   );
 }
