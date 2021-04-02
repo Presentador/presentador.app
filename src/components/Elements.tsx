@@ -153,7 +153,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
             addElement(currentSlide, {
               id: new Date().getTime(),
               type: "footer",
-              value: "Copyright 2020",
+              value: "Made with Presentador",
             })
           }
         >
