@@ -138,8 +138,8 @@ function App() {
           }}
         >
           <GlobalStyle />
-          <LoadingBar />
           <Wrapper>
+            <LoadingBar />
             {!present && (
               <Elements
                 togglePresent={() => {

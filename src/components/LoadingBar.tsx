@@ -18,6 +18,8 @@ const colours = [
 ];
 
 const StyledLoadingBar = styled.div<{ loading: boolean }>`
+  flex: 1;
+  max-height: 2px;
   height: 2px;
   width: 100%;
   ${({ loading }) =>

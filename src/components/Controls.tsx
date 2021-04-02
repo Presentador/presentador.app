@@ -15,7 +15,7 @@ const Container = styled.div`
 
 function Controls(_: any, ref: any) {
   const { slides, setSlides } = useContext(SlidesContext);
-  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide, setLoading } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
   async function update() {
@@ -57,12 +57,15 @@ function Controls(_: any, ref: any) {
     <DragDropContext
       onDragEnd={(result) => {
         if (!result.destination) return;
+        setLoading(true);
         const source = result.source.index;
         const destination = result.destination.index;
-
-        setSlides(reorder(slides, source, destination));
-        setThumbnails(reorder(thumbnails, source, destination));
-        setCurrentSlide(destination);
+        setImmediate(() => {
+          setSlides(reorder(slides, source, destination));
+          setThumbnails(reorder(thumbnails, source, destination));
+          setCurrentSlide(destination);
+          setLoading(false);
+        });
       }}
     >
       <Droppable droppableId="thumbnails" direction="horizontal">
