@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 const StyledRemoveButton = styled.button`
-  padding: 5px;
+  padding: 0.5em;
   font-size: 1.1em;
   position: absolute;
   top: 0;
@@ -19,11 +19,11 @@ const StyledRemoveButton = styled.button`
   z-index: 9999;
 `;
 const StyledAddButton = styled.button`
-  padding: 5px;
+  padding: 0.5em;
   font-size: 1.1em;
   position: absolute;
   top: 0;
-  right: -25px;
+  right: -30px;
   z-index: 9999;
 `;
 
