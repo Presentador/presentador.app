@@ -1,4 +1,8 @@
+import { useContext } from "react";
+
 import styled from "styled-components";
+
+import { DeckContext } from "../context/deck";
 
 const colours = [
   "#e3fafc",
@@ -48,7 +52,8 @@ const StyledLoadingBar = styled.div<{ loading: boolean }>`
 `;
 
 function LoadingBar() {
-  return <StyledLoadingBar loading={false} />;
+  const { loading } = useContext(DeckContext);
+  return <StyledLoadingBar loading={loading} />;
 }
 
 export default LoadingBar;

@@ -2,15 +2,27 @@ import React, { useState } from "react";
 
 export function useDeckState() {
   const [present, setPresent] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [size, setSize] = useState<[number, number]>([960, 700]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  return { currentSlide, setCurrentSlide, present, setPresent, size, setSize };
+  return {
+    loading,
+    setLoading,
+    currentSlide,
+    setCurrentSlide,
+    present,
+    setPresent,
+    size,
+    setSize,
+  };
 }
 
 export const DeckContext = React.createContext<{
   currentSlide: number;
   setCurrentSlide: (number: number) => void;
+  loading: boolean;
+  setLoading: (state: boolean) => void;
   present: boolean;
   setPresent: (present: boolean) => void;
   size: [number, number];
@@ -22,4 +34,6 @@ export const DeckContext = React.createContext<{
   setPresent: () => {},
   currentSlide: 0,
   setCurrentSlide: () => {},
+  loading: false,
+  setLoading: () => {},
 });

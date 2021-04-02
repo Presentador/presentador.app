@@ -37,13 +37,14 @@ const CenteredContainer = styled.div`
 
 function Image() {
   const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, setLoading } = useContext(DeckContext);
 
   const [imageModalOpen, setImageModalOpen] = useState(false);
 
   useEffect(() => {
     const callback = (event: any) => {
       const items = event.clipboardData.items;
+      setLoading(true);
       for (const index in items) {
         const item = items[index];
         if (item.kind === "file") {
@@ -57,6 +58,7 @@ function Image() {
                 value: event?.target?.result as string,
               });
               setImageModalOpen(false);
+              setLoading(false);
             }
           };
           blob && reader.readAsDataURL(blob);

@@ -62,6 +62,8 @@ function App() {
     setPresent,
     size,
     setSize,
+    loading,
+    setLoading,
   } = useDeckState();
 
   useEffect(() => {
@@ -105,6 +107,8 @@ function App() {
     <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
       <DeckContext.Provider
         value={{
+          loading,
+          setLoading,
           currentSlide,
           setCurrentSlide,
           present,
