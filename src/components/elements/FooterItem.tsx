@@ -29,6 +29,7 @@ const StyledFooterItem = styled.div<{ selected: boolean }>`
   font-size: 0.8em;
   line-height: 1.4em;
   border: ${({ selected }) => (selected ? "1px solid red" : "none")};
+  padding: 1em;
 `;
 
 function FooterItem({

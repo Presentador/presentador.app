@@ -40,8 +40,6 @@ const StyledSlide = styled.div`
 `;
 
 const Footer = styled.div`
-  max-height: 1em;
-  padding: 1em;
   display: flex;
   flex-direction: row;
   align-items: center;
