@@ -15,7 +15,6 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   padding: 1em;
   h1,
   h2,
@@ -34,7 +33,6 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   flex: 2;
-  align-items: center;
   display: flex;
   justify-content: center;
   padding: 1.5em;

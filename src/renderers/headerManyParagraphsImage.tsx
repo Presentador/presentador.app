@@ -30,9 +30,6 @@ const LeftContainer = styled.div`
 
   .paragraphs {
     flex: 2;
-
-    p {
-    }
   }
 `;
 const RightContainer = styled.div`
@@ -97,7 +94,14 @@ export const HeaderManyParagraphsImageBuilder: Builder = {
     if (type === "image") return "headerManyParagraphsImage";
     return "normal";
   },
-  remove: (type) => {
+  remove: (type, elements) => {
+    const remainingParagraphs = elements.filter(
+      (item) => item.type === "paragraph"
+    ).length;
+    if (type === "paragraph" && remainingParagraphs === 2)
+      return "headerParagraphImage";
+    if (type === "paragraph" && remainingParagraphs > 2)
+      return "headerManyParagraphsImage";
     if (type === "image") return "headerManyParagraphs";
     return "normal";
   },

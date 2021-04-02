@@ -37,7 +37,6 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   flex: 2;
-  align-items: center;
   display: flex;
   justify-content: center;
   padding: 1.5em;
