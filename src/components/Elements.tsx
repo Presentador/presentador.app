@@ -41,6 +41,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           onClick={() => {
             togglePresent();
           }}
+          title="Present"
         >
           Present
         </StyledButton>
@@ -49,6 +50,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
       </Left>
       <Center>
         <StyledButton
+          title="Heading 1"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -61,6 +63,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           H1
         </StyledButton>
         <StyledButton
+          title="Heading 2"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -73,6 +76,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           H2
         </StyledButton>
         <StyledButton
+          title="Heading 3"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -85,6 +89,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           H3
         </StyledButton>
         <StyledButton
+          title="Heading 4"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -97,6 +102,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           H4
         </StyledButton>
         <StyledButton
+          title="Heading 5"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -109,6 +115,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           H5
         </StyledButton>
         <StyledButton
+          title="Heading 6"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -121,6 +128,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           H6
         </StyledButton>
         <StyledButton
+          title="Paragraph"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -134,6 +142,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
         </StyledButton>
         <Image />
         <StyledButton
+          title="List"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -145,6 +154,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           Li
         </StyledButton>
         <StyledButton
+          title="Quote"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
@@ -156,6 +166,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           Q
         </StyledButton>
         <StyledButton
+          title="Footer item"
           onClick={() =>
             addElement(currentSlide, {
               id: new Date().getTime(),
