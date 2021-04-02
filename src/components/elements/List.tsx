@@ -24,6 +24,10 @@ const StyledList = styled.ul<{ selected: boolean }>`
 
   line-height: 1.4em;
   list-style-type: circle;
+
+  li {
+    padding-bottom: 0.5em;
+  }
 `;
 
 function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
