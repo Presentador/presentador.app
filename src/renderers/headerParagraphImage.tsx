@@ -95,6 +95,8 @@ export const HeaderParagraphImageBuilder: Builder = {
     return "normal";
   },
   remove: (type) => {
+    if (type === "paragraph") return "headerImage";
+    if (type === "image") return "headerSingleParagraph";
     return "normal";
   },
 };

@@ -63,7 +63,15 @@ export const HeaderManyParagraphsBuilder: Builder = {
     if (type === "image") return "headerManyParagraphsImage";
     return "normal";
   },
-  remove: (type) => {
+  remove: (type, elements) => {
+    const remainingParagraphs = elements.filter(
+      (item) => item.type === "paragraph"
+    ).length;
+    if (type === "paragraph" && remainingParagraphs === 2)
+      return "headerSingleParagraph";
+    if (type === "paragraph" && remainingParagraphs > 2)
+      return "headerManyParagraphs";
+
     return "normal";
   },
 };

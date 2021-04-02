@@ -98,6 +98,7 @@ export const HeaderManyParagraphsImageBuilder: Builder = {
     return "normal";
   },
   remove: (type) => {
+    if (type === "image") return "headerManyParagraphs";
     return "normal";
   },
 };
