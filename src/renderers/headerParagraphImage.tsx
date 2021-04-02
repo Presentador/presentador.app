@@ -90,8 +90,7 @@ export function HeaderParagraphImageRenderer({
 
 export const HeaderParagraphImageBuilder: Builder = {
   add: (type) => {
-    if (type === "paragraph") return "headerManyParagraphs";
-    if (type === "image") return "headerManyParagraphsImage";
+    if (type === "paragraph") return "headerManyParagraphsImage";
     return "normal";
   },
   remove: (type) => {

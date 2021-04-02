@@ -44,6 +44,7 @@ export function ImageRenderer({ children }: { children: JSX.Element[] }) {
 
 export const ImageBuilder: Builder = {
   add: (type) => {
+    if (type === "heading") return "headerImage";
     if (type === "image") return "manyImages";
     return "normal";
   },

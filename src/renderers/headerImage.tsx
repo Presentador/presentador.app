@@ -73,6 +73,8 @@ export function HeaderImageRenderer({ children }: { children: JSX.Element[] }) {
 
 export const HeaderImageBuilder: Builder = {
   add: (type) => {
+    if (type === "list") return "headerListImage";
+    if (type === "paragraph") return "headerParagraphImage";
     return "normal";
   },
   remove: (type) => {
