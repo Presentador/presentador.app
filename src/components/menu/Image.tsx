@@ -46,6 +46,32 @@ function Image() {
       const items = event.clipboardData.items;
       for (const index in items) {
         const item = items[index];
+        if (item.kind === "string") {
+          setLoading(true);
+          item.getAsString(async (string: string) => {
+            try {
+              const url = new URL(string);
+              const response = await fetch(url.toString());
+
+              const reader = new FileReader();
+              reader.onload = function (event) {
+                if (event?.target?.result) {
+                  addElement(currentSlide, {
+                    id: new Date().getTime(),
+                    type: "image",
+                    value: event?.target?.result as string,
+                  });
+                  setImageModalOpen(false);
+                  setLoading(false);
+                }
+              };
+              reader.readAsDataURL(await response.blob());
+            } catch (error) {
+              setLoading(false);
+              return false;
+            }
+          });
+        }
         if (item.kind === "file") {
           setLoading(true);
           const blob = item.getAsFile();
