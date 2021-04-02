@@ -21,12 +21,13 @@ function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
     setSelected(false);
   }
-  function edit(event: React.FocusEvent<HTMLDivElement>) {
+  function edit() {
     setSelected(true);
   }
 
   function keydown(event: React.KeyboardEvent<HTMLImageElement>) {
     if (event.key === "Backspace") {
+      event.preventDefault();
       removeElement(slideNumber, item.id);
     }
   }
@@ -36,18 +37,21 @@ function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
   }, []); // eslint-disable-line
 
   return (
-    <StyledImage
-      onLoad={() => setLoading(false)}
-      loadingState={loading}
-      selected={selected}
-      src={item.value}
-      alt={item.value}
+    <div
       onBlur={finishEditing}
       onKeyDown={keydown}
       onFocus={edit}
       tabIndex={-1}
-      data-id={item.id}
-    />
+    >
+      <StyledImage
+        onLoad={() => setLoading(false)}
+        loadingState={loading}
+        selected={selected}
+        src={item.value}
+        alt={item.value}
+        data-id={item.id}
+      />
+    </div>
   );
 }
 
