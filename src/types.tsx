@@ -14,6 +14,7 @@ export type State =
   | "twoHeaders"
   | "headerSingleParagraph"
   | "headerList"
+  | "headerListImage"
   | "headerImage"
   | "singleHeader"
   | "headerManyParagraphs";

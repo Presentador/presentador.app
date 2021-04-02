@@ -32,6 +32,10 @@ import {
   HeaderBlockquoteBuilder,
 } from "./headerBlockquote";
 import { HeaderListRenderer, HeaderListBuilder } from "./headerList";
+import {
+  HeaderListImageRenderer,
+  HeaderListImageBuilder,
+} from "./headerListImage";
 
 export const renderersMap: Record<State, any> = {
   singleHeader: SingleHeaderRenderer,
@@ -45,6 +49,7 @@ export const renderersMap: Record<State, any> = {
   manyImages: ManyImagesRenderer,
   headerImage: HeaderImageRenderer,
   headerList: HeaderListRenderer,
+  headerListImage: HeaderListImageRenderer,
   blockquote: BlockquoteRenderer,
   headerManyParagraphs: HeaderManyParagraphsRenderer,
   headerBlockquote: HeaderBlockquoteRenderer,
@@ -62,6 +67,7 @@ export const buildersMap: Record<State, Builder> = {
   manyImages: ManyImagesBuilder,
   headerImage: HeaderImageBuilder,
   headerList: HeaderListBuilder,
+  headerListImage: HeaderListImageBuilder,
   blockquote: BlockquoteBuilder,
   headerManyParagraphs: HeaderManyParagraphsBuilder,
   headerBlockquote: HeaderBlockquoteBuilder,

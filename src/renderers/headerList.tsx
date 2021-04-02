@@ -59,6 +59,7 @@ export function HeaderListRenderer({ children }: { children: JSX.Element[] }) {
 
 export const HeaderListBuilder: Builder = {
   add: (type) => {
+    if (type === "image") return "headerListImage";
     return "normal";
   },
   remove: (type) => {

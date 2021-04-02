@@ -6,7 +6,24 @@ import { buildersMap } from "../renderers";
 
 export function useSlidesState() {
   const [slides, setSlides] = useState<Slide[]>([
-    { state: "normal", elements: [] },
+    {
+      state: "headerList",
+      elements: [
+        {
+          id: new Date().getTime(),
+          type: "heading",
+          value: "Presentador: An opinionated presentation app",
+          level: 1,
+        },
+        {
+          id: new Date().getTime(),
+          type: "list",
+          value:
+            "Presentador is opinionated. It places your elements in the right place so you don't have to.\nPresentador is open-source.\nTry to add an image to this slide.",
+          level: 1,
+        },
+      ],
+    },
   ]);
 
   function addSlide(at: number = slides.length) {

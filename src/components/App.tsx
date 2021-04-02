@@ -10,6 +10,7 @@ import { DeckContext, useDeckState } from "../context/deck";
 import Elements from "./Elements";
 import Controls from "./Controls";
 import Slide from "./Slide";
+import LoadingBar from "./LoadingBar";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -123,6 +124,7 @@ function App() {
           }}
         >
           <GlobalStyle />
+          <LoadingBar />
           <Wrapper>
             {!present && (
               <Elements
