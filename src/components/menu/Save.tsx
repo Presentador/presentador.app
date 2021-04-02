@@ -34,7 +34,11 @@ function Save(_: any, ref: any) {
     }
   }
 
-  return <StyledButton onClick={save}>Save</StyledButton>;
+  return (
+    <StyledButton onClick={save}>
+      Save <b>{ref.current && ref.current.name}</b>
+    </StyledButton>
+  );
 }
 
 export default forwardRef(Save);

@@ -29,6 +29,14 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Roboto", sans-serif;
   }
+
+  b {
+    font-weight: bold;
+  }
+
+  i {
+    font-decoration: italic;
+  }
 `;
 
 const Wrapper = styled.div`
