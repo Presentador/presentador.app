@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
+import { Draggable } from "react-beautiful-dnd";
 
 import { ReactComponent as TrashIcon } from "../trash.svg";
 import { ReactComponent as AddIcon } from "../add.svg";
@@ -73,48 +74,55 @@ function Thumbnail({
     );
 
   return (
-    <Container
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      {Tag}
-      {hover && (
-        <>
-          {thumbnails.length > 1 && (
-            <StyledRemoveButton
-              onClick={() => {
-                removeSlide(number);
-                setCurrentSlide(
-                  currentSlide === number
-                    ? number === 0
-                      ? number
-                      : number - 1
-                    : currentSlide === 0
-                    ? currentSlide
-                    : currentSlide - 1
-                );
-                setThumbnails(
-                  thumbnails.filter((item, index) => index !== number)
-                );
-              }}
-            >
-              <TrashIcon />
-            </StyledRemoveButton>
+    <Draggable key={number} draggableId={`${number}`} index={number}>
+      {(provided) => (
+        <Container
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
+          {Tag}
+          {hover && (
+            <>
+              {thumbnails.length > 1 && (
+                <StyledRemoveButton
+                  onClick={() => {
+                    removeSlide(number);
+                    setCurrentSlide(
+                      currentSlide === number
+                        ? number === 0
+                          ? number
+                          : number - 1
+                        : currentSlide === 0
+                        ? currentSlide
+                        : currentSlide - 1
+                    );
+                    setThumbnails(
+                      thumbnails.filter((item, index) => index !== number)
+                    );
+                  }}
+                >
+                  <TrashIcon />
+                </StyledRemoveButton>
+              )}
+              <StyledAddButton
+                onClick={() => {
+                  addSlide(number + 1);
+                  setCurrentSlide(number + 1);
+                  const first = thumbnails.slice(0, number + 1);
+                  const rest = thumbnails.slice(number + 1);
+                  setThumbnails([...first, "", ...rest]);
+                }}
+              >
+                <AddIcon />
+              </StyledAddButton>
+            </>
           )}
-          <StyledAddButton
-            onClick={() => {
-              addSlide(number + 1);
-              setCurrentSlide(number + 1);
-              const first = thumbnails.slice(0, number + 1);
-              const rest = thumbnails.slice(number + 1);
-              setThumbnails([...first, "", ...rest]);
-            }}
-          >
-            <AddIcon />
-          </StyledAddButton>
-        </>
+        </Container>
       )}
-    </Container>
+    </Draggable>
   );
 }
 
