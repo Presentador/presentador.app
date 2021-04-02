@@ -71,50 +71,60 @@ function Slide({ present }: { present: boolean }, ref: any) {
     <SizeWrapper scaleSize={scale > 1 && !present ? 1 : scale}>
       <StyledSlide className={slide.state} ref={ref}>
         <Wrapper>
-          {slide.elements.map((item) => {
-            switch (item.type) {
-              case "heading": {
-                return (
-                  <Header
-                    slideNumber={currentSlide}
-                    key={item.id}
-                    item={item}
-                  />
-                );
+          {slide.elements
+            .filter((item) => item.type !== "footer")
+            .map((item) => {
+              switch (item.type) {
+                case "heading": {
+                  return (
+                    <Header
+                      slideNumber={currentSlide}
+                      key={item.id}
+                      item={item}
+                    />
+                  );
+                }
+                case "paragraph": {
+                  return (
+                    <Paragraph
+                      slideNumber={currentSlide}
+                      key={item.id}
+                      item={item}
+                    />
+                  );
+                }
+                case "image": {
+                  return (
+                    <Image
+                      slideNumber={currentSlide}
+                      key={item.id}
+                      item={item}
+                    />
+                  );
+                }
+                case "list": {
+                  return (
+                    <List
+                      slideNumber={currentSlide}
+                      key={item.id}
+                      item={item}
+                    />
+                  );
+                }
+                case "blockquote": {
+                  return (
+                    <Blockquote
+                      slideNumber={currentSlide}
+                      key={item.id}
+                      item={item}
+                    />
+                  );
+                }
+                default: {
+                  return <></>;
+                }
               }
-              case "paragraph": {
-                return (
-                  <Paragraph
-                    slideNumber={currentSlide}
-                    key={item.id}
-                    item={item}
-                  />
-                );
-              }
-              case "image": {
-                return (
-                  <Image slideNumber={currentSlide} key={item.id} item={item} />
-                );
-              }
-              case "list": {
-                return (
-                  <List slideNumber={currentSlide} key={item.id} item={item} />
-                );
-              }
-              case "blockquote": {
-                return (
-                  <Blockquote
-                    slideNumber={currentSlide}
-                    key={item.id}
-                    item={item}
-                  />
-                );
-              }
-              default: {
-                return <></>;
-              }
-            }
-          })}
+            })}
         </Wrapper>
         <Footer>
           {slide.elements
