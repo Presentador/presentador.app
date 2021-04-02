@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 5px;
+  padding: 0.5em;
   position: absolute;
   top: 0;
   right: 0;
@@ -19,7 +19,7 @@ const StyledButton = styled.button`
 const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
   font-size: 1.3em;
   line-height: 1.4em;
-  padding: 0.1em;
+  padding: 1em;
   border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")};
   quotes: "“" "”" "‘" "’";
 

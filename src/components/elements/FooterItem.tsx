@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: 5px;
+  padding: 0.5em;
   position: absolute;
   top: 0;
   right: 0;
