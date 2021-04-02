@@ -6,6 +6,8 @@ import { DeckContext } from "../context/deck";
 
 import StyledButton from "./menu/StyledButton";
 import Image from "./menu/Image";
+import Save from "./menu/Save";
+import Load from "./menu/Load";
 
 const Container = styled.div`
   display: flex;
@@ -39,6 +41,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
         >
           Present
         </StyledButton>
+        <Save />
+        <Load />
       </Left>
       <Center>
         <StyledButton

@@ -47,6 +47,7 @@ function App() {
 
   const {
     slides,
+    setSlides,
     addElement,
     removeSlide,
     removeElement,
@@ -120,6 +121,7 @@ function App() {
         <SlidesContext.Provider
           value={{
             slides,
+            setSlides,
             addElement,
             removeElement,
             changeElementValue,

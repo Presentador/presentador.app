@@ -1,0 +1,37 @@
+import { useContext } from "react";
+import { fileOpen } from "browser-fs-access";
+
+import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
+import { ThumbnailsContext } from "../../context/thumbnails";
+
+import StyledButton from "./StyledButton";
+
+function Load() {
+  const { setSlides } = useContext(SlidesContext);
+  const { setThumbnails } = useContext(ThumbnailsContext);
+  const { setLoading, setSize } = useContext(DeckContext);
+
+  async function load() {
+    setLoading(true);
+    try {
+      const blob = await fileOpen({
+        extensions: [".prt"],
+      });
+
+      const contents = await blob.text();
+      const { slides, thumbnails, size } = JSON.parse(contents);
+      setSlides(slides);
+      setThumbnails(thumbnails);
+      setSize(size);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return <StyledButton onClick={load}>Load</StyledButton>;
+}
+
+export default Load;

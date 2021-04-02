@@ -102,6 +102,7 @@ export function useSlidesState() {
 
   return {
     slides,
+    setSlides,
     addElement,
     removeElement,
     changeElementValue,
@@ -112,6 +113,7 @@ export function useSlidesState() {
 
 export const SlidesContext = React.createContext<{
   slides: Slide[];
+  setSlides: (slides: Slide[]) => void;
   removeSlide: (id: number) => void;
   addSlide: (id?: number) => void;
   addElement: (slideNumber: number, item: Element) => void;
@@ -119,6 +121,7 @@ export const SlidesContext = React.createContext<{
   changeElementValue: (slideNumber: number, id: number, value: string) => void;
 }>({
   slides: [],
+  setSlides: () => {},
   addSlide: () => {},
   removeSlide: () => {},
   addElement: () => {},
