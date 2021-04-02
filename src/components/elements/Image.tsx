@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { DeckContext } from "../../context/deck";
 
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
@@ -13,8 +14,8 @@ const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
 
 function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
   const [selected, setSelected] = useState(false);
-  const [loading, setLoading] = useState(true);
 
+  const { loading, setLoading } = useContext(DeckContext);
   const { removeElement } = useContext(SlidesContext);
 
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
@@ -29,6 +30,10 @@ function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
       removeElement(slideNumber, item.id);
     }
   }
+
+  useEffect(() => {
+    setLoading(true);
+  }, []);
 
   return (
     <StyledImage
