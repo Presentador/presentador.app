@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useContext } from "react";
+import { useRef, useContext } from "react";
+import { FileSystemHandle } from "browser-fs-access";
 
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
@@ -28,6 +29,8 @@ const Right = styled.div`
 `;
 
 function Elements({ togglePresent }: { togglePresent: () => void }) {
+  const fileHandle = useRef<FileSystemHandle | null>(null);
+
   const { addElement } = useContext(SlidesContext);
   const { currentSlide } = useContext(DeckContext);
 
@@ -41,8 +44,8 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
         >
           Present
         </StyledButton>
-        <Save />
-        <Load />
+        <Save ref={fileHandle} />
+        <Load ref={fileHandle} />
       </Left>
       <Center>
         <StyledButton

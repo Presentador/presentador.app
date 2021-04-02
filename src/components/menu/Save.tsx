@@ -1,5 +1,5 @@
-import { useRef, useContext } from "react";
-import { fileSave, FileSystemHandle } from "browser-fs-access";
+import { forwardRef, useContext } from "react";
+import { fileSave } from "browser-fs-access";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
@@ -7,8 +7,7 @@ import { ThumbnailsContext } from "../../context/thumbnails";
 
 import StyledButton from "./StyledButton";
 
-function Save() {
-  const fileHandle = useRef<FileSystemHandle | null>(null);
+function Save(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);
   const { thumbnails } = useContext(ThumbnailsContext);
   const { setLoading, size } = useContext(DeckContext);
@@ -20,13 +19,13 @@ function Save() {
       type: "application/json",
     });
     try {
-      fileHandle.current = await fileSave(
+      ref.current = await fileSave(
         blob,
         {
           fileName: "presentation.prt",
           extensions: [".prt"],
         },
-        fileHandle.current
+        ref.current
       );
     } catch (error) {
       console.log(error);
@@ -38,4 +37,4 @@ function Save() {
   return <StyledButton onClick={save}>Save</StyledButton>;
 }
 
-export default Save;
+export default forwardRef(Save);

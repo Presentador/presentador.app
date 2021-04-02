@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { forwardRef, useContext } from "react";
 import { fileOpen } from "browser-fs-access";
 
 import { SlidesContext } from "../../context/slides";
@@ -7,7 +7,7 @@ import { ThumbnailsContext } from "../../context/thumbnails";
 
 import StyledButton from "./StyledButton";
 
-function Load() {
+function Load(_: any, ref: any) {
   const { setSlides } = useContext(SlidesContext);
   const { setThumbnails } = useContext(ThumbnailsContext);
   const { setLoading, setSize } = useContext(DeckContext);
@@ -18,6 +18,8 @@ function Load() {
       const blob = await fileOpen({
         extensions: [".prt"],
       });
+
+      ref.current = blob.handle;
 
       const contents = await blob.text();
       const { slides, thumbnails, size } = JSON.parse(contents);
@@ -34,4 +36,4 @@ function Load() {
   return <StyledButton onClick={load}>Load</StyledButton>;
 }
 
-export default Load;
+export default forwardRef(Load);
