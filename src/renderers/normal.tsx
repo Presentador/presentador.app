@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
+import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
@@ -10,6 +11,16 @@ const Container = styled.div`
 const BlockContainer = styled.div`
   display: block;
   padding-bottom: 0.5em;
+  color: ${colours.lightText};
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: black;
+  }
 
   & > * {
     padding-bottom: 1em;
