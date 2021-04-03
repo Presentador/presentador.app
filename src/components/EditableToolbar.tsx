@@ -9,10 +9,15 @@ const StyledPopover = styled.div<{ left: number; top: number }>`
   top: ${({ top }) => top}px;
   margin-left: -75px;
   width: 150px;
-  background: white;
+  background: none;
   font-size: 0.7em;
   text-align: center;
   border-radius: 3px;
+`;
+
+const ToolButton = styled.button`
+  padding: 0.5em;
+  margin-right: 0.2em;
 `;
 
 function EditableToolbar(_: any, ref: any) {
@@ -30,7 +35,7 @@ function EditableToolbar(_: any, ref: any) {
             left={clientRect.left + clientRect.width / 2}
             top={clientRect.top - 40}
           >
-            <button
+            <ToolButton
               onMouseDown={(e) => {
                 e.preventDefault();
                 if (ref.current) {
@@ -43,9 +48,9 @@ function EditableToolbar(_: any, ref: any) {
                 }
               }}
             >
-              <b>Bold</b>
-            </button>
-            <button
+              <b>B</b>
+            </ToolButton>
+            <ToolButton
               onMouseDown={(e) => {
                 e.preventDefault();
                 if (ref.current) {
@@ -58,9 +63,9 @@ function EditableToolbar(_: any, ref: any) {
                 }
               }}
             >
-              <i>Italic</i>
-            </button>
-            <button
+              <i>I</i>
+            </ToolButton>
+            <ToolButton
               onMouseDown={(e) => {
                 e.preventDefault();
                 if (ref.current) {
@@ -73,8 +78,8 @@ function EditableToolbar(_: any, ref: any) {
                 }
               }}
             >
-              Clear
-            </button>
+              C
+            </ToolButton>
           </StyledPopover>
         );
       }}
