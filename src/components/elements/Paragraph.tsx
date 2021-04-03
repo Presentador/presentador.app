@@ -1,5 +1,8 @@
 import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
+import { Popover } from "react-text-selection-popover";
+import sanitizeHtml from "sanitize-html";
+import { position } from "caret-pos";
 
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
@@ -24,6 +27,18 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
   line-height: 1.4em;
 `;
 
+const StyledPopover = styled.div<{ left: number; top: number }>`
+  position: absolute;
+  left: ${({ left }) => left}px;
+  top: ${({ top }) => top}px;
+  margin-left: -75px;
+  width: 150px;
+  background: white;
+  font-size: 0.7em;
+  text-align: center;
+  border-radius: 3px;
+`;
+
 function Paragraph({
   slideNumber,
   item,
@@ -36,24 +51,26 @@ function Paragraph({
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
-  function editHeading(event: React.FocusEvent<HTMLDivElement>) {
+  function editHeading() {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
     setSelected(true);
   }
 
-  function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
-    editingElement.current &&
+  function finishEditing() {
+    if (editingElement.current) {
       editingElement.current.setAttribute("contenteditable", "false");
-    setSelected(false);
-    if (event.target.innerText === "") {
-      removeElement(slideNumber, item.id);
-    } else {
-      changeElementValue(slideNumber, item.id, event.target.innerText);
+      setSelected(false);
+      if (editingElement.current.innerHTML === "") {
+        removeElement(slideNumber, item.id);
+      }
+      changeElementValue(
+        slideNumber,
+        item.id,
+        editingElement.current.innerHTML
+      );
     }
   }
-
-  function changeHeadingText(event: any) {}
 
   function remove() {
     removeElement(slideNumber, item.id);
@@ -62,24 +79,85 @@ function Paragraph({
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.code === "Enter") {
       event.preventDefault();
-      editingElement.current && editingElement.current.blur();
+      finishEditing();
     }
   }
 
   return (
     <Container>
+      {selected && (
+        <Popover
+          render={({ clientRect, isCollapsed, textContent }) => {
+            if (clientRect == null || isCollapsed) return null;
+
+            return (
+              <StyledPopover
+                left={clientRect.left + clientRect.width / 2}
+                top={clientRect.top - 40}
+              >
+                <button
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    if (editingElement.current) {
+                      const pos = position(editingElement.current);
+                      editingElement.current.innerHTML = editingElement.current.innerHTML.replace(
+                        `${textContent}`,
+                        `<b>${textContent}</b>`
+                      );
+                      position(editingElement.current, pos.pos);
+                    }
+                  }}
+                >
+                  <b>Bold</b>
+                </button>
+                <button
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    if (editingElement.current) {
+                      const pos = position(editingElement.current);
+                      editingElement.current.innerHTML = editingElement.current.innerHTML.replace(
+                        `${textContent}`,
+                        `<i>${textContent}</i>`
+                      );
+                      position(editingElement.current, pos.pos);
+                    }
+                  }}
+                >
+                  <i>Italic</i>
+                </button>
+                <button
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    if (editingElement.current) {
+                      const pos = position(editingElement.current);
+                      editingElement.current.innerHTML = editingElement.current.innerHTML.replace(
+                        /<\/?[^>]+(>|$)/g,
+                        ""
+                      );
+                      position(editingElement.current, pos.pos);
+                    }
+                  }}
+                >
+                  Clear
+                </button>
+              </StyledPopover>
+            );
+          }}
+        />
+      )}
       <StyledParagraph
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
-        onInput={changeHeadingText}
         onBlur={finishEditing}
-        onFocus={editHeading}
-        tabIndex={-1}
-        data-id={item.id}
-      >
-        {item.value}
-      </StyledParagraph>
+        onClick={editHeading}
+        dangerouslySetInnerHTML={{
+          __html: sanitizeHtml(item.value, {
+            allowedTags: ["b", "i", "a"],
+            allowedAttributes: { a: ["href"] },
+          }),
+        }}
+      />
       {selected && (
         <StyledButton onMouseDown={remove}>
           <TrashIcon />

@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   i {
-    font-decoration: italic;
+    font-style: italic;
   }
 `;
 
