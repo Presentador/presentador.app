@@ -26,7 +26,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
-  font-size: 1.3em;
+  font-size: 1.6em;
   line-height: 1.4em;
   padding: 1em;
   border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")};
