@@ -111,10 +111,24 @@ function Elements() {
             id: new Date().getTime(),
             type: "list",
             value: "<li>Point one to make</li>",
+            listType: "unordered",
           })
         }
       >
-        Li
+        Ul
+      </StyledButton>
+      <StyledButton
+        title="List"
+        onClick={() =>
+          addElement(currentSlide, {
+            id: new Date().getTime(),
+            type: "list",
+            value: "<li>Point one to make</li>",
+            listType: "ordered",
+          })
+        }
+      >
+        Ol
       </StyledButton>
       <StyledButton
         title="Quote"

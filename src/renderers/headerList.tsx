@@ -33,12 +33,6 @@ const BottomContainer = styled.div`
 
   line-height: 2em;
   color: ${colours.lightText};
-
-  ul,
-  li {
-    color: ${colours.lightText};
-    list-style-type: circle;
-  }
 `;
 
 export function HeaderListRenderer({ children }: { children: JSX.Element[] }) {

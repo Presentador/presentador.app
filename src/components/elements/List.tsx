@@ -19,7 +19,10 @@ const StyledButton = styled.button`
   right: 0;
 `;
 
-const StyledList = styled.ul<{ selected: boolean }>`
+const StyledList = styled.div<{
+  listType?: "ordered" | "unordered";
+  selected: boolean;
+}>`
   white-space: pre-wrap;
   font-size: 1.3em;
   padding: 0.1em;
@@ -28,10 +31,11 @@ const StyledList = styled.ul<{ selected: boolean }>`
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
 
   line-height: 1.4em;
-  list-style-type: circle;
 
   li {
     padding-bottom: 0.5em;
+    list-style-type: ${({ listType }) =>
+      listType === "ordered" ? "decimal" : "circle"};
   }
 `;
 
@@ -94,8 +98,10 @@ function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
     <Container>
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledList
+        listType={item.listType}
+        as={item.listType === "ordered" ? "ol" : "ul"}
         onMouseDown={() => setSelected(true)}
-        onKeyDown={(event) => event.stopPropagation()}
+        onKeyDown={(event: any) => event.stopPropagation()}
         onDoubleClick={editHeading}
         selected={selected}
         ref={editingElement}

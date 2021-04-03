@@ -32,6 +32,7 @@ export type Element = {
   type: ElementType;
   value: string;
   level?: number;
+  listType?: "ordered" | "unordered";
   id: number;
 };
 
