@@ -23,7 +23,7 @@ const SizeWrapper = styled.div<{ scaleSize: number }>`
   left: 0;
   bottom: 0;
   right: 0;
-  transform-origin: center center;
+  transform-origin: left center;
   transform: ${({ scaleSize }) => `scale(${scaleSize})`};
 `;
 
@@ -54,7 +54,9 @@ const Footer = styled.div`
 function Slide({ present }: { present: boolean }, ref: any) {
   const { slides } = useContext(SlidesContext);
   const { currentSlide, size } = useContext(DeckContext);
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(
+    Math.min(window.innerWidth / size[0], window.innerHeight / size[1])
+  );
 
   const slide = slides[currentSlide];
   const Wrapper = renderersMap[slide.state];
