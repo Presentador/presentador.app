@@ -26,6 +26,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledHeader = styled.div<{ level: number; selected: boolean }>`
+  line-height: 120%;
   font-size: ${({ level }) =>
     level === 1
       ? "3.5em"
