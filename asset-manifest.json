@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/static/js/main.b3d24d00.chunk.js",
-    "main.js.map": "/static/js/main.b3d24d00.chunk.js.map",
+    "main.js": "/static/js/main.a734a71d.chunk.js",
+    "main.js.map": "/static/js/main.a734a71d.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f2227ef8.js",
     "runtime-main.js.map": "/static/js/runtime-main.f2227ef8.js.map",
     "static/js/2.8249b416.chunk.js": "/static/js/2.8249b416.chunk.js",
@@ -34,6 +34,8 @@
     "static/js/8.199aa302.chunk.js.LICENSE.txt": "/static/js/8.199aa302.chunk.js.LICENSE.txt",
     "static/js/9.8311adca.chunk.js.LICENSE.txt": "/static/js/9.8311adca.chunk.js.LICENSE.txt",
     "static/media/add.297abd00.svg": "/static/media/add.297abd00.svg",
+    "static/media/github.f5efebba.svg": "/static/media/github.f5efebba.svg",
+    "static/media/help.33cca8b5.svg": "/static/media/help.33cca8b5.svg",
     "static/media/left.ce1bad5f.svg": "/static/media/left.ce1bad5f.svg",
     "static/media/right.ec9eaa1d.svg": "/static/media/right.ec9eaa1d.svg",
     "static/media/trash.svg": "/static/media/trash.e36cad87.svg"
@@ -41,6 +43,6 @@
   "entrypoints": [
     "static/js/runtime-main.f2227ef8.js",
     "static/js/2.8249b416.chunk.js",
-    "static/js/main.b3d24d00.chunk.js"
+    "static/js/main.a734a71d.chunk.js"
   ]
 }
