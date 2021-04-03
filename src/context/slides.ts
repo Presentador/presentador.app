@@ -70,13 +70,16 @@ export function useSlidesState() {
           return slide;
         }
 
+        const remainingElements = slide.elements.filter(
+          (item) => item.id !== id
+        );
         const nextState =
           element.type === "footer"
             ? slide.state
-            : buildersMap[slide.state].remove(element.type, slide.elements);
+            : buildersMap[slide.state].remove(element.type, remainingElements);
 
         return {
-          elements: slide.elements.filter((item) => item.id !== id),
+          elements: remainingElements,
           state: nextState,
         };
       })

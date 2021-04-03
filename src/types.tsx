@@ -41,6 +41,6 @@ export type Slide = {
 };
 
 export interface Builder {
-  add: (type: ElementType, elements: Element[]) => State;
-  remove: (type: ElementType, elements: Element[]) => State;
+  add: (type: ElementType, existingElements: Element[]) => State;
+  remove: (type: ElementType, remainingElements: Element[]) => State;
 }

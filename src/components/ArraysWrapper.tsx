@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
 
-import { ReactComponent as LeftIcon } from "../left.svg";
-import { ReactComponent as RightIcon } from "../right.svg";
+import { ReactComponent as LeftIcon } from "../icons/left.svg";
+import { ReactComponent as RightIcon } from "../icons/right.svg";
 
 const Container = styled.div`
   width: 1020px;

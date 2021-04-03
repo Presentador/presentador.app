@@ -5,7 +5,7 @@ import sanitizeHtml from "sanitize-html";
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
-import { ReactComponent as TrashIcon } from "../../trash.svg";
+import { ReactComponent as TrashIcon } from "../../icons/trash.svg";
 
 const Container = styled.div`
   position: relative;
