@@ -83,6 +83,7 @@ function Blockquote({
   ]);
 
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    event.stopPropagation();
     if (event.code === "Enter") {
       event.preventDefault();
       finishEditing();

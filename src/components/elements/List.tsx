@@ -94,6 +94,7 @@ function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledList
         onMouseDown={() => setSelected(true)}
+        onKeyDown={(event) => event.stopPropagation()}
         onDoubleClick={editHeading}
         selected={selected}
         ref={editingElement}
