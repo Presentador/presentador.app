@@ -28,24 +28,32 @@ const LeftContainer = styled.div`
   position: absolute;
   top: 50%;
   color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 `;
 const RightContainer = styled.div`
   position: absolute;
   top: 50%;
   right: 0;
   color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 `;
 
 function ArraysWrapper() {
   const { slides } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
 
   return (
     <Container>
       <InnerContainer>
-        <LeftContainer>{currentSlide !== 0 && <LeftIcon />}</LeftContainer>
+        <LeftContainer>
+          {currentSlide !== 0 && (
+            <LeftIcon onClick={() => setCurrentSlide(currentSlide - 1)} />
+          )}
+        </LeftContainer>
         <RightContainer>
-          {currentSlide !== slides.length - 1 && <RightIcon />}
+          {currentSlide !== slides.length - 1 && (
+            <RightIcon onClick={() => setCurrentSlide(currentSlide + 1)} />
+          )}
         </RightContainer>
       </InnerContainer>
     </Container>

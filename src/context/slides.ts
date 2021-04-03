@@ -4,27 +4,10 @@ import { Slide, Element } from "../types";
 
 import { buildersMap } from "../renderers";
 
+const initial = require("./initial-presentation.json");
+
 export function useSlidesState() {
-  const [slides, setSlides] = useState<Slide[]>([
-    {
-      state: "headerList",
-      elements: [
-        {
-          id: 1,
-          type: "heading",
-          value: "Presentador: An opinionated presentation app",
-          level: 1,
-        },
-        {
-          id: 2,
-          type: "list",
-          value:
-            "<li>It places your elements in the right place so you don't have to.</li><li>It's open-source.</li><li>Try removing this list element and add another one.</li>",
-          level: 1,
-        },
-      ],
-    },
-  ]);
+  const [slides, setSlides] = useState<Slide[]>(initial.slides);
 
   function addSlide(at: number = slides.length) {
     setSlides((prev) => {

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
+const initial = require("./initial-presentation.json");
+
 export function useThumbnailsState() {
-  const [thumbnails, setThumbnails] = useState<string[]>([""]);
+  const [thumbnails, setThumbnails] = useState<string[]>(initial.thumbnails);
 
   return { thumbnails, setThumbnails };
 }
