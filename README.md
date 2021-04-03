@@ -17,6 +17,8 @@ There is only a single layout depending on the elements of your slide. `Presenta
 
 We could use all the help we can get. So please feel free to go through our open [issues]('https://github.com/kbariotis/presentador/issues') or create one if thought of a new cool feature or found a bug.
 
-## Compilation
+## Slide Compilation
 
-The process of compiling a presentation is actually quite simple.
+The process of compiling a presentation is actually quite simple. Every slide starts with the `normal` state which is defined [here]('./src/renderers/normal.tsx) (as all the other states). When we add a new element, for each state, we define rules as to which state should go on next.
+
+Each file in the `./src/renderers` folder export two functions, one `renderer` that defines how this state should be rendered, and one `builder` that defines the rules of transition to a different state based on what element was added or removed.
