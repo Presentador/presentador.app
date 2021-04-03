@@ -94,7 +94,7 @@ function Image() {
 
     document.addEventListener("paste", callback);
     return () => document.removeEventListener("paste", callback);
-  }, [currentSlide]); // eslint-disable-line
+  }, [currentSlide, addElement, setLoading, setImageModalOpen]);
 
   return (
     <Container>

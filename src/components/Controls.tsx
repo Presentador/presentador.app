@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 import styled from "styled-components";
-import { useContext, useEffect, forwardRef } from "react";
+import { useCallback, useContext, useEffect, forwardRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { SlidesContext } from "../context/slides";
@@ -18,7 +18,7 @@ function Controls(_: any, ref: any) {
   const { currentSlide, setCurrentSlide, setLoading } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
-  async function update() {
+  const update = useCallback(async () => {
     if (ref.current) {
       const canvas = await html2canvas(ref.current);
       setThumbnails((currentThumbnails) =>
@@ -27,19 +27,19 @@ function Controls(_: any, ref: any) {
         )
       );
     }
-  }
+  }, [setThumbnails, currentSlide, ref]);
 
   // Update on elements change
   useEffect(() => {
     update();
-  }, [slides]); //eslint-disable-line
+  }, [slides, update]);
 
   // Update when a slide is added
   useEffect(() => {
     if (thumbnails[currentSlide] === "") {
       update();
     }
-  }, [thumbnails]); //eslint-disable-line
+  }, [thumbnails, currentSlide, update]);
 
   function reorder(array: any[], source: number, destination: number) {
     const beforeSource = array.slice(0, source);

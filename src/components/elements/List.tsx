@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from "react";
+import { useCallback, useEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 
@@ -43,38 +43,61 @@ function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
   function editHeading() {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
-    setSelected(true);
   }
 
-  function finishEditing() {
+  const finishEditing = useCallback(() => {
     if (editingElement.current) {
       editingElement.current.setAttribute("contenteditable", "false");
       setSelected(false);
       if (editingElement.current.innerHTML === "") {
         removeElement(slideNumber, item.id);
+      } else if (editingElement.current.innerHTML !== item.value) {
+        changeElementValue(
+          slideNumber,
+          item.id,
+          editingElement.current.innerHTML
+        );
       }
-      changeElementValue(
-        slideNumber,
-        item.id,
-        editingElement.current.innerHTML
-      );
     }
-  }
+  }, [
+    editingElement,
+    setSelected,
+    removeElement,
+    changeElementValue,
+    item,
+    slideNumber,
+  ]);
 
   function remove() {
     removeElement(slideNumber, item.id);
   }
 
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (
+        selected &&
+        editingElement.current &&
+        !editingElement.current.contains(event.target)
+      ) {
+        finishEditing();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [editingElement, selected, finishEditing]);
+
   return (
     <Container>
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledList
+        onMouseDown={() => setSelected(true)}
+        onDoubleClick={editHeading}
         selected={selected}
         ref={editingElement}
-        onBlur={finishEditing}
-        onMouseDown={editHeading}
         dangerouslySetInnerHTML={{
-          // React can't deal with a content editable list and manage its children
           __html: sanitizeHtml(item.value, {
             allowedTags: ["b", "i", "a", "li"],
             allowedAttributes: { a: ["href"] },

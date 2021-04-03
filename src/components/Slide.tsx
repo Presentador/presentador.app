@@ -59,18 +59,19 @@ function Slide({ present }: { present: boolean }, ref: any) {
   const slide = slides[currentSlide];
   const Wrapper = renderersMap[slide.state];
 
-  function updateSize() {
-    // scale to fit window width and/or height
-    const scale = Math.min(
-      window.innerWidth / size[0],
-      window.innerHeight / size[1]
-    );
-    setScale(scale);
-  }
   useLayoutEffect(() => {
+    function updateSize() {
+      // scale to fit window width and/or height
+      const scale = Math.min(
+        window.innerWidth / size[0],
+        window.innerHeight / size[1]
+      );
+      setScale(scale);
+    }
+
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  }, []); // eslint-disable-line
+  }, [setScale, size]);
 
   return (
     <>

@@ -35,7 +35,7 @@ function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
 
   useEffect(() => {
     setLoading(true);
-  }, []); // eslint-disable-line
+  }, [setLoading]);
 
   return (
     <div

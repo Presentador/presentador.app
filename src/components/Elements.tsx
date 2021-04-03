@@ -147,7 +147,7 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
             addElement(currentSlide, {
               id: new Date().getTime(),
               type: "list",
-              value: "Point one to make",
+              value: "<li>Point one to make</li>",
             })
           }
         >

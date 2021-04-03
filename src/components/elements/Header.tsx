@@ -1,4 +1,10 @@
-import React, { useRef, useState, useContext } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 
@@ -43,26 +49,33 @@ function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
-  function editHeading() {
+  function editHeading(event: any) {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
-    setSelected(true);
   }
 
-  function finishEditing() {
+  const finishEditing = useCallback(() => {
     if (editingElement.current) {
       editingElement.current.setAttribute("contenteditable", "false");
       setSelected(false);
       if (editingElement.current.innerHTML === "") {
         removeElement(slideNumber, item.id);
+      } else if (editingElement.current.innerHTML !== item.value) {
+        changeElementValue(
+          slideNumber,
+          item.id,
+          editingElement.current.innerHTML
+        );
       }
-      changeElementValue(
-        slideNumber,
-        item.id,
-        editingElement.current.innerHTML
-      );
     }
-  }
+  }, [
+    editingElement,
+    setSelected,
+    removeElement,
+    changeElementValue,
+    item,
+    slideNumber,
+  ]);
 
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.code === "Enter") {
@@ -77,6 +90,23 @@ function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
 
   const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (
+        selected &&
+        editingElement.current &&
+        !editingElement.current.contains(event.target)
+      ) {
+        finishEditing();
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [editingElement, selected, finishEditing]);
+
   return (
     <Container>
       {selected && <EditableToolbar ref={editingElement} />}
@@ -86,12 +116,11 @@ function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
         selected={selected}
         ref={editingElement}
         onKeyDown={checkMouseDown}
-        onBlur={finishEditing}
-        onMouseDown={editHeading}
+        onMouseDown={() => setSelected(true)}
+        onDoubleClick={editHeading}
         dangerouslySetInnerHTML={{
-          // React can't deal with a content editable list and manage its children
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a", "li"],
+            allowedTags: ["b", "i", "a"],
             allowedAttributes: { a: ["href"] },
           }),
         }}

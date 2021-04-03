@@ -37,6 +37,7 @@ function EditableToolbar(_: any, ref: any) {
           >
             <ToolButton
               onMouseDown={(e) => {
+                e.stopPropagation();
                 e.preventDefault();
                 if (ref.current) {
                   const pos = position(ref.current);
@@ -53,6 +54,7 @@ function EditableToolbar(_: any, ref: any) {
             <ToolButton
               onMouseDown={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 if (ref.current) {
                   const pos = position(ref.current);
                   ref.current.innerHTML = ref.current.innerHTML.replace(
@@ -68,6 +70,7 @@ function EditableToolbar(_: any, ref: any) {
             <ToolButton
               onMouseDown={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 if (ref.current) {
                   const pos = position(ref.current);
                   ref.current.innerHTML = ref.current.innerHTML.replace(
