@@ -1,12 +1,11 @@
 import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
-import { Popover } from "react-text-selection-popover";
 import sanitizeHtml from "sanitize-html";
-import { position } from "caret-pos";
 
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 import { ReactComponent as TrashIcon } from "../../trash.svg";
+import EditableToolbar from "../EditableToolbar";
 
 const Container = styled.div`
   position: relative;
@@ -25,18 +24,6 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
   padding: 0.1em;
   border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")};
   line-height: 1.4em;
-`;
-
-const StyledPopover = styled.div<{ left: number; top: number }>`
-  position: absolute;
-  left: ${({ left }) => left}px;
-  top: ${({ top }) => top}px;
-  margin-left: -75px;
-  width: 150px;
-  background: white;
-  font-size: 0.7em;
-  text-align: center;
-  border-radius: 3px;
 `;
 
 function Paragraph({
@@ -85,72 +72,13 @@ function Paragraph({
 
   return (
     <Container>
-      {selected && (
-        <Popover
-          render={({ clientRect, isCollapsed, textContent }) => {
-            if (clientRect == null || isCollapsed) return null;
-
-            return (
-              <StyledPopover
-                left={clientRect.left + clientRect.width / 2}
-                top={clientRect.top - 40}
-              >
-                <button
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    if (editingElement.current) {
-                      const pos = position(editingElement.current);
-                      editingElement.current.innerHTML = editingElement.current.innerHTML.replace(
-                        `${textContent}`,
-                        `<b>${textContent}</b>`
-                      );
-                      position(editingElement.current, pos.pos);
-                    }
-                  }}
-                >
-                  <b>Bold</b>
-                </button>
-                <button
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    if (editingElement.current) {
-                      const pos = position(editingElement.current);
-                      editingElement.current.innerHTML = editingElement.current.innerHTML.replace(
-                        `${textContent}`,
-                        `<i>${textContent}</i>`
-                      );
-                      position(editingElement.current, pos.pos);
-                    }
-                  }}
-                >
-                  <i>Italic</i>
-                </button>
-                <button
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    if (editingElement.current) {
-                      const pos = position(editingElement.current);
-                      editingElement.current.innerHTML = editingElement.current.innerHTML.replace(
-                        /<\/?[^>]+(>|$)/g,
-                        ""
-                      );
-                      position(editingElement.current, pos.pos);
-                    }
-                  }}
-                >
-                  Clear
-                </button>
-              </StyledPopover>
-            );
-          }}
-        />
-      )}
+      {selected && <EditableToolbar ref={editingElement} />}
       <StyledParagraph
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
         onBlur={finishEditing}
-        onClick={editHeading}
+        onMouseDown={editHeading}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
             allowedTags: ["b", "i", "a"],

@@ -19,7 +19,7 @@ export function useSlidesState() {
           id: 2,
           type: "list",
           value:
-            "It places your elements in the right place so you don't have to.\nIt's open-source.\nTry removing this list element and add another one.",
+            "<li>It places your elements in the right place so you don't have to.</li><li>It's open-source.</li><li>Try removing this list element and add another one.</li>",
           level: 1,
         },
       ],

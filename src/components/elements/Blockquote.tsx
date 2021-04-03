@@ -1,6 +1,8 @@
 import React, { useRef, useState, useContext } from "react";
 import styled from "styled-components";
+import sanitizeHtml from "sanitize-html";
 
+import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 import { ReactComponent as TrashIcon } from "../../trash.svg";
@@ -46,50 +48,55 @@ function Blockquote({
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
-  function editHeading(event: React.FocusEvent<HTMLDivElement>) {
+  function editHeading() {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
     setSelected(true);
   }
 
-  function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
-    editingElement.current &&
+  function finishEditing() {
+    if (editingElement.current) {
       editingElement.current.setAttribute("contenteditable", "false");
-    setSelected(false);
-    if (event.target.innerText === "") {
-      removeElement(slideNumber, item.id);
-    } else {
-      changeElementValue(slideNumber, item.id, event.target.innerText);
+      setSelected(false);
+      if (editingElement.current.innerHTML === "") {
+        removeElement(slideNumber, item.id);
+      }
+      changeElementValue(
+        slideNumber,
+        item.id,
+        editingElement.current.innerHTML
+      );
     }
-  }
-
-  function changeHeadingText(event: any) {}
-
-  function remove() {
-    removeElement(slideNumber, item.id);
   }
 
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.code === "Enter") {
       event.preventDefault();
-      editingElement.current && editingElement.current.blur();
+      finishEditing();
     }
+  }
+
+  function remove() {
+    removeElement(slideNumber, item.id);
   }
 
   return (
     <Container>
+      {selected && <EditableToolbar ref={editingElement} />}
       <StyledBlockquote
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
-        onInput={changeHeadingText}
         onBlur={finishEditing}
-        onFocus={editHeading}
-        tabIndex={-1}
-        data-id={item.id}
-      >
-        {item.value}
-      </StyledBlockquote>
+        onMouseDown={editHeading}
+        dangerouslySetInnerHTML={{
+          // React can't deal with a content editable list and manage its children
+          __html: sanitizeHtml(item.value, {
+            allowedTags: ["b", "i", "a", "li"],
+            allowedAttributes: { a: ["href"] },
+          }),
+        }}
+      />
       {selected && (
         <StyledButton onMouseDown={remove}>
           <TrashIcon />
