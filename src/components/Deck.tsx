@@ -6,7 +6,7 @@ import { SlidesContext, useSlidesState } from "../context/slides";
 import { ThumbnailsContext, useThumbnailsState } from "../context/thumbnails";
 import { DeckContext, useDeckState } from "../context/deck";
 
-import Elements from "./Elements";
+import Menu from "./Menu";
 import Controls from "./Controls";
 import Slide from "./Slide";
 import LoadingBar from "./LoadingBar";
@@ -112,7 +112,7 @@ function App() {
           <Wrapper>
             <LoadingBar />
             {!present && (
-              <Elements
+              <Menu
                 togglePresent={() => {
                   setPresent(!present);
                   if (screenfull.isEnabled) {

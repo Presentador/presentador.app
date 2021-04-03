@@ -34,7 +34,8 @@ const StyledImage = styled.img<{ active: boolean }>`
   width: 150px;
   height: 100px;
   vertical-align: middle;
-  border: ${({ active }) => (active ? "1px solid red" : "none")};
+  border: ${({ active }) =>
+    active ? "1px solid #15aabf" : "1px solid rgba(0,0,0,0)"};
   cursor: pointer;
 `;
 const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
@@ -42,7 +43,8 @@ const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
   width: 150px;
   height: 100px;
   vertical-align: middle;
-  border: ${({ active }) => (active ? "1px solid red" : "none")};
+  border: ${({ active }) =>
+    active ? "1px solid #15aabf" : "1px solid rgba(0,0,0,0)"};
 `;
 
 function Thumbnail({
