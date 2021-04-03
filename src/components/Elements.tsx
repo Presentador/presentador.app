@@ -9,12 +9,15 @@ import StyledButton from "./menu/StyledButton";
 import Image from "./menu/Image";
 import Save from "./menu/Save";
 import Load from "./menu/Load";
+import { ReactComponent as GitHubIcon } from "../icons/github.svg";
+import { ReactComponent as HelpIcon } from "../icons/help.svg";
 
 const Container = styled.div`
   display: flex;
   flex-orientation: column;
   align-items: center;
   justify-content: center;
+  padding: 0.1em 0.5em;
 `;
 
 const Left = styled.div`
@@ -25,6 +28,7 @@ const Center = styled.div`
   text-align: center;
 `;
 const Right = styled.div`
+  text-align: right;
   flex: 1;
 `;
 
@@ -178,7 +182,19 @@ function Elements({ togglePresent }: { togglePresent: () => void }) {
           F
         </StyledButton>
       </Center>
-      <Right></Right>
+      <Right>
+        <a href="https://github.com/kbariotis/presentador.app" target="blank">
+          <GitHubIcon
+            style={{ color: "#aaa", width: "32px", height: "32px" }}
+          />
+        </a>
+        <a
+          href="https://github.com/kbariotis/presentador.app/issues"
+          target="blank"
+        >
+          <HelpIcon style={{ color: "#aaa", width: "32px", height: "32px" }} />
+        </a>
+      </Right>
     </Container>
   );
 }
