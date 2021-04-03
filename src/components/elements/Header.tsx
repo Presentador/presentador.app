@@ -41,7 +41,8 @@ const StyledHeader = styled.div<{ level: number; selected: boolean }>`
       : "2em"};
 
   padding: 0.1em;
-  border: 1px solid ${({ selected }) => (selected ? "red" : "rgba(0, 0, 0, 0)")}; ;
+  border: 2px solid
+    ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")}; ;
 `;
 
 function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
