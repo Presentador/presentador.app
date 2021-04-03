@@ -57,15 +57,11 @@ function Controls(_: any, ref: any) {
     <DragDropContext
       onDragEnd={(result) => {
         if (!result.destination) return;
-        setLoading(true);
         const source = result.source.index;
         const destination = result.destination.index;
-        setImmediate(() => {
-          setSlides(reorder(slides, source, destination));
-          setThumbnails(reorder(thumbnails, source, destination));
-          setCurrentSlide(destination);
-          setLoading(false);
-        });
+        setThumbnails(reorder(thumbnails, source, destination));
+        setSlides(reorder(slides, source, destination));
+        setCurrentSlide(destination);
       }}
     >
       <Droppable droppableId="thumbnails" direction="horizontal">
