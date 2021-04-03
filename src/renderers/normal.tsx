@@ -33,6 +33,59 @@ export const NormalBuilder: Builder = {
     if (type === "image" && !existingElements.length) return "image";
     if (type === "blockquote" && !existingElements.length) return "blockquote";
 
+    const existingHeading = existingElements.filter(
+      (item) => item.type === "heading"
+    ).length;
+    const existingImage = existingElements.filter(
+      (item) => item.type === "image"
+    ).length;
+    const existingBlockquote = existingElements.filter(
+      (item) => item.type === "blockquote"
+    ).length;
+    const existingParagraph = existingElements.filter(
+      (item) => item.type === "paragraph"
+    ).length;
+    const existingList = existingElements.filter((item) => item.type === "list")
+      .length;
+
+    if (existingElements.length === 1) {
+      if (type === "heading" && existingHeading === 1) return "twoHeaders";
+      if (type === "paragraph" && existingHeading === 1)
+        return "headerSingleParagraph";
+      if (type === "list" && existingHeading === 1) return "headerList";
+      if (type === "image" && existingHeading === 1) return "headerImage";
+      if (type === "heading" && existingList === 1) return "headerList";
+      if (type === "heading" && existingImage === 1) return "headerImage";
+      if (type === "heading" && existingBlockquote === 1)
+        return "headerBlockquote";
+      if (type === "blockquote" && existingHeading === 1)
+        return "headerBlockquote";
+      if (type === "heading" && existingParagraph === 1)
+        return "headerSingleParagraph";
+    }
+
+    if (existingElements.length > 1) {
+      if (
+        type === "heading" &&
+        existingParagraph > 1 &&
+        !existingHeading &&
+        !existingImage &&
+        !existingBlockquote &&
+        !existingList
+      )
+        return "headerManyParagraphs";
+
+      if (
+        type === "heading" &&
+        existingParagraph > 1 &&
+        existingImage === 1 &&
+        !existingHeading &&
+        !existingBlockquote &&
+        !existingList
+      )
+        return "headerManyParagraphsImage";
+    }
+
     return "normal";
   },
   remove: (type, remainingElements) => {
