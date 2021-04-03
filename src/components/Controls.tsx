@@ -15,7 +15,7 @@ const Container = styled.div`
 
 function Controls(_: any, ref: any) {
   const { slides, setSlides } = useContext(SlidesContext);
-  const { currentSlide, setCurrentSlide, setLoading } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
   const update = useCallback(async () => {
