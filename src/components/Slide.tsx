@@ -23,7 +23,8 @@ const SizeWrapper = styled.div<{ scaleSize: number }>`
   left: 0;
   bottom: 0;
   right: 0;
-  transform-origin: left center;
+  transform-origin: ${({ scaleSize }) => (scaleSize > 1 ? "center" : "left")}
+    center;
   transform: ${({ scaleSize }) => `scale(${scaleSize})`};
 `;
 
