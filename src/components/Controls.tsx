@@ -32,7 +32,7 @@ function Controls(_: any, ref: any) {
   // Update on elements change
   useEffect(() => {
     update();
-  }, [slides, update]);
+  }, [slides]); // eslint-disable-line
 
   // Update when a slide is added
   useEffect(() => {
