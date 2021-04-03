@@ -32,6 +32,10 @@ const BottomContainer = styled.div`
   justify-content: center;
   flex: 2;
   padding: 1.5em;
+
+  blockquote {
+    color: ${colours.lightText};
+  }
 `;
 
 export function HeaderBlockquoteRenderer({

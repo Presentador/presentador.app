@@ -13,8 +13,8 @@ const Container = styled.div`
   color: ${colours.lightText};
 
   blockquote {
-    padding: 50px;
-    background: #f9f9f9;
+    padding: 1em;
+    color: ${colours.lightText};
   }
 `;
 
