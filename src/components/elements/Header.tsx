@@ -10,6 +10,7 @@ import sanitizeHtml from "sanitize-html";
 
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
 import { Element } from "../../types";
 import { ReactComponent as TrashIcon } from "../../icons/trash.svg";
 
@@ -50,8 +51,9 @@ function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
   const [selected, setSelected] = useState(false);
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
+  const { present } = useContext(DeckContext);
 
-  function editHeading(event: any) {
+  function editHeading() {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
   }
@@ -119,8 +121,8 @@ function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
         selected={selected}
         ref={editingElement}
         onKeyDown={checkMouseDown}
-        onMouseDown={() => setSelected(true)}
-        onDoubleClick={editHeading}
+        onMouseDown={() => !present && setSelected(true)}
+        onDoubleClick={() => !present && editHeading()}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
             allowedTags: ["b", "i", "a"],

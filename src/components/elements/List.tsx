@@ -4,6 +4,7 @@ import sanitizeHtml from "sanitize-html";
 
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
 import { Element } from "../../types";
 import { ReactComponent as TrashIcon } from "../../icons/trash.svg";
 
@@ -43,6 +44,7 @@ function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLUListElement | null>(null);
 
+  const { present } = useContext(DeckContext);
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading() {
@@ -100,9 +102,9 @@ function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
       <StyledList
         listType={item.listType}
         as={item.listType === "ordered" ? "ol" : "ul"}
-        onMouseDown={() => setSelected(true)}
+        onMouseDown={() => !present && setSelected(true)}
         onKeyDown={(event: any) => event.stopPropagation()}
-        onDoubleClick={editHeading}
+        onDoubleClick={() => !present && editHeading()}
         selected={selected}
         ref={editingElement}
         dangerouslySetInnerHTML={{

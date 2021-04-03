@@ -10,6 +10,7 @@ import sanitizeHtml from "sanitize-html";
 
 import EditableToolbar from "../EditableToolbar";
 
+import { DeckContext } from "../../context/deck";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 import { colours } from "../../theme";
@@ -56,6 +57,7 @@ function FooterItem({
   const editingElement = useRef<HTMLDivElement | null>(null);
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
+  const { present } = useContext(DeckContext);
 
   function editHeading() {
     editingElement.current &&
@@ -121,8 +123,8 @@ function FooterItem({
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
-        onMouseDown={() => setSelected(true)}
-        onDoubleClick={editHeading}
+        onMouseDown={() => !present && setSelected(true)}
+        onDoubleClick={() => !present && editHeading()}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
             allowedTags: ["b", "i", "a"],
