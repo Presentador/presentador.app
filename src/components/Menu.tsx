@@ -29,6 +29,14 @@ const Right = styled.div`
   flex: 1;
 `;
 
+const ExternalLink = styled.a`
+  color: #aaa;
+
+  &:hover {
+    color: black;
+  }
+`;
+
 function Menu({ togglePresent }: { togglePresent: () => void }) {
   const fileHandle = useRef<FileSystemHandle | null>(null);
 
@@ -55,17 +63,18 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
         <Elements />
       </Center>
       <Right>
-        <a href="https://github.com/kbariotis/presentador.app" target="blank">
-          <GitHubIcon
-            style={{ color: "#aaa", width: "32px", height: "32px" }}
-          />
-        </a>
-        <a
+        <ExternalLink
+          href="https://github.com/kbariotis/presentador.app"
+          target="blank"
+        >
+          <GitHubIcon style={{ width: "32px", height: "32px" }} />
+        </ExternalLink>
+        <ExternalLink
           href="https://github.com/kbariotis/presentador.app/issues"
           target="blank"
         >
-          <HelpIcon style={{ color: "#aaa", width: "32px", height: "32px" }} />
-        </a>
+          <HelpIcon style={{ width: "32px", height: "32px" }} />
+        </ExternalLink>
       </Right>
     </Container>
   );
