@@ -77,12 +77,18 @@ function App() {
           currentSlide === totalSlides - 1 ? currentSlide : currentSlide + 1
         );
       }
+      if (present && event.code === "Space") {
+        const totalSlides = slides.length;
+        setCurrentSlide(
+          currentSlide === totalSlides - 1 ? currentSlide : currentSlide + 1
+        );
+      }
     };
 
     window.addEventListener("keydown", callback);
 
     return () => window.removeEventListener("keydown", callback);
-  }, [currentSlide, slides, setCurrentSlide]);
+  }, [currentSlide, slides, setCurrentSlide, present]);
 
   return (
     <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
