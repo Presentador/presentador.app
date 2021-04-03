@@ -10,6 +10,7 @@ import Image from "./elements/Image";
 import List from "./elements/List";
 import Blockquote from "./elements/Blockquote";
 import FooterItem from "./elements/FooterItem";
+import ArraysWrapper from "./ArraysWrapper";
 
 import { renderersMap } from "../renderers";
 
@@ -72,77 +73,80 @@ function Slide({ present }: { present: boolean }, ref: any) {
   }, []); // eslint-disable-line
 
   return (
-    <SizeWrapper scaleSize={scale > 1 && !present ? 1 : scale}>
-      <StyledSlide className={slide.state} ref={ref}>
-        <Wrapper>
-          {slide.elements
-            .filter((item) => item.type !== "footer")
-            .map((item) => {
-              switch (item.type) {
-                case "heading": {
-                  return (
-                    <Header
-                      slideNumber={currentSlide}
-                      key={item.id}
-                      item={item}
-                    />
-                  );
+    <>
+      <ArraysWrapper />
+      <SizeWrapper scaleSize={scale > 1 && !present ? 1 : scale}>
+        <StyledSlide className={slide.state} ref={ref}>
+          <Wrapper>
+            {slide.elements
+              .filter((item) => item.type !== "footer")
+              .map((item) => {
+                switch (item.type) {
+                  case "heading": {
+                    return (
+                      <Header
+                        slideNumber={currentSlide}
+                        key={item.id}
+                        item={item}
+                      />
+                    );
+                  }
+                  case "paragraph": {
+                    return (
+                      <Paragraph
+                        slideNumber={currentSlide}
+                        key={item.id}
+                        item={item}
+                      />
+                    );
+                  }
+                  case "image": {
+                    return (
+                      <Image
+                        slideNumber={currentSlide}
+                        key={item.id}
+                        item={item}
+                      />
+                    );
+                  }
+                  case "list": {
+                    return (
+                      <List
+                        slideNumber={currentSlide}
+                        key={item.id}
+                        item={item}
+                      />
+                    );
+                  }
+                  case "blockquote": {
+                    return (
+                      <Blockquote
+                        slideNumber={currentSlide}
+                        key={item.id}
+                        item={item}
+                      />
+                    );
+                  }
+                  default: {
+                    return <></>;
+                  }
                 }
-                case "paragraph": {
-                  return (
-                    <Paragraph
-                      slideNumber={currentSlide}
-                      key={item.id}
-                      item={item}
-                    />
-                  );
-                }
-                case "image": {
-                  return (
-                    <Image
-                      slideNumber={currentSlide}
-                      key={item.id}
-                      item={item}
-                    />
-                  );
-                }
-                case "list": {
-                  return (
-                    <List
-                      slideNumber={currentSlide}
-                      key={item.id}
-                      item={item}
-                    />
-                  );
-                }
-                case "blockquote": {
-                  return (
-                    <Blockquote
-                      slideNumber={currentSlide}
-                      key={item.id}
-                      item={item}
-                    />
-                  );
-                }
-                default: {
-                  return <></>;
-                }
-              }
-            })}
-        </Wrapper>
-        <Footer>
-          {slide.elements
-            .filter((item) => item.type === "footer")
-            .map((item) => (
-              <FooterItem
-                key={item.id}
-                item={item}
-                slideNumber={currentSlide}
-              />
-            ))}
-        </Footer>
-      </StyledSlide>
-    </SizeWrapper>
+              })}
+          </Wrapper>
+          <Footer>
+            {slide.elements
+              .filter((item) => item.type === "footer")
+              .map((item) => (
+                <FooterItem
+                  key={item.id}
+                  item={item}
+                  slideNumber={currentSlide}
+                />
+              ))}
+          </Footer>
+        </StyledSlide>
+      </SizeWrapper>
+    </>
   );
 }
 
