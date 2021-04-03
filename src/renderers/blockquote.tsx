@@ -32,7 +32,7 @@ export function BlockquoteRenderer({ children }: { children: JSX.Element[] }) {
 
 export const BlockquoteBuilder: Builder = {
   add: (type) => {
-    if (type === "paragraph") return "blockquote";
+    if (type === "heading") return "headerBlockquote";
     return "normal";
   },
   remove: (type) => {
