@@ -128,7 +128,7 @@ function App() {
               />
             )}
             <SlideWrapper>
-              <Slide present={present} ref={slideWrapperRef} />
+              <Slide ref={slideWrapperRef} />
             </SlideWrapper>
             {!present && <Controls ref={slideWrapperRef} />}
           </Wrapper>

@@ -1,4 +1,10 @@
-import { useLayoutEffect, useState, useContext, forwardRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useContext,
+  forwardRef,
+} from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../context/slides";
@@ -17,15 +23,10 @@ import { renderersMap } from "../renderers";
 const SizeWrapper = styled.div<{ scaleSize: number }>`
   width: 960px;
   height: 700px;
-  margin: auto;
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  transform-origin: ${({ scaleSize }) => (scaleSize > 1 ? "center" : "left")}
-    center;
-  transform: ${({ scaleSize }) => `scale(${scaleSize})`};
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) ${({ scaleSize }) => `scale(${scaleSize})`};
 `;
 
 const StyledSlide = styled.div`
@@ -52,34 +53,46 @@ const Footer = styled.div`
   flex: 1;
 `;
 
-function Slide({ present }: { present: boolean }, ref: any) {
+function Slide(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);
-  const { currentSlide, size } = useContext(DeckContext);
-  const [scale, setScale] = useState(
-    Math.min(window.innerWidth / size[0], window.innerHeight / size[1])
+  const { currentSlide, present, size } = useContext(DeckContext);
+
+  // scale to fit window width and/or height
+  const getScale = useCallback(
+    () =>
+      Math.min(
+        (!present ? window.innerWidth / 2 : window.innerWidth) / size[0],
+        (!present ? window.innerHeight / 2 : window.innerHeight) / size[1]
+      ),
+    [present, size]
   );
+
+  const [scale, setScale] = useState(getScale());
 
   const slide = slides[currentSlide];
   const Wrapper = renderersMap[slide.state];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     function updateSize() {
-      // scale to fit window width and/or height
-      const scale = Math.min(
-        window.innerWidth / size[0],
-        window.innerHeight / size[1]
-      );
+      const scale = getScale();
       setScale(scale);
     }
 
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  }, [setScale, size]);
+  }, [setScale, size, getScale]);
+
+  useEffect(() => {
+    const scale = getScale();
+    setScale(scale);
+  }, [setScale, present, getScale]);
 
   return (
     <>
-      <ArraysWrapper />
-      <SizeWrapper scaleSize={scale > 1 && !present ? 1 : scale}>
+      <SizeWrapper scaleSize={scale}>
+        <ArraysWrapper />
+      </SizeWrapper>
+      <SizeWrapper scaleSize={scale}>
         <StyledSlide className={slide.state} ref={ref}>
           <Wrapper>
             {slide.elements
@@ -154,4 +167,4 @@ function Slide({ present }: { present: boolean }, ref: any) {
   );
 }
 
-export default forwardRef<HTMLDivElement, { present: boolean }>(Slide);
+export default forwardRef<HTMLDivElement>(Slide);

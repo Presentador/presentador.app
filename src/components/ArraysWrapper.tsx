@@ -7,18 +7,6 @@ import { DeckContext } from "../context/deck";
 import { ReactComponent as LeftIcon } from "../icons/left.svg";
 import { ReactComponent as RightIcon } from "../icons/right.svg";
 
-const Container = styled.div`
-  width: 1020px;
-  height: 700px;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  transform-origin: center center;
-`;
-
 const InnerContainer = styled.div`
   position: relative;
   width: 100%;
@@ -43,7 +31,7 @@ function ArraysWrapper() {
   const { currentSlide, setCurrentSlide } = useContext(DeckContext);
 
   return (
-    <Container>
+    <>
       <InnerContainer>
         <LeftContainer>
           {currentSlide !== 0 && (
@@ -56,7 +44,7 @@ function ArraysWrapper() {
           )}
         </RightContainer>
       </InnerContainer>
-    </Container>
+    </>
   );
 }
 
