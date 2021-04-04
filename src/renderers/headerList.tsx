@@ -57,8 +57,7 @@ export const HeaderListBuilder: Builder = {
     return "normal";
   },
   remove: (type) => {
-    if (type === "image") return "headerList";
     if (type === "list") return "singleHeader";
-    return "singleHeader";
+    return "normal";
   },
 };
