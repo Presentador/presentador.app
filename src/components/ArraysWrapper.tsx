@@ -15,13 +15,14 @@ const InnerContainer = styled.div`
 const LeftContainer = styled.div`
   position: absolute;
   top: 50%;
+  left: -50px;
   color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
 `;
 const RightContainer = styled.div`
   position: absolute;
   top: 50%;
-  right: 0;
+  right: -50px;
   color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
 `;
