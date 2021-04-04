@@ -92,8 +92,8 @@ function Slide(_: any, ref: any) {
       <SizeWrapper scaleSize={scale}>
         <ArraysWrapper />
       </SizeWrapper>
-      <SizeWrapper scaleSize={scale}>
-        <StyledSlide className={slide.state} ref={ref}>
+      <SizeWrapper scaleSize={scale} ref={ref}>
+        <StyledSlide className={slide.state}>
           <Wrapper>
             {slide.elements
               .filter((item) => item.type !== "footer")

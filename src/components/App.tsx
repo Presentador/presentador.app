@@ -25,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: bold;
   }
 
+  
   i {
     font-style: italic;
   }

@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 import styled from "styled-components";
-import { useCallback, useContext, useEffect, forwardRef } from "react";
+import { useCallback, useContext, useLayoutEffect, forwardRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { SlidesContext } from "../context/slides";
@@ -30,12 +30,12 @@ function Controls(_: any, ref: any) {
   }, [setThumbnails, currentSlide, ref]);
 
   // Update on elements change
-  useEffect(() => {
+  useLayoutEffect(() => {
     update();
   }, [slides]); // eslint-disable-line
 
   // Update when a slide is added
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (thumbnails[currentSlide] === "") {
       update();
     }
