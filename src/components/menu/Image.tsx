@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../../context/slides";
@@ -36,10 +36,24 @@ const CenteredContainer = styled.div`
 `;
 
 function Image() {
+  const ref = useRef<HTMLDivElement | null>(null);
   const { addElement } = useContext(SlidesContext);
   const { currentSlide, setLoading } = useContext(DeckContext);
 
   const [imageModalOpen, setImageModalOpen] = useState(false);
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setImageModalOpen(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const callback = (event: any) => {
@@ -97,7 +111,7 @@ function Image() {
   }, [currentSlide, addElement, setLoading, setImageModalOpen]);
 
   return (
-    <Container>
+    <Container ref={ref}>
       <StyledButton onClick={() => setImageModalOpen(!imageModalOpen)}>
         Img
       </StyledButton>
