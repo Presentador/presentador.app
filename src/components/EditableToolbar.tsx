@@ -2,6 +2,9 @@ import { forwardRef } from "react";
 import styled from "styled-components";
 import { Popover } from "react-text-selection-popover";
 import { position } from "caret-pos";
+import { ReactComponent as BoldIcon } from "bootstrap-icons/icons/type-bold.svg";
+import { ReactComponent as ItalicIcon } from "bootstrap-icons/icons/type-italic.svg";
+import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.svg";
 
 const StyledPopover = styled.div<{ left: number; top: number }>`
   position: absolute;
@@ -49,7 +52,7 @@ function EditableToolbar(_: any, ref: any) {
                 }
               }}
             >
-              <b>B</b>
+              <BoldIcon />
             </ToolButton>
             <ToolButton
               onMouseDown={(e) => {
@@ -65,7 +68,7 @@ function EditableToolbar(_: any, ref: any) {
                 }
               }}
             >
-              <i>I</i>
+              <ItalicIcon />
             </ToolButton>
             <ToolButton
               onMouseDown={(e) => {
@@ -81,7 +84,7 @@ function EditableToolbar(_: any, ref: any) {
                 }
               }}
             >
-              C
+              <ClearFormattingIcon />
             </ToolButton>
           </StyledPopover>
         );

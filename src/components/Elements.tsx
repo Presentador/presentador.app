@@ -1,4 +1,10 @@
 import { useEffect, useRef, useState, useContext } from "react";
+import { ReactComponent as H1Icon } from "bootstrap-icons/icons/type-h1.svg";
+import { ReactComponent as ParagraphIcon } from "bootstrap-icons/icons/text-paragraph.svg";
+import { ReactComponent as ListUlIcon } from "bootstrap-icons/icons/list-ul.svg";
+import { ReactComponent as ListOlIcon } from "bootstrap-icons/icons/list-ol.svg";
+import { ReactComponent as BlockquoteIcon } from "bootstrap-icons/icons/blockquote-left.svg";
+import { ReactComponent as FooterIcon } from "bootstrap-icons/icons/align-bottom.svg";
 
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
@@ -134,7 +140,7 @@ function Elements() {
             });
           }}
         >
-          Ul
+          <ListUlIcon />
         </StyledButton>
         <StyledButton
           title="List"
@@ -148,7 +154,7 @@ function Elements() {
             });
           }}
         >
-          Ol
+          <ListOlIcon />
         </StyledButton>
       </div>
     );
@@ -163,7 +169,7 @@ function Elements() {
           setHeadingSelected(true);
         }}
       >
-        H
+        <H1Icon />
       </StyledButton>
       <StyledButton
         title="Paragraph"
@@ -176,7 +182,7 @@ function Elements() {
           })
         }
       >
-        P
+        <ParagraphIcon />
       </StyledButton>
       <Image />
       <StyledButton
@@ -186,7 +192,7 @@ function Elements() {
           setListSelected(true);
         }}
       >
-        Li
+        <ListUlIcon />
       </StyledButton>
       <StyledButton
         title="Quote"
@@ -198,7 +204,7 @@ function Elements() {
           })
         }
       >
-        Q
+        <BlockquoteIcon />
       </StyledButton>
       <StyledButton
         title="Footer item"
@@ -210,7 +216,7 @@ function Elements() {
           })
         }
       >
-        F
+        <FooterIcon />
       </StyledButton>
     </div>
   );

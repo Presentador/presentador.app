@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
+import { ReactComponent as ImageIcon } from "bootstrap-icons/icons/card-image.svg";
 
 import StyledButton from "./StyledButton";
 
@@ -113,7 +114,7 @@ function Image() {
   return (
     <Container ref={ref}>
       <StyledButton onClick={() => setImageModalOpen(!imageModalOpen)}>
-        Img
+        <ImageIcon />
       </StyledButton>
       {imageModalOpen && (
         <Modal>

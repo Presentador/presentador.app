@@ -7,11 +7,11 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
+import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import { DeckContext } from "../../context/deck";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
-import { ReactComponent as TrashIcon } from "../../icons/trash.svg";
 import EditableToolbar from "../EditableToolbar";
 
 const Container = styled.div`

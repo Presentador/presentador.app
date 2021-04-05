@@ -1,5 +1,6 @@
 import { forwardRef, useContext } from "react";
 import { fileOpen } from "browser-fs-access";
+import { ReactComponent as LoadIcon } from "bootstrap-icons/icons/folder.svg";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
@@ -33,7 +34,11 @@ function Load(_: any, ref: any) {
     }
   }
 
-  return <StyledButton onClick={load}>Load</StyledButton>;
+  return (
+    <StyledButton onClick={load}>
+      <LoadIcon />
+    </StyledButton>
+  );
 }
 
 export default forwardRef(Load);

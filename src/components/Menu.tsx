@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { useRef } from "react";
 import { FileSystemHandle } from "browser-fs-access";
+import { ReactComponent as PlayIcon } from "bootstrap-icons/icons/play.svg";
+import { ReactComponent as GitHubIcon } from "bootstrap-icons/icons/github.svg";
+import { ReactComponent as HelpIcon } from "bootstrap-icons/icons/question-circle.svg";
 
 import StyledButton from "./menu/StyledButton";
 import Elements from "./Elements";
 import Save from "./menu/Save";
 import Load from "./menu/Load";
-import { ReactComponent as GitHubIcon } from "../icons/github.svg";
-import { ReactComponent as HelpIcon } from "../icons/help.svg";
 
 const Container = styled.div`
   display: flex;
@@ -37,6 +38,19 @@ const ExternalLink = styled.a`
   }
 `;
 
+const StyledGithubIcon = styled(GitHubIcon)`
+  vertical-align: middle;
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.3em;
+`;
+const StyledHelpIcon = styled(HelpIcon)`
+  vertical-align: middle;
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.3em;
+`;
+
 function Menu({ togglePresent }: { togglePresent: () => void }) {
   const fileHandle = useRef<FileSystemHandle | null>(null);
 
@@ -54,7 +68,7 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
             borderColor: "#15aabf",
           }}
         >
-          Present
+          <PlayIcon />
         </StyledButton>
         <Save ref={fileHandle} />
         <Load ref={fileHandle} />
@@ -67,13 +81,13 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
           href="https://github.com/kbariotis/presentador.app"
           target="blank"
         >
-          <GitHubIcon style={{ width: "32px", height: "32px" }} />
+          <StyledGithubIcon />
         </ExternalLink>
         <ExternalLink
           href="https://github.com/kbariotis/presentador.app/issues"
           target="blank"
         >
-          <HelpIcon style={{ width: "32px", height: "32px" }} />
+          <StyledHelpIcon />
         </ExternalLink>
       </Right>
     </Container>

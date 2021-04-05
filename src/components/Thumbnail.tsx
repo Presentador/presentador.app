@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
-import { ReactComponent as TrashIcon } from "../icons/trash.svg";
-import { ReactComponent as AddIcon } from "../icons/add.svg";
+import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
+import { ReactComponent as AddIcon } from "bootstrap-icons/icons/plus.svg";
 
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";

@@ -3,10 +3,15 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   padding: 1em;
   margin-right: 0.3em;
-  font-size: 1em;
   border: 1px solid #737373;
   border-radius: 5px;
   color: #737373;
+
+  svg {
+    vertical-align: middle;
+    width: 1.5em;
+    height: 1.5em;
+  }
 
   &:hover,
   &:active,

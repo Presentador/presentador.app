@@ -1,5 +1,6 @@
 import { forwardRef, useContext } from "react";
 import { fileSave } from "browser-fs-access";
+import { ReactComponent as SaveIcon } from "bootstrap-icons/icons/save.svg";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
@@ -36,7 +37,7 @@ function Save(_: any, ref: any) {
 
   return (
     <StyledButton onClick={save}>
-      Save <b>{ref.current && ref.current.name}</b>
+      <SaveIcon /> <b>{ref.current && ref.current.name}</b>
     </StyledButton>
   );
 }
