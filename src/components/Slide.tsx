@@ -61,8 +61,12 @@ function Slide(_: any, ref: any) {
   const getScale = useCallback(
     () =>
       Math.min(
-        (!present ? window.innerWidth / 2 : window.innerWidth) / size[0],
-        (!present ? window.innerHeight / 2 : window.innerHeight) / size[1]
+        (!present
+          ? window.innerWidth - window.innerWidth * 0.25
+          : window.innerWidth) / size[0],
+        (!present
+          ? window.innerHeight - window.innerHeight * 0.25
+          : window.innerHeight) / size[1]
       ),
     [present, size]
   );
