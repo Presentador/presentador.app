@@ -20,9 +20,13 @@ import ArraysWrapper from "./ArraysWrapper";
 
 import { renderersMap } from "../renderers";
 
-const SizeWrapper = styled.div<{ scaleSize: number }>`
-  width: 960px;
-  height: 700px;
+const SizeWrapper = styled.div<{
+  scaleSize: number;
+  width: number;
+  height: number;
+}>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -93,10 +97,10 @@ function Slide(_: any, ref: any) {
 
   return (
     <>
-      <SizeWrapper scaleSize={scale}>
+      <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]}>
         <ArraysWrapper />
       </SizeWrapper>
-      <SizeWrapper scaleSize={scale} ref={ref}>
+      <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]} ref={ref}>
         <StyledSlide className={slide.state}>
           <Wrapper>
             {slide.elements

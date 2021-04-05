@@ -31,8 +31,7 @@ const StyledAddButton = styled.button`
 
 const StyledImage = styled.img<{ active: boolean }>`
   display: inline-block;
-  width: 150px;
-  height: 100px;
+  width: 10em;
   vertical-align: middle;
   border: ${({ active }) =>
     active ? "1px solid #15aabf" : "1px solid rgba(0,0,0,0)"};
@@ -40,8 +39,7 @@ const StyledImage = styled.img<{ active: boolean }>`
 `;
 const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
   display: inline-block;
-  width: 150px;
-  height: 100px;
+  width: 10em;
   vertical-align: middle;
   border: ${({ active }) =>
     active ? "1px solid #15aabf" : "1px solid rgba(0,0,0,0)"};

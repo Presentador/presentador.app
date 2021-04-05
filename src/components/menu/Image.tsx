@@ -17,23 +17,14 @@ const Modal = styled.div`
   position: absolute;
   top: 100%;
   z-index: 999999;
+  padding: 1em;
   width: 15em;
-  height: 10em;
+  line-height: 120%;
   border: 1px solid #ccc;
   background: #fff;
-`;
-
-const TextContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const CenteredContainer = styled.div`
-  flex: 1;
   text-align: center;
+  border-radius: 3px;
+  margin-top: 0.1em;
 `;
 
 function Image() {
@@ -118,12 +109,8 @@ function Image() {
       </StyledButton>
       {imageModalOpen && (
         <Modal>
-          <TextContainer>
-            <CenteredContainer>
-              Past the image directly or its remote URL or drag and drop it as a
-              file.
-            </CenteredContainer>
-          </TextContainer>
+          Past the image directly or its remote URL or drag and drop it as a
+          file.
         </Modal>
       )}
     </Container>
