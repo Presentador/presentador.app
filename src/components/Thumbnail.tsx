@@ -12,6 +12,7 @@ import { ThumbnailsContext } from "../context/thumbnails";
 const Container = styled.div`
   position: relative;
   display: inline-block;
+  margin-right: 0.1em;
 `;
 
 const StyledRemoveButton = styled.button`
@@ -30,14 +31,16 @@ const StyledAddButton = styled.button`
 `;
 
 const StyledImage = styled.img<{ active: boolean }>`
+  box-sizing: border-box;
   display: inline-block;
   width: 10em;
   vertical-align: middle;
-  border: ${({ active }) =>
-    active ? "1px solid #15aabf" : "1px solid rgba(0,0,0,0)"};
+  border: ${({ active }) => (active ? "1px solid #15aabf" : "none")};
   cursor: pointer;
 `;
 const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
+  box-sizing: border-box;
+
   display: inline-block;
   width: 10em;
   vertical-align: middle;
