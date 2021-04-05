@@ -22,8 +22,8 @@ const Container = styled.div`
 const StyledButton = styled.button`
   padding: 0.5em;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -2em;
+  right: -2em;
 `;
 
 const StyledParagraph = styled.p<{ selected: boolean }>`
