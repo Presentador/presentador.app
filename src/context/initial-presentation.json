@@ -47,12 +47,6 @@
           "value": "There are predefined templates for every slide based on the type and the number of elements. When you add or remove an element, the slide will figure its new state and re-render."
         },
         {
-          "id": 1617645360703,
-          "type": "heading",
-          "level": 6,
-          "value": "<h2 class=\"sc-jeGSBP gpkofg\" style=\"font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; line-height: 61.44px; font-family: Roboto, sans-serif; outline: none;\"><br></h2>"
-        },
-        {
           "id": 1617645368769,
           "type": "heading",
           "level": 6,
