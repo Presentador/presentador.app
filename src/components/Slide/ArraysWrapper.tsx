@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components";
 
-import { SlidesContext } from "../context/slides";
-import { DeckContext } from "../context/deck";
+import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
 
 import { ReactComponent as LeftIcon } from "bootstrap-icons/icons/chevron-left.svg";
 import { ReactComponent as RightIcon } from "bootstrap-icons/icons/chevron-right.svg";

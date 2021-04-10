@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
-import { DeckContext } from "../context/deck";
+import { DeckContext } from "../../context/deck";
 
 import ArraysWrapper from "./ArraysWrapper";
 import Slide from "./Slide";

@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { ReactComponent as GearIcon } from "bootstrap-icons/icons/gear.svg";
 
-import { DeckContext } from "../../context/deck";
+import { DeckContext } from "../../../context/deck";
 
-import StyledButton from "./StyledButton";
+import StyledButton from "../StyledButton";
 
 const Container = styled.div`
   position: relative;

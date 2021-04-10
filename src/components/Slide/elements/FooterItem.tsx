@@ -9,13 +9,23 @@ import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
-import { SlidesContext } from "../../context/slides";
-import { Element } from "../../types";
 import EditableToolbar from "../EditableToolbar";
+
+import { SlidesContext } from "../../../context/slides";
+import { Element } from "../../../types";
 
 const Container = styled.div`
   position: relative;
-  display: inline-block;
+  flex: 1;
+
+  text-align: center;
+
+  &:last-child {
+    text-align: right;
+  }
+  &:first-child {
+    text-align: left;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -25,15 +35,16 @@ const StyledButton = styled.button`
   right: -2em;
 `;
 
-const StyledParagraph = styled.p<{ selected: boolean }>`
-  font-size: 1.3em;
-  padding: 0.1em;
+const StyledFooterItem = styled.div<{ selected: boolean }>`
+  font-size: 0.9em;
+  line-height: 1.4em;
+  padding: 0.5em;
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
-  line-height: 1.4em;
+  color: ${({ theme }) => theme.lightText};
 `;
 
-function Paragraph({
+function FooterItem({
   slideNumber,
   item,
   present,
@@ -75,16 +86,16 @@ function Paragraph({
     slideNumber,
   ]);
 
-  function remove() {
-    removeElement(slideNumber, item.id);
-  }
-
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
     event.stopPropagation();
     if (event.code === "Enter") {
       event.preventDefault();
       finishEditing();
     }
+  }
+
+  function remove() {
+    removeElement(slideNumber, item.id);
   }
 
   useEffect(() => {
@@ -107,7 +118,7 @@ function Paragraph({
   return (
     <Container>
       {selected && <EditableToolbar ref={editingElement} />}
-      <StyledParagraph
+      <StyledFooterItem
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
@@ -129,6 +140,6 @@ function Paragraph({
   );
 }
 
-Paragraph.displayName = "Paragraph";
+FooterItem.displayName = "FooterItem";
 
-export default Paragraph;
+export default FooterItem;

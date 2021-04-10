@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import { SlidesContext } from "../context/slides";
-import { DeckContext } from "../context/deck";
-import { ThumbnailsContext } from "../context/thumbnails";
+import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
+import { ThumbnailsContext } from "../../context/thumbnails";
 import Thumbnail from "./Thumbnail";
 
 const Container = styled.div`
@@ -12,7 +12,7 @@ const Container = styled.div`
   white-space: pre-wrap;
 `;
 
-function Controls() {
+function ThumbnailsBar() {
   const { slides, setSlides } = useContext(SlidesContext);
   const { currentSlide, setCurrentSlide } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
@@ -61,4 +61,4 @@ function Controls() {
   );
 }
 
-export default Controls;
+export default ThumbnailsBar;

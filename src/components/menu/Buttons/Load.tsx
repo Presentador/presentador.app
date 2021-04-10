@@ -2,11 +2,11 @@ import { forwardRef, useContext } from "react";
 import { fileOpen } from "browser-fs-access";
 import { ReactComponent as LoadIcon } from "bootstrap-icons/icons/folder.svg";
 
-import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
-import { ThumbnailsContext } from "../../context/thumbnails";
+import { SlidesContext } from "../../../context/slides";
+import { DeckContext } from "../../../context/deck";
+import { ThumbnailsContext } from "../../../context/thumbnails";
 
-import StyledButton from "./StyledButton";
+import StyledButton from "../StyledButton";
 
 function Load(_: any, ref: any) {
   const { setSlides } = useContext(SlidesContext);

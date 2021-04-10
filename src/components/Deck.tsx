@@ -6,9 +6,9 @@ import { SlidesContext, useSlidesState } from "../context/slides";
 import { ThumbnailsContext, useThumbnailsState } from "../context/thumbnails";
 import { DeckContext, useDeckState } from "../context/deck";
 
-import Menu from "./Menu";
-import Controls from "./Controls";
-import Slide from "./SlideWrapper";
+import Menu from "./Menu/Menu";
+import ThumbnailsBar from "./Thumbnails/ThumbnailsBar";
+import Slide from "./Slide/SlideWrapper";
 import LoadingBar from "./LoadingBar";
 
 const Wrapper = styled.div`
@@ -132,7 +132,7 @@ function App() {
             <SlideWrapper>
               <Slide />
             </SlideWrapper>
-            {!present && <Controls />}
+            {!present && <ThumbnailsBar />}
           </Wrapper>
         </SlidesContext.Provider>
       </DeckContext.Provider>

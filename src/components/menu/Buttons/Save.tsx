@@ -2,11 +2,11 @@ import { forwardRef, useContext } from "react";
 import { fileSave } from "browser-fs-access";
 import { ReactComponent as SaveIcon } from "bootstrap-icons/icons/save.svg";
 
-import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
-import { ThumbnailsContext } from "../../context/thumbnails";
+import { SlidesContext } from "../../../context/slides";
+import { DeckContext } from "../../../context/deck";
+import { ThumbnailsContext } from "../../../context/thumbnails";
 
-import StyledButton from "./StyledButton";
+import StyledButton from "../StyledButton";
 
 function Save(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);

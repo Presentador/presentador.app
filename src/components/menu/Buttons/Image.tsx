@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
-import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
+import { SlidesContext } from "../../../context/slides";
+import { DeckContext } from "../../../context/deck";
 import { ReactComponent as ImageIcon } from "bootstrap-icons/icons/card-image.svg";
 
-import StyledButton from "./StyledButton";
+import StyledButton from "../StyledButton";
 
 const Container = styled.div`
   position: relative;

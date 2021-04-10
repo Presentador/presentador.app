@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
-import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
-import { Element } from "../../types";
+import { SlidesContext } from "../../../context/slides";
+import { DeckContext } from "../../../context/deck";
+import { Element } from "../../../types";
 
 const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
   font-size: 1.3em;

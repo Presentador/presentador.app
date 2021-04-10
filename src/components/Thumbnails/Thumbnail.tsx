@@ -5,11 +5,11 @@ import { Draggable } from "react-beautiful-dnd";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 import { ReactComponent as AddIcon } from "bootstrap-icons/icons/plus.svg";
 
-import Slide from "./Slide";
+import Slide from "../Slide/Slide";
 
-import { SlidesContext } from "../context/slides";
-import { DeckContext } from "../context/deck";
-import { ThumbnailsContext } from "../context/thumbnails";
+import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
+import { ThumbnailsContext } from "../../context/thumbnails";
 
 const Container = styled.div<{
   width: number;

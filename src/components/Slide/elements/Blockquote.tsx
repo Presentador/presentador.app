@@ -10,8 +10,8 @@ import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import EditableToolbar from "../EditableToolbar";
-import { SlidesContext } from "../../context/slides";
-import { Element } from "../../types";
+import { SlidesContext } from "../../../context/slides";
+import { Element } from "../../../types";
 
 const Container = styled.div`
   position: relative;

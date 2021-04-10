@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
-import { SlidesContext } from "../context/slides";
-import { DeckContext } from "../context/deck";
+import { SlidesContext } from "../../context/slides";
+import { DeckContext } from "../../context/deck";
 
 import Header from "./elements/Header";
 import Paragraph from "./elements/Paragraph";
@@ -11,7 +11,7 @@ import List from "./elements/List";
 import Blockquote from "./elements/Blockquote";
 import FooterItem from "./elements/FooterItem";
 
-import { renderersMap } from "../renderers";
+import { renderersMap } from "../../renderers";
 
 const SizeWrapper = styled.div<{
   scaleSize: number;

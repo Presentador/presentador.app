@@ -5,11 +5,16 @@ import { ReactComponent as PlayIcon } from "bootstrap-icons/icons/play.svg";
 import { ReactComponent as GitHubIcon } from "bootstrap-icons/icons/github.svg";
 import { ReactComponent as HelpIcon } from "bootstrap-icons/icons/question-circle.svg";
 
-import StyledButton from "./menu/StyledButton";
-import Elements from "./Elements";
-import Save from "./menu/Save";
-import Load from "./menu/Load";
-import Settings from "./menu/Settings";
+import StyledButton from "./StyledButton";
+import Quote from "./Buttons/Quote";
+import Header from "./Buttons/Header";
+import Footer from "./Buttons/Footer";
+import List from "./Buttons/List";
+import Image from "./Buttons/Image";
+import Paragraph from "./Buttons/Paragraph";
+import Save from "./Buttons/Save";
+import Load from "./Buttons/Load";
+import Settings from "./Buttons/Settings";
 
 const Container = styled.div`
   display: flex;
@@ -76,7 +81,14 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
         <Settings />
       </Left>
       <Center>
-        <Elements />
+        <>
+          <Header />
+          <Paragraph />
+          <Image />
+          <List />
+          <Quote />
+          <Footer />
+        </>
       </Center>
       <Right>
         <ExternalLink

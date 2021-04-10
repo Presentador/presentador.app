@@ -1,17 +1,11 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import { useCallback, useEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import EditableToolbar from "../EditableToolbar";
-import { SlidesContext } from "../../context/slides";
-import { Element } from "../../types";
+import { SlidesContext } from "../../../context/slides";
+import { Element } from "../../../types";
 
 const Container = styled.div`
   position: relative;
@@ -25,27 +19,27 @@ const StyledButton = styled.button`
   right: -2em;
 `;
 
-const StyledHeader = styled.div<{ level: number; selected: boolean }>`
-  line-height: 120%;
-  font-size: ${({ level }) =>
-    level === 1
-      ? "3.5em"
-      : level === 2
-      ? "3.2em"
-      : level === 3
-      ? "2.9em"
-      : level === 4
-      ? "2.6em"
-      : level === 5
-      ? "2.3em"
-      : "2em"};
-
+const StyledList = styled.div<{
+  listType?: "ordered" | "unordered";
+  selected: boolean;
+}>`
+  white-space: pre-wrap;
+  font-size: 1.3em;
   padding: 0.1em;
+  padding-left: 1em; // fix lists' left padding
   border: 2px solid
-    ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")}; ;
+    ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
+
+  line-height: 1.4em;
+
+  li {
+    padding-bottom: 0.5em;
+    list-style-type: ${({ listType }) =>
+      listType === "ordered" ? "decimal" : "circle"};
+  }
 `;
 
-function Header({
+function List({
   slideNumber,
   item,
   present,
@@ -54,8 +48,8 @@ function Header({
   slideNumber: number;
   item: Element;
 }) {
-  const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
+  const editingElement = useRef<HTMLUListElement | null>(null);
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
@@ -87,19 +81,9 @@ function Header({
     slideNumber,
   ]);
 
-  function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    event.stopPropagation();
-    if (event.code === "Enter") {
-      event.preventDefault();
-      finishEditing();
-    }
-  }
-
   function remove() {
     removeElement(slideNumber, item.id);
   }
-
-  const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -121,17 +105,17 @@ function Header({
   return (
     <Container>
       {selected && <EditableToolbar ref={editingElement} />}
-      <StyledHeader
-        as={Tag}
-        level={item.level as number}
+      <StyledList
+        listType={item.listType}
+        as={item.listType === "ordered" ? "ol" : "ul"}
+        onMouseDown={() => !present && setSelected(true)}
+        onKeyDown={(event: any) => event.stopPropagation()}
+        onDoubleClick={() => !present && editHeading()}
         selected={selected}
         ref={editingElement}
-        onKeyDown={checkMouseDown}
-        onMouseDown={() => !present && setSelected(true)}
-        onDoubleClick={() => !present && editHeading()}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a"],
+            allowedTags: ["b", "i", "a", "li"],
             allowedAttributes: { a: ["href"] },
           }),
         }}
@@ -145,6 +129,6 @@ function Header({
   );
 }
 
-Header.displayName = "Header";
+List.displayName = "List";
 
-export default Header;
+export default List;
