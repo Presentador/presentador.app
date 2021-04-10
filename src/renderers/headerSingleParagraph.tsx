@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
@@ -14,7 +13,8 @@ const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
 
   padding: 1.5em;
-  background-color: ${colours.primary};
+  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.primaryBackground};
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -24,16 +24,14 @@ const TopContainer = styled.div`
   h3,
   h4,
   h5 {
-    color: white;
+    color: ${({ theme }) => theme.primaryHeaderText};
   }
 `;
 const BottomContainer = styled.div`
   flex: 2;
   padding: 1.5em;
-
-  p {
-    color: ${colours.lightText};
-  }
+  color: ${({ theme }) => theme.secondaryNormalText};
+  background-color: ${({ theme }) => theme.secondaryBackground};
 `;
 
 export function HeaderSingleParagraphRenderer({

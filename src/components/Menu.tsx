@@ -9,6 +9,7 @@ import StyledButton from "./menu/StyledButton";
 import Elements from "./Elements";
 import Save from "./menu/Save";
 import Load from "./menu/Load";
+import Settings from "./menu/Settings";
 
 const Container = styled.div`
   display: flex;
@@ -72,6 +73,7 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
         </StyledButton>
         <Save ref={fileHandle} />
         <Load ref={fileHandle} />
+        <Settings />
       </Left>
       <Center>
         <Elements />

@@ -14,7 +14,6 @@ import EditableToolbar from "../EditableToolbar";
 import { DeckContext } from "../../context/deck";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
-import { colours } from "../../theme";
 
 const Container = styled.div`
   position: relative;
@@ -43,7 +42,7 @@ const StyledFooterItem = styled.div<{ selected: boolean }>`
   padding: 0.5em;
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
-  color: ${colours.lightText};
+  color: ${({ theme }) => theme.lightText};
 `;
 
 function FooterItem({

@@ -1,16 +1,25 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
-  background-color: ${colours.primary};
+  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.primaryBackground};
   color: white;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: ${({ theme }) => theme.primaryHeaderText};
+  }
 `;
 
 const TopContainer = styled.div`

@@ -1,5 +1,0 @@
-export const colours = {
-  darkText: "#424242",
-  lightText: "#737373",
-  primary: "#4285f4",
-};

@@ -5,7 +5,7 @@ import {
   useContext,
   forwardRef,
 } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
@@ -59,7 +59,7 @@ const Footer = styled.div`
 
 function Slide(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);
-  const { currentSlide, present, size } = useContext(DeckContext);
+  const { colours, currentSlide, present, size } = useContext(DeckContext);
 
   // scale to fit window width and/or height
   const getScale = useCallback(
@@ -100,77 +100,84 @@ function Slide(_: any, ref: any) {
       <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]}>
         <ArraysWrapper />
       </SizeWrapper>
-      <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]} ref={ref}>
-        <StyledSlide className={slide.state}>
-          <Wrapper>
-            {slide.elements
-              .filter((item) => item.type !== "footer")
-              .map((item) => {
-                switch (item.type) {
-                  case "heading": {
-                    return (
-                      <Header
-                        slideNumber={currentSlide}
-                        key={item.id}
-                        item={item}
-                      />
-                    );
+      <ThemeProvider theme={colours}>
+        <SizeWrapper
+          scaleSize={scale}
+          width={size[0]}
+          height={size[1]}
+          ref={ref}
+        >
+          <StyledSlide className={slide.state}>
+            <Wrapper>
+              {slide.elements
+                .filter((item) => item.type !== "footer")
+                .map((item) => {
+                  switch (item.type) {
+                    case "heading": {
+                      return (
+                        <Header
+                          slideNumber={currentSlide}
+                          key={item.id}
+                          item={item}
+                        />
+                      );
+                    }
+                    case "paragraph": {
+                      return (
+                        <Paragraph
+                          slideNumber={currentSlide}
+                          key={item.id}
+                          item={item}
+                        />
+                      );
+                    }
+                    case "image": {
+                      return (
+                        <Image
+                          slideNumber={currentSlide}
+                          key={item.id}
+                          item={item}
+                        />
+                      );
+                    }
+                    case "list": {
+                      return (
+                        <List
+                          slideNumber={currentSlide}
+                          key={item.id}
+                          item={item}
+                        />
+                      );
+                    }
+                    case "blockquote": {
+                      return (
+                        <Blockquote
+                          slideNumber={currentSlide}
+                          key={item.id}
+                          item={item}
+                        />
+                      );
+                    }
+                    default: {
+                      return <></>;
+                    }
                   }
-                  case "paragraph": {
-                    return (
-                      <Paragraph
-                        slideNumber={currentSlide}
-                        key={item.id}
-                        item={item}
-                      />
-                    );
-                  }
-                  case "image": {
-                    return (
-                      <Image
-                        slideNumber={currentSlide}
-                        key={item.id}
-                        item={item}
-                      />
-                    );
-                  }
-                  case "list": {
-                    return (
-                      <List
-                        slideNumber={currentSlide}
-                        key={item.id}
-                        item={item}
-                      />
-                    );
-                  }
-                  case "blockquote": {
-                    return (
-                      <Blockquote
-                        slideNumber={currentSlide}
-                        key={item.id}
-                        item={item}
-                      />
-                    );
-                  }
-                  default: {
-                    return <></>;
-                  }
-                }
-              })}
-          </Wrapper>
-          <Footer>
-            {slide.elements
-              .filter((item) => item.type === "footer")
-              .map((item) => (
-                <FooterItem
-                  key={item.id}
-                  item={item}
-                  slideNumber={currentSlide}
-                />
-              ))}
-          </Footer>
-        </StyledSlide>
-      </SizeWrapper>
+                })}
+            </Wrapper>
+            <Footer>
+              {slide.elements
+                .filter((item) => item.type === "footer")
+                .map((item) => (
+                  <FooterItem
+                    key={item.id}
+                    item={item}
+                    slideNumber={currentSlide}
+                  />
+                ))}
+            </Footer>
+          </StyledSlide>
+        </SizeWrapper>
+      </ThemeProvider>
     </>
   );
 }

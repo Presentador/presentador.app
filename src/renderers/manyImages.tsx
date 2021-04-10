@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
-  background-color: ${colours.primary};
+  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.primaryBackground};
   color: white;
   padding: 1.5em;
 

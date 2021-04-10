@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
@@ -24,14 +23,14 @@ const LeftContainer = styled.div`
   h5,
   h6 {
     flex: 1;
-    color: ${colours.darkText};
+    color: ${({ theme }) => theme.darkText};
     padding-bottom: 0.5em;
   }
 
   p,
   ul {
     padding-bottom: 0.5em;
-    color: ${colours.lightText};
+    color: ${({ theme }) => theme.lightText};
     flex: 1;
   }
 `;

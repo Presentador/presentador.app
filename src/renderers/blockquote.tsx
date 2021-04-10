@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
@@ -10,11 +9,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: ${colours.lightText};
+  color: ${({ theme }) => theme.secondaryNormalText};
+  background-color: ${({ theme }) => theme.secondaryBackground};
 
   blockquote {
     padding: 1em;
-    color: ${colours.lightText};
   }
 `;
 

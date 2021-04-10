@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
   background-color: white;
   padding: 1.5em;
+  color: ${({ theme }) => theme.secondaryNormalText};
+  background-color: ${({ theme }) => theme.secondaryBackground};
 `;
 const BlockContainer = styled.div`
   display: block;
   padding-bottom: 0.5em;
-  color: ${colours.lightText};
 
   h1,
   h2,
@@ -19,7 +19,7 @@ const BlockContainer = styled.div`
   h4,
   h5,
   h6 {
-    color: black;
+    color: ${({ theme }) => theme.secondaryHeaderText};
   }
 
   & > * {

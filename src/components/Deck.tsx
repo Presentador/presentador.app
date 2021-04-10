@@ -45,6 +45,8 @@ function App() {
     setSize,
     loading,
     setLoading,
+    colours,
+    setColours,
   } = useDeckState();
 
   useEffect(() => {
@@ -94,6 +96,8 @@ function App() {
     <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
       <DeckContext.Provider
         value={{
+          colours,
+          setColours,
           loading,
           setLoading,
           currentSlide,

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
@@ -16,7 +15,8 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: ${colours.primary};
+  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.primaryBackground};
   color: white;
 
   h1,
@@ -26,9 +26,11 @@ const LeftContainer = styled.div`
   h5,
   h6 {
     flex: 1;
+    color: ${({ theme }) => theme.primaryHeaderText};
   }
 
   .paragraphs {
+    color: ${({ theme }) => theme.primaryNormalText};
     flex: 2;
   }
 `;
@@ -38,6 +40,8 @@ const RightContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 1.5em;
+  color: ${({ theme }) => theme.secondaryNormalText};
+  background-color: ${({ theme }) => theme.secondaryBackground};
 `;
 
 const ImageContainer = styled.div`

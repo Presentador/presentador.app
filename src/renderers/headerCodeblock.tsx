@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { Builder } from "../types";
-import { colours } from "../theme";
 
 const Container = styled.div`
   height: 100%;
@@ -10,7 +9,7 @@ const Container = styled.div`
   justify-content: center;
 
   .top {
-    background-color: ${colours.primary};
+    background-color: ${({ theme }) => theme.primary};
     flex: 1;
     display: flex;
 
