@@ -9,7 +9,6 @@ import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
-import { DeckContext } from "../../context/deck";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 import EditableToolbar from "../EditableToolbar";
@@ -37,7 +36,9 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
 function Paragraph({
   slideNumber,
   item,
+  present,
 }: {
+  present: boolean;
   slideNumber: number;
   item: Element;
 }) {
@@ -45,7 +46,6 @@ function Paragraph({
   const editingElement = useRef<HTMLDivElement | null>(null);
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
-  const { present } = useContext(DeckContext);
 
   function editHeading() {
     editingElement.current &&

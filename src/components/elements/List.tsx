@@ -5,7 +5,6 @@ import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
 import { Element } from "../../types";
 
 const Container = styled.div`
@@ -40,11 +39,18 @@ const StyledList = styled.div<{
   }
 `;
 
-function List({ slideNumber, item }: { slideNumber: number; item: Element }) {
+function List({
+  slideNumber,
+  item,
+  present,
+}: {
+  present: boolean;
+  slideNumber: number;
+  item: Element;
+}) {
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLUListElement | null>(null);
 
-  const { present } = useContext(DeckContext);
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading() {

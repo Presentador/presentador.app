@@ -1,18 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useCallback, useState } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 import { ReactComponent as AddIcon } from "bootstrap-icons/icons/plus.svg";
 
+import Slide from "./Slide";
+
 import { SlidesContext } from "../context/slides";
 import { DeckContext } from "../context/deck";
 import { ThumbnailsContext } from "../context/thumbnails";
 
-const Container = styled.div`
+const Container = styled.div<{
+  width: number;
+  height: number;
+  active: boolean;
+}>`
   position: relative;
   display: inline-block;
   margin-right: 0.1em;
+  height: ${({ height }) => height}px;
+  width: ${({ width }) => width}px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  border: ${({ active }) => (active ? "1px solid #15aabf" : "none")};
+  cursor: pointer;
 `;
 
 const StyledRemoveButton = styled.button`
@@ -23,33 +36,14 @@ const StyledRemoveButton = styled.button`
   z-index: 9999;
 `;
 const StyledAddButton = styled.button`
-  display: inline-block;
-  width: 20px;
-  height: 100px;
-  vertical-align: middle;
-  cursor: pointer;
-`;
-
-const StyledImage = styled.img<{ active: boolean }>`
-  box-sizing: border-box;
-  display: inline-block;
-  width: 10em;
-  vertical-align: middle;
-  border: ${({ active }) => (active ? "1px solid #15aabf" : "none")};
-  cursor: pointer;
-`;
-const StyledLoadingPlaceholder = styled.div<{ active: boolean }>`
-  box-sizing: border-box;
-
-  display: inline-block;
-  width: 10em;
-  vertical-align: middle;
-  border: ${({ active }) =>
-    active ? "1px solid #15aabf" : "1px solid rgba(0,0,0,0)"};
+  padding: 0.3em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9999;
 `;
 
 function Thumbnail({
-  src,
   active,
   number,
 }: {
@@ -58,40 +52,49 @@ function Thumbnail({
   number: number;
 }) {
   const { addSlide, removeSlide } = useContext(SlidesContext);
-  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide, size } = useContext(DeckContext);
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
-  const Tag =
-    src !== "" ? (
-      <StyledImage
-        active={active}
-        src={src}
-        alt={`Slide`}
-        onClick={() => setCurrentSlide(number)}
-      />
-    ) : (
-      <StyledLoadingPlaceholder active={active}>
-        Loading
-      </StyledLoadingPlaceholder>
-    );
+  // scale to fit window width and/or height
+  const getScale = useCallback(
+    () => Math.min((size[0] * 0.15) / size[0], (size[1] * 0.15) / size[1]),
+    [size]
+  );
+
+  const [scale, setScale] = useState(getScale());
+
+  useEffect(() => {
+    function updateSize() {
+      const scale = getScale();
+      setScale(scale);
+    }
+
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [setScale, size, getScale]);
 
   return (
     <Draggable key={number} draggableId={`${number}`} index={number}>
       {(provided) => (
         <Container
+          width={size[0] * 0.15}
+          height={size[1] * 0.15}
+          active={active}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
+          onClick={() => setCurrentSlide(number)}
         >
-          {Tag}
+          <Slide slideNumber={number} present={true} scale={scale} />
           {hover && (
             <>
               {thumbnails.length > 1 && (
                 <StyledRemoveButton
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.stopPropagation();
                     removeSlide(number);
                     setCurrentSlide(
                       currentSlide === number
@@ -111,7 +114,8 @@ function Thumbnail({
                 </StyledRemoveButton>
               )}
               <StyledAddButton
-                onClick={() => {
+                onClick={(event) => {
+                  event.stopPropagation();
                   addSlide(number + 1);
                   setCurrentSlide(number + 1);
                   const first = thumbnails.slice(0, number + 1);

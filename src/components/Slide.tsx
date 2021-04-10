@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-  useContext,
-  forwardRef,
-} from "react";
+import { useContext } from "react";
 import styled, { ThemeProvider } from "styled-components";
 
 import { SlidesContext } from "../context/slides";
@@ -16,7 +10,6 @@ import Image from "./elements/Image";
 import List from "./elements/List";
 import Blockquote from "./elements/Blockquote";
 import FooterItem from "./elements/FooterItem";
-import ArraysWrapper from "./ArraysWrapper";
 
 import { renderersMap } from "../renderers";
 
@@ -41,6 +34,8 @@ const StyledSlide = styled.div`
   width: 100%;
   height: 100%;
 
+  white-space: normal;
+
   a {
     color: #51c2f7;
   }
@@ -57,56 +52,26 @@ const Footer = styled.div`
   flex: 1;
 `;
 
-function Slide(_: any, ref: any) {
+function Slide({
+  present,
+  scale,
+  slideNumber,
+}: {
+  present: boolean;
+  scale: number;
+  slideNumber: number;
+}) {
   const { slides } = useContext(SlidesContext);
-  const { colours, currentSlide, present, size } = useContext(DeckContext);
-
-  // scale to fit window width and/or height
-  const getScale = useCallback(
-    () =>
-      Math.min(
-        (!present
-          ? window.innerWidth - window.innerWidth * 0.25
-          : window.innerWidth) / size[0],
-        (!present
-          ? window.innerHeight - window.innerHeight * 0.25
-          : window.innerHeight) / size[1]
-      ),
-    [present, size]
-  );
-
-  const [scale, setScale] = useState(getScale());
+  const { colours, size } = useContext(DeckContext);
+  const currentSlide = slideNumber;
 
   const slide = slides[currentSlide];
   const Wrapper = renderersMap[slide.state];
 
-  useEffect(() => {
-    function updateSize() {
-      const scale = getScale();
-      setScale(scale);
-    }
-
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, [setScale, size, getScale]);
-
-  useEffect(() => {
-    const scale = getScale();
-    setScale(scale);
-  }, [setScale, present, getScale]);
-
   return (
     <>
-      <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]}>
-        <ArraysWrapper />
-      </SizeWrapper>
       <ThemeProvider theme={colours}>
-        <SizeWrapper
-          scaleSize={scale}
-          width={size[0]}
-          height={size[1]}
-          ref={ref}
-        >
+        <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]}>
           <StyledSlide className={slide.state}>
             <Wrapper>
               {slide.elements
@@ -116,6 +81,7 @@ function Slide(_: any, ref: any) {
                     case "heading": {
                       return (
                         <Header
+                          present={present}
                           slideNumber={currentSlide}
                           key={item.id}
                           item={item}
@@ -125,6 +91,7 @@ function Slide(_: any, ref: any) {
                     case "paragraph": {
                       return (
                         <Paragraph
+                          present={present}
                           slideNumber={currentSlide}
                           key={item.id}
                           item={item}
@@ -134,6 +101,7 @@ function Slide(_: any, ref: any) {
                     case "image": {
                       return (
                         <Image
+                          present={present}
                           slideNumber={currentSlide}
                           key={item.id}
                           item={item}
@@ -143,6 +111,7 @@ function Slide(_: any, ref: any) {
                     case "list": {
                       return (
                         <List
+                          present={present}
                           slideNumber={currentSlide}
                           key={item.id}
                           item={item}
@@ -152,6 +121,7 @@ function Slide(_: any, ref: any) {
                     case "blockquote": {
                       return (
                         <Blockquote
+                          present={present}
                           slideNumber={currentSlide}
                           key={item.id}
                           item={item}
@@ -169,6 +139,7 @@ function Slide(_: any, ref: any) {
                 .filter((item) => item.type === "footer")
                 .map((item) => (
                   <FooterItem
+                    present={present}
                     key={item.id}
                     item={item}
                     slideNumber={currentSlide}
@@ -182,4 +153,4 @@ function Slide(_: any, ref: any) {
   );
 }
 
-export default forwardRef<HTMLDivElement>(Slide);
+export default Slide;

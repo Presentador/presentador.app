@@ -11,7 +11,6 @@ import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
 import { Element } from "../../types";
 
 const Container = styled.div`
@@ -46,12 +45,19 @@ const StyledHeader = styled.div<{ level: number; selected: boolean }>`
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")}; ;
 `;
 
-function Header({ slideNumber, item }: { slideNumber: number; item: Element }) {
+function Header({
+  slideNumber,
+  item,
+  present,
+}: {
+  present: boolean;
+  slideNumber: number;
+  item: Element;
+}) {
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
-  const { present } = useContext(DeckContext);
 
   function editHeading() {
     editingElement.current &&

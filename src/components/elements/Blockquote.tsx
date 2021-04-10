@@ -10,7 +10,6 @@ import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import EditableToolbar from "../EditableToolbar";
-import { DeckContext } from "../../context/deck";
 import { SlidesContext } from "../../context/slides";
 import { Element } from "../../types";
 
@@ -47,7 +46,9 @@ const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
 function Blockquote({
   slideNumber,
   item,
+  present,
 }: {
+  present: boolean;
   slideNumber: number;
   item: Element;
 }) {
@@ -55,7 +56,6 @@ function Blockquote({
   const editingElement = useRef<HTMLDivElement | null>(null);
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
-  const { present } = useContext(DeckContext);
 
   function editHeading() {
     editingElement.current &&

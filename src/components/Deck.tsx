@@ -1,5 +1,5 @@
 import screenfull from "screenfull";
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 import { SlidesContext, useSlidesState } from "../context/slides";
@@ -8,7 +8,7 @@ import { DeckContext, useDeckState } from "../context/deck";
 
 import Menu from "./Menu";
 import Controls from "./Controls";
-import Slide from "./Slide";
+import Slide from "./SlideWrapper";
 import LoadingBar from "./LoadingBar";
 
 const Wrapper = styled.div`
@@ -23,8 +23,6 @@ const SlideWrapper = styled.div`
 `;
 
 function App() {
-  const slideWrapperRef = useRef<HTMLDivElement>(null);
-
   const {
     slides,
     setSlides,
@@ -132,9 +130,9 @@ function App() {
               />
             )}
             <SlideWrapper>
-              <Slide ref={slideWrapperRef} />
+              <Slide />
             </SlideWrapper>
-            {!present && <Controls ref={slideWrapperRef} />}
+            {!present && <Controls />}
           </Wrapper>
         </SlidesContext.Provider>
       </DeckContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../../context/slides";
@@ -14,10 +14,18 @@ const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
     loadingState ? "rgba(0, 0, 0, 0.1)" : "none"};
 `;
 
-function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
+function Image({
+  slideNumber,
+  item,
+  present,
+}: {
+  present: boolean;
+  slideNumber: number;
+  item: Element;
+}) {
   const [selected, setSelected] = useState(false);
 
-  const { present, loading, setLoading } = useContext(DeckContext);
+  const { loading } = useContext(DeckContext);
   const { removeElement } = useContext(SlidesContext);
 
   function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
@@ -34,10 +42,6 @@ function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
     }
   }
 
-  useEffect(() => {
-    setLoading(true);
-  }, [setLoading]);
-
   return (
     <div
       onBlur={finishEditing}
@@ -46,7 +50,6 @@ function Image({ slideNumber, item }: { slideNumber: number; item: Element }) {
       tabIndex={-1}
     >
       <StyledImage
-        onLoad={() => setLoading(false)}
         loadingState={loading}
         selected={selected}
         src={item.value}
