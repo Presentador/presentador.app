@@ -35,6 +35,10 @@ const BottomContainer = styled.div`
 
   blockquote {
     color: ${({ theme }) => theme.secondaryNormalText};
+
+    &:before {
+      color: ${({ theme }) => theme.secondaryNormalText};
+    }
   }
 `;
 

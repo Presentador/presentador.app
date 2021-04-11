@@ -14,6 +14,10 @@ const Container = styled.div`
 
   blockquote {
     padding: 1em;
+
+    &:before {
+      color: ${({ theme }) => theme.secondaryNormalText};
+    }
   }
 `;
 
