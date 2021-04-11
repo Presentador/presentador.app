@@ -53,13 +53,13 @@ function Thumbnail({
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
-// Scale slides dimensions down to become a thumbnail
-const thumbnailWidth = size[0] * 0.15;
-const thumbnailHeight = size[1] * 0.15;
+  // Scale slides dimensions down to become a thumbnail
+  const thumbnailWidth = size[0] * 0.15;
+  const thumbnailHeight = size[1] * 0.15;
 
   // scale to fit window width and/or height
   const getScale = useCallback(
-    () => Math.min((thumbnailWidth) / size[0], (thumbnailHeight) / size[1]),
+    () => Math.min(thumbnailWidth / size[0], thumbnailHeight / size[1]),
     [size]
   );
 
