@@ -18,13 +18,10 @@ const Container = styled.div<{
 }>`
   position: relative;
   display: inline-block;
-  margin-right: 0.1em;
-  height: ${({ height }) => height}px;
-  width: ${({ width }) => width}px;
-  box-sizing: border-box;
-  display: inline-block;
+  height: ${({ height }) => height + 2}px;
+  width: ${({ width }) => width + 2}px;
   vertical-align: middle;
-  border: ${({ active }) => (active ? "1px solid #15aabf" : "none")};
+  border: ${({ active }) => (active ? "1px solid #15aabf" : "1px solid #fff")};
   cursor: pointer;
 `;
 
@@ -56,9 +53,13 @@ function Thumbnail({
   const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
+// Scale slides dimensions down to become a thumbnail
+const thumbnailWidth = size[0] * 0.15;
+const thumbnailHeight = size[1] * 0.15;
+
   // scale to fit window width and/or height
   const getScale = useCallback(
-    () => Math.min((size[0] * 0.15) / size[0], (size[1] * 0.15) / size[1]),
+    () => Math.min((thumbnailWidth) / size[0], (thumbnailHeight) / size[1]),
     [size]
   );
 
@@ -78,8 +79,8 @@ function Thumbnail({
     <Draggable key={number} draggableId={`${number}`} index={number}>
       {(provided) => (
         <Container
-          width={size[0] * 0.15}
-          height={size[1] * 0.15}
+          width={thumbnailWidth}
+          height={thumbnailHeight}
           active={active}
           ref={provided.innerRef}
           {...provided.draggableProps}
