@@ -27,10 +27,14 @@ export function useSlidesState() {
           return slide;
         }
 
+        const elementsWithoutFooter = slide.elements.filter(
+          (item) => item.type !== "footer"
+        );
+
         const nextState =
           item.type === "footer"
             ? slide.state
-            : buildersMap[slide.state].add(item.type, slide.elements);
+            : buildersMap[slide.state].add(item.type, elementsWithoutFooter);
 
         return {
           elements: [...slide.elements, item],
@@ -53,9 +57,13 @@ export function useSlidesState() {
           return slide;
         }
 
-        const remainingElements = slide.elements.filter(
+        const elementsWithoutFooter = slide.elements.filter(
+          (item) => item.type !== "footer"
+        );
+        const remainingElements = elementsWithoutFooter.filter(
           (item) => item.id !== id
         );
+
         const nextState =
           element.type === "footer"
             ? slide.state
