@@ -60,7 +60,7 @@ function Thumbnail({
   // scale to fit window width and/or height
   const getScale = useCallback(
     () => Math.min(thumbnailWidth / size[0], thumbnailHeight / size[1]),
-    [size]
+    [size, thumbnailWidth, thumbnailHeight]
   );
 
   const [scale, setScale] = useState(getScale());
