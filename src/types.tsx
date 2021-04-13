@@ -23,7 +23,7 @@ export type ElementType =
   | "heading"
   | "image"
   | "list"
-  | "code_block"
+  | "codeblock"
   | "paragraph"
   | "footer"
   | "blockquote";

@@ -5,6 +5,7 @@ import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
 
 import Header from "./elements/Header";
+import Codeblock from "./elements/Codeblock";
 import Paragraph from "./elements/Paragraph";
 import Image from "./elements/Image";
 import List from "./elements/List";
@@ -121,6 +122,16 @@ function Slide({
                     case "blockquote": {
                       return (
                         <Blockquote
+                          present={present}
+                          slideNumber={currentSlide}
+                          key={item.id}
+                          item={item}
+                        />
+                      );
+                    }
+                    case "codeblock": {
+                      return (
+                        <Codeblock
                           present={present}
                           slideNumber={currentSlide}
                           key={item.id}

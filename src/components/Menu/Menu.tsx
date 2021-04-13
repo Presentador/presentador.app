@@ -7,6 +7,7 @@ import { ReactComponent as HelpIcon } from "bootstrap-icons/icons/question-circl
 
 import StyledButton from "./StyledButton";
 import Quote from "./Buttons/Quote";
+import Codeblock from "./Buttons/Codeblock";
 import Header from "./Buttons/Header";
 import Footer from "./Buttons/Footer";
 import List from "./Buttons/List";
@@ -88,6 +89,7 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
           <List />
           <Quote />
           <Footer />
+          <Codeblock />
         </>
       </Center>
       <Right>
