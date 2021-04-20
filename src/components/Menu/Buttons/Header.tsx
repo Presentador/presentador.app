@@ -3,7 +3,6 @@ import { useEffect, useRef, useState, useContext } from "react";
 import { ReactComponent as H1Icon } from "bootstrap-icons/icons/type-h1.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { DeckContext } from "../../../context/deck";
 
 import StyledButton from "../StyledButton";
 
@@ -26,8 +25,7 @@ const Modal = styled.div`
 
 function Header() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, addElement } = useContext(SlidesContext);
 
   const [headingSelected, setHeadingSelected] = useState(false);
 

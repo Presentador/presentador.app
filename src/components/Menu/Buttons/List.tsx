@@ -5,7 +5,6 @@ import { ReactComponent as ListUlIcon } from "bootstrap-icons/icons/list-ul.svg"
 import { ReactComponent as ListOlIcon } from "bootstrap-icons/icons/list-ol.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { DeckContext } from "../../../context/deck";
 
 import StyledButton from "../StyledButton";
 
@@ -27,8 +26,7 @@ const Modal = styled.div`
 `;
 function List() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, addElement } = useContext(SlidesContext);
 
   const [listSelected, setListSelected] = useState(false);
 

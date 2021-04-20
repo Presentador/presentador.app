@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { ReactComponent as ParagraphIcon } from "bootstrap-icons/icons/text-paragraph.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { DeckContext } from "../../../context/deck";
 
 import StyledButton from "../StyledButton";
 
@@ -12,8 +11,7 @@ const Container = styled.div`
 `;
 
 function Paragraph() {
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, addElement } = useContext(SlidesContext);
 
   return (
     <Container>

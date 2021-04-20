@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
+
 import Thumbnail from "./Thumbnail";
 
 const Container = styled.div`
@@ -12,8 +12,9 @@ const Container = styled.div`
 `;
 
 function ThumbnailsBar() {
-  const { slides, setSlides } = useContext(SlidesContext);
-  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide, slides, setSlides } = useContext(
+    SlidesContext
+  );
 
   function reorder(array: any[], source: number, destination: number) {
     const beforeSource = array.slice(0, source);

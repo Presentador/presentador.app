@@ -2,7 +2,6 @@ import { useContext } from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../../context/slides";
-import { DeckContext } from "../../context/deck";
 
 import { ReactComponent as LeftIcon } from "bootstrap-icons/icons/chevron-left.svg";
 import { ReactComponent as RightIcon } from "bootstrap-icons/icons/chevron-right.svg";
@@ -28,8 +27,7 @@ const RightContainer = styled.div`
 `;
 
 function ArraysWrapper() {
-  const { slides } = useContext(SlidesContext);
-  const { currentSlide, setCurrentSlide } = useContext(DeckContext);
+  const { currentSlide, setCurrentSlide, slides } = useContext(SlidesContext);
 
   return (
     <>

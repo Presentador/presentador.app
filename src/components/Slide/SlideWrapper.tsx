@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
 import { DeckContext } from "../../context/deck";
+import { SlidesContext } from "../../context/slides";
 
 import ArraysWrapper from "./ArraysWrapper";
 import Slide from "./Slide";
@@ -20,7 +21,8 @@ const SizeWrapper = styled.div<{
 `;
 
 function SlideWrapper() {
-  const { currentSlide, present, size } = useContext(DeckContext);
+  const { currentSlide } = useContext(SlidesContext);
+  const { present, size } = useContext(DeckContext);
 
   // scale to fit window width and/or height
   const getScale = useCallback(

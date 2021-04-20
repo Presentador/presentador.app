@@ -30,11 +30,13 @@ function App() {
     removeElement,
     changeElementValue,
     addSlide,
+    currentSlide,
+    setCurrentSlide,
+    undo,
+    redo,
   } = useSlidesState();
 
   const {
-    currentSlide,
-    setCurrentSlide,
     present,
     setPresent,
     size,
@@ -95,8 +97,6 @@ function App() {
         setColours,
         loading,
         setLoading,
-        currentSlide,
-        setCurrentSlide,
         present,
         setPresent,
         size,
@@ -105,6 +105,10 @@ function App() {
     >
       <SlidesContext.Provider
         value={{
+          undo,
+          redo,
+          currentSlide,
+          setCurrentSlide,
           slides,
           setSlides,
           addElement,

@@ -13,6 +13,8 @@ import List from "./Buttons/List";
 import Image from "./Buttons/Image";
 import Paragraph from "./Buttons/Paragraph";
 import Save from "./Buttons/Save";
+import Undo from "./Buttons/Undo";
+import Redo from "./Buttons/Redo";
 import Load from "./Buttons/Load";
 import Settings from "./Buttons/Settings";
 
@@ -79,6 +81,8 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
         <Save ref={fileHandle} />
         <Load ref={fileHandle} />
         <Settings />
+        <Undo />
+        <Redo />
       </Left>
       <Center>
         <>

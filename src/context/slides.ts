@@ -8,14 +8,34 @@ const initial = require("./initial-presentation.json");
 
 export function useSlidesState() {
   const [slides, setSlides] = useState<Slide[]>(initial.slides);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [actions, setActions] = useState<
+    { undo: () => void; redo: () => void }[]
+  >([]);
+  const [currentAction, setCurrentAction] = useState(-1);
 
   function addSlide(at: number = slides.length) {
-    setSlides((prev) => {
-      const first = prev.slice(0, at);
-      const rest = prev.slice(at);
-      return [...first, { state: "normal", elements: [] }, ...rest];
-    });
+    const redo = () => {
+      setSlides((prev) => {
+        const first = prev.slice(0, at);
+        const rest = prev.slice(at);
+        return [...first, { state: "normal", elements: [] }, ...rest];
+      });
+      setCurrentSlide(at);
+    };
+
+    const undo = () => {
+      setSlides((prev) => {
+        return prev.filter((item, index) => index !== at);
+      });
+      setCurrentSlide(currentSlide);
+    };
+
+    setActions([...actions, { redo, undo }]);
+    setCurrentAction(currentAction + 1);
+    redo();
   }
+
   function removeSlide(number: number) {
     setSlides((prev) => prev.filter((_, index) => index !== number));
   }
@@ -96,7 +116,31 @@ export function useSlidesState() {
     );
   }
 
+  function redo() {
+    console.log(actions);
+    console.log(currentAction);
+    if (currentAction !== -1 && currentAction < actions.length) {
+      console.log("redo");
+      const lastAction = actions[currentAction];
+      setCurrentAction(currentAction + 1);
+      lastAction.redo();
+    }
+  }
+
+  function undo() {
+    console.log(actions);
+    console.log(currentAction);
+    if (currentAction > 0) {
+      console.log("undo");
+      const lastAction = actions[currentAction];
+      setCurrentAction(currentAction - 1);
+      lastAction.undo();
+    }
+  }
+
   return {
+    undo,
+    redo,
     slides,
     setSlides,
     addElement,
@@ -104,10 +148,16 @@ export function useSlidesState() {
     changeElementValue,
     addSlide,
     removeSlide,
+    currentSlide,
+    setCurrentSlide,
   };
 }
 
 export const SlidesContext = React.createContext<{
+  currentSlide: number;
+  setCurrentSlide: (number: number) => void;
+  undo: () => void;
+  redo: () => void;
   slides: Slide[];
   setSlides: (slides: Slide[]) => void;
   removeSlide: (id: number) => void;
@@ -116,7 +166,11 @@ export const SlidesContext = React.createContext<{
   removeElement: (slideNumber: number, id: number) => void;
   changeElementValue: (slideNumber: number, id: number, value: string) => void;
 }>({
+  currentSlide: 0,
+  setCurrentSlide: () => {},
   slides: [],
+  undo: () => {},
+  redo: () => {},
   setSlides: () => {},
   addSlide: () => {},
   removeSlide: () => {},

@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { ReactComponent as BlockquoteIcon } from "bootstrap-icons/icons/blockquote-left.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { DeckContext } from "../../../context/deck";
 
 import StyledButton from "../StyledButton";
 
@@ -13,8 +12,7 @@ const Container = styled.div`
 `;
 
 function Quote() {
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, addElement } = useContext(SlidesContext);
 
   return (
     <Container>

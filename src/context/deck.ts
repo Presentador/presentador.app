@@ -14,7 +14,6 @@ export function useDeckState() {
   const [present, setPresent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [size, setSize] = useState<[number, number]>([960, 700]);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [colours, setColours] = useState<Colours>({
     primaryBackground: "#4285f4",
     primaryHeaderText: "#ffffff",
@@ -29,8 +28,6 @@ export function useDeckState() {
     setColours,
     loading,
     setLoading,
-    currentSlide,
-    setCurrentSlide,
     present,
     setPresent,
     size,
@@ -39,8 +36,6 @@ export function useDeckState() {
 }
 
 export const DeckContext = React.createContext<{
-  currentSlide: number;
-  setCurrentSlide: (number: number) => void;
   colours: Colours;
   setColours: (colours: Colours) => void;
   loading: boolean;
@@ -56,8 +51,6 @@ export const DeckContext = React.createContext<{
   setSize: () => {},
   present: false,
   setPresent: () => {},
-  currentSlide: 0,
-  setCurrentSlide: () => {},
   loading: false,
   setLoading: () => {},
 });

@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { ReactComponent as FooterIcon } from "bootstrap-icons/icons/align-bottom.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { DeckContext } from "../../../context/deck";
 
 import StyledButton from "../StyledButton";
 
@@ -13,8 +12,7 @@ const Container = styled.div`
 `;
 
 function Footer() {
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, addElement } = useContext(SlidesContext);
 
   return (
     <Container>

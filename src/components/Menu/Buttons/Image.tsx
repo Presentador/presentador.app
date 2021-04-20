@@ -29,8 +29,8 @@ const Modal = styled.div`
 
 function Image() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide, setLoading } = useContext(DeckContext);
+  const { currentSlide, addElement } = useContext(SlidesContext);
+  const { setLoading } = useContext(DeckContext);
 
   const [imageModalOpen, setImageModalOpen] = useState(false);
 
