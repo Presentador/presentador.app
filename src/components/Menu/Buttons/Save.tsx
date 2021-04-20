@@ -4,18 +4,16 @@ import { ReactComponent as SaveIcon } from "bootstrap-icons/icons/save.svg";
 
 import { SlidesContext } from "../../../context/slides";
 import { DeckContext } from "../../../context/deck";
-import { ThumbnailsContext } from "../../../context/thumbnails";
 
 import StyledButton from "../StyledButton";
 
 function Save(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);
-  const { thumbnails } = useContext(ThumbnailsContext);
   const { setLoading, size } = useContext(DeckContext);
 
   async function save() {
     setLoading(true);
-    const obj = { version: 1, slides, thumbnails, size };
+    const obj = { version: 1, slides, size };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
     });

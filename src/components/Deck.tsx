@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 import { SlidesContext, useSlidesState } from "../context/slides";
-import { ThumbnailsContext, useThumbnailsState } from "../context/thumbnails";
 import { DeckContext, useDeckState } from "../context/deck";
 
 import Menu from "./Menu/Menu";
@@ -33,7 +32,6 @@ function App() {
     addSlide,
   } = useSlidesState();
 
-  const { thumbnails, setThumbnails } = useThumbnailsState();
   const {
     currentSlide,
     setCurrentSlide,
@@ -91,52 +89,50 @@ function App() {
   }, [currentSlide, slides, setCurrentSlide, present]);
 
   return (
-    <ThumbnailsContext.Provider value={{ thumbnails, setThumbnails }}>
-      <DeckContext.Provider
+    <DeckContext.Provider
+      value={{
+        colours,
+        setColours,
+        loading,
+        setLoading,
+        currentSlide,
+        setCurrentSlide,
+        present,
+        setPresent,
+        size,
+        setSize,
+      }}
+    >
+      <SlidesContext.Provider
         value={{
-          colours,
-          setColours,
-          loading,
-          setLoading,
-          currentSlide,
-          setCurrentSlide,
-          present,
-          setPresent,
-          size,
-          setSize,
+          slides,
+          setSlides,
+          addElement,
+          removeElement,
+          changeElementValue,
+          removeSlide,
+          addSlide,
         }}
       >
-        <SlidesContext.Provider
-          value={{
-            slides,
-            setSlides,
-            addElement,
-            removeElement,
-            changeElementValue,
-            removeSlide,
-            addSlide,
-          }}
-        >
-          <Wrapper>
-            <LoadingBar />
-            {!present && (
-              <Menu
-                togglePresent={() => {
-                  setPresent(!present);
-                  if (screenfull.isEnabled) {
-                    screenfull.request();
-                  }
-                }}
-              />
-            )}
-            <SlideWrapper>
-              <Slide />
-            </SlideWrapper>
-            {!present && <ThumbnailsBar />}
-          </Wrapper>
-        </SlidesContext.Provider>
-      </DeckContext.Provider>
-    </ThumbnailsContext.Provider>
+        <Wrapper>
+          <LoadingBar />
+          {!present && (
+            <Menu
+              togglePresent={() => {
+                setPresent(!present);
+                if (screenfull.isEnabled) {
+                  screenfull.request();
+                }
+              }}
+            />
+          )}
+          <SlideWrapper>
+            <Slide />
+          </SlideWrapper>
+          {!present && <ThumbnailsBar />}
+        </Wrapper>
+      </SlidesContext.Provider>
+    </DeckContext.Provider>
   );
 }
 

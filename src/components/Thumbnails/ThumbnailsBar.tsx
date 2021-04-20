@@ -4,7 +4,6 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
-import { ThumbnailsContext } from "../../context/thumbnails";
 import Thumbnail from "./Thumbnail";
 
 const Container = styled.div`
@@ -15,7 +14,6 @@ const Container = styled.div`
 function ThumbnailsBar() {
   const { slides, setSlides } = useContext(SlidesContext);
   const { currentSlide, setCurrentSlide } = useContext(DeckContext);
-  const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
 
   function reorder(array: any[], source: number, destination: number) {
     const beforeSource = array.slice(0, source);
@@ -36,7 +34,6 @@ function ThumbnailsBar() {
           if (!result.destination) return;
           const source = result.source.index;
           const destination = result.destination.index;
-          setThumbnails(reorder(thumbnails, source, destination));
           setSlides(reorder(slides, source, destination));
           setCurrentSlide(destination);
         }}
@@ -44,10 +41,9 @@ function ThumbnailsBar() {
         <Droppable droppableId="thumbnails" direction="horizontal">
           {(provided: any) => (
             <Container {...provided.droppableProps} ref={provided.innerRef}>
-              {thumbnails.map((item, index) => (
+              {slides.map((item, index) => (
                 <Thumbnail
                   key={index}
-                  src={item}
                   number={index}
                   active={currentSlide === index}
                 />

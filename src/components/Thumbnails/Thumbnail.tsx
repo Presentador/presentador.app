@@ -9,7 +9,6 @@ import Slide from "../Slide/Slide";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
-import { ThumbnailsContext } from "../../context/thumbnails";
 
 const Container = styled.div<{
   width: number;
@@ -40,17 +39,11 @@ const StyledAddButton = styled.button`
   z-index: 9999;
 `;
 
-function Thumbnail({
-  active,
-  number,
-}: {
-  src: string;
-  active: boolean;
-  number: number;
-}) {
-  const { addSlide, removeSlide } = useContext(SlidesContext);
+function Thumbnail({ active, number }: { active: boolean; number: number }) {
+  const { slides, setSlides, addSlide, removeSlide } = useContext(
+    SlidesContext
+  );
   const { currentSlide, setCurrentSlide, size } = useContext(DeckContext);
-  const { thumbnails, setThumbnails } = useContext(ThumbnailsContext);
   const [hover, setHover] = useState(false);
 
   // Scale slides dimensions down to become a thumbnail
@@ -92,7 +85,7 @@ function Thumbnail({
           <Slide slideNumber={number} present={true} scale={scale} />
           {hover && (
             <>
-              {thumbnails.length > 1 && (
+              {slides.length > 1 && (
                 <StyledRemoveButton
                   onClick={(event) => {
                     event.stopPropagation();
@@ -106,9 +99,7 @@ function Thumbnail({
                         ? currentSlide
                         : currentSlide - 1
                     );
-                    setThumbnails(
-                      thumbnails.filter((item, index) => index !== number)
-                    );
+                    setSlides(slides.filter((item, index) => index !== number));
                   }}
                 >
                   <TrashIcon />
@@ -119,9 +110,6 @@ function Thumbnail({
                   event.stopPropagation();
                   addSlide(number + 1);
                   setCurrentSlide(number + 1);
-                  const first = thumbnails.slice(0, number + 1);
-                  const rest = thumbnails.slice(number + 1);
-                  setThumbnails([...first, "", ...rest]);
                 }}
               >
                 <AddIcon />

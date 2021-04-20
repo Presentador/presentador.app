@@ -37,6 +37,7 @@ export function useSlidesState() {
             : buildersMap[slide.state].add(item.type, elementsWithoutFooter);
 
         return {
+          ...slide,
           elements: [...slide.elements, item],
           state: nextState,
         };
@@ -70,6 +71,7 @@ export function useSlidesState() {
             : buildersMap[slide.state].remove(element.type, remainingElements);
 
         return {
+          ...slide,
           elements: remainingElements,
           state: nextState,
         };
