@@ -12,6 +12,7 @@ import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
+import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
@@ -57,11 +58,21 @@ function Header({
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
 
-  const { removeElement, changeElementValue } = useContext(SlidesContext);
+  const { addElement, removeElement, changeElementValue } = useContext(
+    SlidesContext
+  );
+  const { addAction } = useContext(HistoryContext);
 
   function editHeading() {
     editingElement.current &&
       editingElement.current.setAttribute("contenteditable", "true");
+  }
+
+  function remove() {
+    addAction(
+      () => removeElement(slideNumber, item.id),
+      () => addElement(slideNumber, item)
+    );
   }
 
   const finishEditing = useCallback(() => {
@@ -69,12 +80,20 @@ function Header({
       editingElement.current.setAttribute("contenteditable", "false");
       setSelected(false);
       if (editingElement.current.innerHTML === "") {
-        removeElement(slideNumber, item.id);
+        addAction(
+          () => removeElement(slideNumber, item.id),
+          () => addElement(slideNumber, item)
+        );
       } else if (editingElement.current.innerHTML !== item.value) {
-        changeElementValue(
-          slideNumber,
-          item.id,
-          editingElement.current.innerHTML
+        addAction(
+          () =>
+            editingElement.current &&
+            changeElementValue(
+              slideNumber,
+              item.id,
+              editingElement.current.innerHTML
+            ),
+          () => changeElementValue(slideNumber, item.id, item.value)
         );
       }
     }
@@ -82,9 +101,11 @@ function Header({
     editingElement,
     setSelected,
     removeElement,
+    addElement,
     changeElementValue,
     item,
     slideNumber,
+    addAction,
   ]);
 
   function checkMouseDown(event: React.KeyboardEvent<HTMLDivElement>) {
@@ -93,10 +114,6 @@ function Header({
       event.preventDefault();
       finishEditing();
     }
-  }
-
-  function remove() {
-    removeElement(slideNumber, item.id);
   }
 
   const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";

@@ -7,6 +7,7 @@ import { ReactComponent as ListOlIcon } from "bootstrap-icons/icons/list-ol.svg"
 import { SlidesContext } from "../../../context/slides";
 
 import StyledButton from "../StyledButton";
+import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
@@ -26,7 +27,8 @@ const Modal = styled.div`
 `;
 function List() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { currentSlide, addElement } = useContext(SlidesContext);
+  const { currentSlide, addElement, removeElement } = useContext(SlidesContext);
+  const { addAction } = useContext(HistoryContext);
 
   const [listSelected, setListSelected] = useState(false);
 
@@ -59,12 +61,18 @@ function List() {
             title="List"
             onClick={() => {
               setListSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "list",
-                value: "<li>Point one to make</li>",
-                listType: "unordered",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "list",
+                    value: "<li>Point one to make</li>",
+                    listType: "unordered",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             <ListUlIcon />
@@ -73,12 +81,18 @@ function List() {
             title="List"
             onClick={() => {
               setListSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "list",
-                value: "<li>Point one to make</li>",
-                listType: "ordered",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "list",
+                    value: "<li>Point one to make</li>",
+                    listType: "ordered",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             <ListOlIcon />

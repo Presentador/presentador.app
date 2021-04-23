@@ -5,26 +5,34 @@ import { ReactComponent as ParagraphIcon } from "bootstrap-icons/icons/text-para
 import { SlidesContext } from "../../../context/slides";
 
 import StyledButton from "../StyledButton";
+import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   display: inline-block;
 `;
 
 function Paragraph() {
-  const { currentSlide, addElement } = useContext(SlidesContext);
+  const { currentSlide, addElement, removeElement } = useContext(SlidesContext);
+  const { addAction } = useContext(HistoryContext);
 
   return (
     <Container>
       <StyledButton
         title="Paragraph"
-        onClick={() =>
-          addElement(currentSlide, {
-            id: new Date().getTime(),
-            type: "paragraph",
-            value:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          })
-        }
+        onClick={() => {
+          const id = new Date().getTime();
+
+          addAction(
+            () =>
+              addElement(currentSlide, {
+                id,
+                type: "paragraph",
+                value:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+              }),
+            () => removeElement(currentSlide, id)
+          );
+        }}
       >
         <ParagraphIcon />
       </StyledButton>
