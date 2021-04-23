@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { SlidesContext } from "../../../context/slides";
 import { DeckContext } from "../../../context/deck";
 import { Element } from "../../../types";
+import { HistoryContext } from "../../../context/history";
 
 const StyledImage = styled.img<{ selected: boolean; loadingState: boolean }>`
   font-size: 1.3em;
@@ -26,9 +27,10 @@ function Image({
   const [selected, setSelected] = useState(false);
 
   const { loading } = useContext(DeckContext);
-  const { removeElement } = useContext(SlidesContext);
+  const { addElement, removeElement } = useContext(SlidesContext);
+  const { addAction } = useContext(HistoryContext);
 
-  function finishEditing(event: React.FocusEvent<HTMLDivElement>) {
+  function finishEditing() {
     setSelected(false);
   }
   function edit() {
@@ -38,7 +40,10 @@ function Image({
   function keydown(event: React.KeyboardEvent<HTMLImageElement>) {
     if (event.key === "Backspace") {
       event.preventDefault();
-      removeElement(slideNumber, item.id);
+      addAction(
+        () => removeElement(slideNumber, item.id),
+        () => addElement(slideNumber, item)
+      );
     }
   }
 
