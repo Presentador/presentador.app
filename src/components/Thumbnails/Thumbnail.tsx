@@ -41,9 +41,13 @@ const StyledAddButton = styled.button`
 `;
 
 function Thumbnail({ active, number }: { active: boolean; number: number }) {
-  const { setCurrentSlide, slides, addSlide, removeSlide } = useContext(
-    SlidesContext
-  );
+  const {
+    setCurrentSlide,
+    setSlides,
+    slides,
+    addSlide,
+    removeSlide,
+  } = useContext(SlidesContext);
   const { size } = useContext(DeckContext);
   const { addAction } = useContext(HistoryContext);
   const [hover, setHover] = useState(false);
@@ -91,7 +95,10 @@ function Thumbnail({ active, number }: { active: boolean; number: number }) {
                 <StyledRemoveButton
                   onClick={(event) => {
                     event.stopPropagation();
-                    removeSlide(number);
+                    addAction(
+                      () => removeSlide(number),
+                      () => setSlides(slides)
+                    );
                   }}
                 >
                   <TrashIcon />
