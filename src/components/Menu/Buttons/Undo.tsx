@@ -5,7 +5,7 @@ import { HistoryContext } from "../../../context/history";
 
 import StyledButton from "../StyledButton";
 
-function Undo(_: any, ref: any) {
+function Undo() {
   const { undo } = useContext(HistoryContext);
 
   return (

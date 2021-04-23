@@ -5,7 +5,7 @@ import { HistoryContext } from "../../../context/history";
 
 import StyledButton from "../StyledButton";
 
-function Redo(_: any, ref: any) {
+function Redo() {
   const { redo } = useContext(HistoryContext);
 
   return (

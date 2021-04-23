@@ -109,7 +109,7 @@ function Image() {
       </StyledButton>
       {imageModalOpen && (
         <Modal>
-          Past the image directly or its remote URL or drag and drop it as a
+          Paste the image directly or its remote URL or drag and drop it as a
           file.
         </Modal>
       )}

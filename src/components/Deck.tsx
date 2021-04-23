@@ -90,6 +90,20 @@ function App() {
     return () => window.removeEventListener("keydown", callback);
   }, [currentSlide, slides, setCurrentSlide, present]);
 
+  useEffect(() => {
+    function callback(event: any) {
+      if (event.metaKey === true && event.key === "z") {
+        if (event.shiftKey === true) {
+          redo();
+        } else {
+          undo();
+        }
+      }
+    }
+    document.addEventListener("keydown", callback);
+    return () => document.removeEventListener("keydown", callback);
+  }, [redo, undo]);
+
   return (
     <HistoryContext.Provider value={{ addAction, undo, redo }}>
       <DeckContext.Provider
