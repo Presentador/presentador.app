@@ -4,17 +4,17 @@ export function useHistoryState() {
   const [actions, setActions] = useState<
     { undo: () => void; redo: () => void }[]
   >([]);
-  const [currentAction, setCurrentAction] = useState(-1);
+  const [currentAction, setCurrentAction] = useState(0);
 
   function addAction(redo: () => void, undo: () => void) {
-    setActions([...actions.slice(0, currentAction + 1), { redo, undo }]);
+    setActions([...actions.slice(0, currentAction), { redo, undo }]);
     setCurrentAction(currentAction + 1);
 
     redo();
   }
 
   function redo() {
-    if (currentAction < actions.length - 1) {
+    if (currentAction < actions.length) {
       const lastAction = actions[currentAction];
       setCurrentAction(currentAction + 1);
       lastAction.redo();
@@ -22,8 +22,8 @@ export function useHistoryState() {
   }
 
   function undo() {
-    if (currentAction >= 0) {
-      const lastAction = actions[currentAction];
+    if (currentAction > 0) {
+      const lastAction = actions[currentAction - 1];
       setCurrentAction(currentAction - 1);
       lastAction.undo();
     }
