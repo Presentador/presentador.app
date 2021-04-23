@@ -5,6 +5,7 @@ import { ReactComponent as H1Icon } from "bootstrap-icons/icons/type-h1.svg";
 import { SlidesContext } from "../../../context/slides";
 
 import StyledButton from "../StyledButton";
+import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
@@ -25,7 +26,8 @@ const Modal = styled.div`
 
 function Header() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { currentSlide, addElement } = useContext(SlidesContext);
+  const { currentSlide, addElement, removeElement } = useContext(SlidesContext);
+  const { addAction } = useContext(HistoryContext);
 
   const [headingSelected, setHeadingSelected] = useState(false);
 
@@ -58,12 +60,18 @@ function Header() {
             title="Heading 1"
             onClick={() => {
               setHeadingSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "heading",
-                level: 1,
-                value: "Heading 1",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "heading",
+                    level: 1,
+                    value: "Heading 1",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             H1
@@ -72,12 +80,18 @@ function Header() {
             title="Heading 2"
             onClick={() => {
               setHeadingSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "heading",
-                level: 2,
-                value: "Heading 2",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "heading",
+                    level: 2,
+                    value: "Heading 2",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             H2
@@ -86,12 +100,18 @@ function Header() {
             title="Heading 3"
             onClick={() => {
               setHeadingSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "heading",
-                level: 3,
-                value: "Heading 3",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "heading",
+                    level: 3,
+                    value: "Heading 3",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             H3
@@ -100,12 +120,18 @@ function Header() {
             title="Heading 4"
             onClick={() => {
               setHeadingSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "heading",
-                level: 4,
-                value: "Heading 4",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "heading",
+                    level: 4,
+                    value: "Heading 4",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             H4
@@ -114,12 +140,18 @@ function Header() {
             title="Heading 5"
             onClick={() => {
               setHeadingSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "heading",
-                level: 5,
-                value: "Heading 5",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "heading",
+                    level: 5,
+                    value: "Heading 5",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             H5
@@ -128,12 +160,18 @@ function Header() {
             title="Heading 6"
             onClick={() => {
               setHeadingSelected(false);
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "heading",
-                level: 6,
-                value: "Heading 6",
-              });
+              const id = new Date().getTime();
+
+              addAction(
+                () =>
+                  addElement(currentSlide, {
+                    id,
+                    type: "heading",
+                    level: 6,
+                    value: "Heading 6",
+                  }),
+                () => removeElement(currentSlide, id)
+              );
             }}
           >
             H6

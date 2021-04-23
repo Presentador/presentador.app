@@ -14,7 +14,7 @@ export function useHistoryState() {
   }
 
   function redo() {
-    if (currentAction !== -1 && currentAction < actions.length) {
+    if (currentAction < actions.length - 1) {
       const lastAction = actions[currentAction];
       setCurrentAction(currentAction + 1);
       lastAction.redo();
@@ -33,7 +33,7 @@ export function useHistoryState() {
 }
 
 export const HistoryContext = React.createContext<{
-  addAction: (undo: () => void, redo: () => void) => void;
+  addAction: (redo: () => void, undo: () => void) => void;
   undo: () => void;
   redo: () => void;
 }>({
