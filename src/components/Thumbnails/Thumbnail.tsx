@@ -9,6 +9,7 @@ import Slide from "../Slide/Slide";
 
 import { SlidesContext } from "../../context/slides";
 import { DeckContext } from "../../context/deck";
+import { HistoryContext } from "../../context/history";
 
 const Container = styled.div<{
   width: number;
@@ -40,15 +41,11 @@ const StyledAddButton = styled.button`
 `;
 
 function Thumbnail({ active, number }: { active: boolean; number: number }) {
-  const {
-    currentSlide,
-    setCurrentSlide,
-    slides,
-    setSlides,
-    addSlide,
-    removeSlide,
-  } = useContext(SlidesContext);
+  const { setCurrentSlide, slides, addSlide, removeSlide } = useContext(
+    SlidesContext
+  );
   const { size } = useContext(DeckContext);
+  const { addAction } = useContext(HistoryContext);
   const [hover, setHover] = useState(false);
 
   // Scale slides dimensions down to become a thumbnail
@@ -95,15 +92,6 @@ function Thumbnail({ active, number }: { active: boolean; number: number }) {
                   onClick={(event) => {
                     event.stopPropagation();
                     removeSlide(number);
-                    // setCurrentSlide(
-                    //   currentSlide === number
-                    //     ? number === 0
-                    //       ? number
-                    //       : number - 1
-                    //     : currentSlide === 0
-                    //     ? currentSlide
-                    //     : currentSlide - 1
-                    // );
                   }}
                 >
                   <TrashIcon />
@@ -112,7 +100,11 @@ function Thumbnail({ active, number }: { active: boolean; number: number }) {
               <StyledAddButton
                 onClick={(event) => {
                   event.stopPropagation();
-                  addSlide(number + 1);
+
+                  addAction(
+                    () => addSlide(number + 1),
+                    () => removeSlide(number + 1)
+                  );
                 }}
               >
                 <AddIcon />

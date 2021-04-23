@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { SlidesContext, useSlidesState } from "../context/slides";
 import { DeckContext, useDeckState } from "../context/deck";
+import { HistoryContext, useHistoryState } from "../context/history";
 
 import Menu from "./Menu/Menu";
 import ThumbnailsBar from "./Thumbnails/ThumbnailsBar";
@@ -32,10 +33,9 @@ function App() {
     addSlide,
     currentSlide,
     setCurrentSlide,
-    undo,
-    redo,
   } = useSlidesState();
 
+  const { addAction, undo, redo } = useHistoryState();
   const {
     present,
     setPresent,
@@ -91,52 +91,52 @@ function App() {
   }, [currentSlide, slides, setCurrentSlide, present]);
 
   return (
-    <DeckContext.Provider
-      value={{
-        colours,
-        setColours,
-        loading,
-        setLoading,
-        present,
-        setPresent,
-        size,
-        setSize,
-      }}
-    >
-      <SlidesContext.Provider
+    <HistoryContext.Provider value={{ addAction, undo, redo }}>
+      <DeckContext.Provider
         value={{
-          undo,
-          redo,
-          currentSlide,
-          setCurrentSlide,
-          slides,
-          setSlides,
-          addElement,
-          removeElement,
-          changeElementValue,
-          removeSlide,
-          addSlide,
+          colours,
+          setColours,
+          loading,
+          setLoading,
+          present,
+          setPresent,
+          size,
+          setSize,
         }}
       >
-        <Wrapper>
-          <LoadingBar />
-          {!present && (
-            <Menu
-              togglePresent={() => {
-                setPresent(!present);
-                if (screenfull.isEnabled) {
-                  screenfull.request();
-                }
-              }}
-            />
-          )}
-          <SlideWrapper>
-            <Slide />
-          </SlideWrapper>
-          {!present && <ThumbnailsBar />}
-        </Wrapper>
-      </SlidesContext.Provider>
-    </DeckContext.Provider>
+        <SlidesContext.Provider
+          value={{
+            currentSlide,
+            setCurrentSlide,
+            slides,
+            setSlides,
+            addElement,
+            removeElement,
+            changeElementValue,
+            removeSlide,
+            addSlide,
+          }}
+        >
+          <Wrapper>
+            <LoadingBar />
+            {!present && (
+              <Menu
+                togglePresent={() => {
+                  setPresent(!present);
+                  if (screenfull.isEnabled) {
+                    screenfull.request();
+                  }
+                }}
+              />
+            )}
+            <SlideWrapper>
+              <Slide />
+            </SlideWrapper>
+            {!present && <ThumbnailsBar />}
+          </Wrapper>
+        </SlidesContext.Provider>
+      </DeckContext.Provider>
+    </HistoryContext.Provider>
   );
 }
 
