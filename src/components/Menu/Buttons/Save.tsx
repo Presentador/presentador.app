@@ -9,11 +9,11 @@ import StyledButton from "../StyledButton";
 
 function Save(_: any, ref: any) {
   const { slides } = useContext(SlidesContext);
-  const { setLoading, size } = useContext(DeckContext);
+  const { setLoading, size, colours } = useContext(DeckContext);
 
   async function save() {
     setLoading(true);
-    const obj = { version: 1, slides, size };
+    const obj = { version: 1, slides, size, colours };
     const blob = new Blob([JSON.stringify(obj, null, 2)], {
       type: "application/json",
     });
