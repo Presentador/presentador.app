@@ -5,6 +5,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { SlidesContext } from "../../context/slides";
 
 import Thumbnail from "./Thumbnail";
+import { HistoryContext } from "../../context/history";
 
 const Container = styled.div`
   overflow-y: scroll;
@@ -15,6 +16,7 @@ function ThumbnailsBar() {
   const { currentSlide, setCurrentSlide, slides, setSlides } = useContext(
     SlidesContext
   );
+  const { addAction } = useContext(HistoryContext);
 
   function reorder(array: any[], source: number, destination: number) {
     const beforeSource = array.slice(0, source);
@@ -35,8 +37,16 @@ function ThumbnailsBar() {
           if (!result.destination) return;
           const source = result.source.index;
           const destination = result.destination.index;
-          setSlides(reorder(slides, source, destination));
-          setCurrentSlide(destination);
+          addAction(
+            () => {
+              setSlides(reorder(slides, source, destination));
+              setCurrentSlide(destination);
+            },
+            () => {
+              setSlides(slides);
+              setCurrentSlide(currentSlide);
+            }
+          );
         }}
       >
         <Droppable droppableId="thumbnails" direction="horizontal">
