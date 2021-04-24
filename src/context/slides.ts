@@ -21,6 +21,7 @@ export function useSlidesState() {
 
   function removeSlide(number: number) {
     setSlides((prev) => prev.filter((_, index) => index !== number));
+    setCurrentSlide(number - 1);
   }
 
   async function addElement(slideNumber: number, item: Element) {
