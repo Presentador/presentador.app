@@ -19,7 +19,7 @@ function Footer() {
   return (
     <Container>
       <StyledButton
-        title="Footer item"
+        data-tooltip="Footer item"
         onClick={() => {
           const id = new Date().getTime();
           addAction(

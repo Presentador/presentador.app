@@ -48,7 +48,7 @@ function List() {
   return (
     <Container ref={ref}>
       <StyledButton
-        title="List"
+        data-tooltip="List"
         onClick={() => {
           setListSelected(true);
         }}
@@ -58,7 +58,7 @@ function List() {
       {listSelected && (
         <Modal>
           <StyledButton
-            title="List"
+            data-tooltip="Unordered list"
             onClick={() => {
               setListSelected(false);
               const id = new Date().getTime();
@@ -78,7 +78,7 @@ function List() {
             <ListUlIcon />
           </StyledButton>
           <StyledButton
-            title="List"
+            data-tooltip="Ordered list"
             onClick={() => {
               setListSelected(false);
               const id = new Date().getTime();

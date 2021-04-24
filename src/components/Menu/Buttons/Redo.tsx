@@ -9,7 +9,7 @@ function Redo() {
   const { redo } = useContext(HistoryContext);
 
   return (
-    <StyledButton onClick={redo}>
+    <StyledButton data-tooltip="Redo" onClick={redo}>
       <RedoIcon />
     </StyledButton>
   );

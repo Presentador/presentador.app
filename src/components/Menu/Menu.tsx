@@ -75,6 +75,7 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
             color: "white",
             borderColor: "#15aabf",
           }}
+          data-tooltip="Present"
         >
           <PlayIcon />
         </StyledButton>
@@ -98,12 +99,14 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
         <ExternalLink
           href="https://github.com/kbariotis/presentador.app"
           target="blank"
+          data-tooltip="GitHub"
         >
           <StyledGithubIcon />
         </ExternalLink>
         <ExternalLink
           href="https://github.com/kbariotis/presentador.app/issues"
           target="blank"
+          data-tooltip="GitHub Issues"
         >
           <StyledHelpIcon />
         </ExternalLink>

@@ -47,7 +47,7 @@ function Header() {
   return (
     <Container ref={ref}>
       <StyledButton
-        title="Heading"
+        data-tooltip="Heading"
         onClick={() => {
           setHeadingSelected(true);
         }}
@@ -57,7 +57,7 @@ function Header() {
       {headingSelected && (
         <Modal>
           <StyledButton
-            title="Heading 1"
+            data-tooltip="Heading 1"
             onClick={() => {
               setHeadingSelected(false);
               const id = new Date().getTime();
@@ -77,7 +77,7 @@ function Header() {
             H1
           </StyledButton>
           <StyledButton
-            title="Heading 2"
+            data-tooltip="Heading 2"
             onClick={() => {
               setHeadingSelected(false);
               const id = new Date().getTime();
@@ -97,7 +97,7 @@ function Header() {
             H2
           </StyledButton>
           <StyledButton
-            title="Heading 3"
+            data-tooltip="Heading 3"
             onClick={() => {
               setHeadingSelected(false);
               const id = new Date().getTime();
@@ -117,7 +117,7 @@ function Header() {
             H3
           </StyledButton>
           <StyledButton
-            title="Heading 4"
+            data-tooltip="Heading 4"
             onClick={() => {
               setHeadingSelected(false);
               const id = new Date().getTime();
@@ -137,7 +137,7 @@ function Header() {
             H4
           </StyledButton>
           <StyledButton
-            title="Heading 5"
+            data-tooltip="Heading 5"
             onClick={() => {
               setHeadingSelected(false);
               const id = new Date().getTime();
@@ -157,7 +157,7 @@ function Header() {
             H5
           </StyledButton>
           <StyledButton
-            title="Heading 6"
+            data-tooltip="Heading 6"
             onClick={() => {
               setHeadingSelected(false);
               const id = new Date().getTime();

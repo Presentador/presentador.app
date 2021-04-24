@@ -19,7 +19,7 @@ function Quote() {
   return (
     <Container>
       <StyledButton
-        title="Quote"
+        data-tooltip="Quote"
         onClick={() => {
           const id = new Date().getTime();
 

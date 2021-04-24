@@ -71,7 +71,10 @@ function Settings() {
 
   return (
     <Container ref={ref}>
-      <StyledButton onClick={() => setModalOpen(!modalOpen)}>
+      <StyledButton
+        onClick={() => setModalOpen(!modalOpen)}
+        data-tooltip="Settings"
+      >
         <GearIcon />
       </StyledButton>
       {modalOpen && (

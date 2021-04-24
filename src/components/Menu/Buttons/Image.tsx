@@ -104,7 +104,10 @@ function Image() {
 
   return (
     <Container ref={ref}>
-      <StyledButton onClick={() => setImageModalOpen(!imageModalOpen)}>
+      <StyledButton
+        data-tooltip="Image"
+        onClick={() => setImageModalOpen(!imageModalOpen)}
+      >
         <ImageIcon />
       </StyledButton>
       {imageModalOpen && (

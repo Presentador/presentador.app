@@ -33,7 +33,7 @@ function Load(_: any, ref: any) {
   }
 
   return (
-    <StyledButton onClick={load}>
+    <StyledButton onClick={load} data-tooltip="Load">
       <LoadIcon />
     </StyledButton>
   );

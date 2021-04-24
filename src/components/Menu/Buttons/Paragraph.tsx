@@ -18,7 +18,7 @@ function Paragraph() {
   return (
     <Container>
       <StyledButton
-        title="Paragraph"
+        data-tooltip="Paragraph"
         onClick={() => {
           const id = new Date().getTime();
 

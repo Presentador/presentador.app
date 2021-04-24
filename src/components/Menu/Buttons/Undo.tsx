@@ -9,7 +9,7 @@ function Undo() {
   const { undo } = useContext(HistoryContext);
 
   return (
-    <StyledButton onClick={undo}>
+    <StyledButton data-tooltip="Undo" onClick={undo}>
       <UndoIcon />
     </StyledButton>
   );

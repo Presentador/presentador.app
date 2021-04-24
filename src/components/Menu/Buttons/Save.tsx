@@ -34,7 +34,7 @@ function Save(_: any, ref: any) {
   }
 
   return (
-    <StyledButton onClick={save}>
+    <StyledButton onClick={save} data-tooltip="Save">
       <SaveIcon /> <b>{ref.current && ref.current.name}</b>
     </StyledButton>
   );
