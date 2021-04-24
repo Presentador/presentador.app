@@ -8,7 +8,7 @@ import Thumbnail from "./Thumbnail";
 
 const Container = styled.div`
   overflow-y: scroll;
-  white-space: pre-wrap;
+  white-space: nowrap;
 `;
 
 function ThumbnailsBar() {
