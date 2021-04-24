@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useContext } from "react";
+import { useCallback, useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
 import { SlidesContext } from "../../../context/slides";
@@ -6,6 +6,7 @@ import { DeckContext } from "../../../context/deck";
 import { ReactComponent as ImageIcon } from "bootstrap-icons/icons/card-image.svg";
 
 import StyledButton from "../StyledButton";
+import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
@@ -29,8 +30,9 @@ const Modal = styled.div`
 
 function Image() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { currentSlide, addElement } = useContext(SlidesContext);
+  const { currentSlide, addElement, removeElement } = useContext(SlidesContext);
   const { setLoading } = useContext(DeckContext);
+  const { addAction } = useContext(HistoryContext);
 
   const [imageModalOpen, setImageModalOpen] = useState(false);
 
@@ -47,60 +49,122 @@ function Image() {
     };
   }, []);
 
+  const addImageFromFile = useCallback(
+    function (file: File | null) {
+      setLoading(true);
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        if (event?.target?.result) {
+          const id = new Date().getTime();
+          addAction(
+            () =>
+              addElement(currentSlide, {
+                id,
+                type: "image",
+                value: event?.target?.result as string,
+              }),
+            () => removeElement(currentSlide, id)
+          );
+
+          setImageModalOpen(false);
+          setLoading(false);
+        }
+      };
+      file && reader.readAsDataURL(file);
+    },
+    [
+      addElement,
+      setImageModalOpen,
+      setLoading,
+      currentSlide,
+      removeElement,
+      addAction,
+    ]
+  );
+
+  const addImageFromString = useCallback(
+    async function (content: string) {
+      try {
+        setLoading(true);
+        const url = new URL(content);
+        const response = await fetch(url.toString());
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          if (event?.target?.result) {
+            const id = new Date().getTime();
+            addAction(
+              () =>
+                addElement(currentSlide, {
+                  id,
+                  type: "image",
+                  value: event?.target?.result as string,
+                }),
+              () => removeElement(currentSlide, id)
+            );
+            setImageModalOpen(false);
+            setLoading(false);
+          }
+        };
+        reader.readAsDataURL(await response.blob());
+      } catch (error) {
+        setLoading(false);
+        return false;
+      }
+    },
+    [
+      currentSlide,
+      addElement,
+      setLoading,
+      setImageModalOpen,
+      removeElement,
+      addAction,
+    ]
+  );
+
   useEffect(() => {
-    const callback = (event: any) => {
-      const items = event.clipboardData.items;
+    const callback = (event: ClipboardEvent) => {
+      const items = event.clipboardData?.items || [];
       for (const index in items) {
         const item = items[index];
         if (item.kind === "string") {
-          setLoading(true);
-          item.getAsString(async (string: string) => {
-            try {
-              const url = new URL(string);
-              const response = await fetch(url.toString());
-
-              const reader = new FileReader();
-              reader.onload = function (event) {
-                if (event?.target?.result) {
-                  addElement(currentSlide, {
-                    id: new Date().getTime(),
-                    type: "image",
-                    value: event?.target?.result as string,
-                  });
-                  setImageModalOpen(false);
-                  setLoading(false);
-                }
-              };
-              reader.readAsDataURL(await response.blob());
-            } catch (error) {
-              setLoading(false);
-              return false;
-            }
-          });
+          item.getAsString(addImageFromString);
         }
         if (item.kind === "file") {
-          setLoading(true);
-          const blob = item.getAsFile();
-          const reader = new FileReader();
-          reader.onload = function (event) {
-            if (event?.target?.result) {
-              addElement(currentSlide, {
-                id: new Date().getTime(),
-                type: "image",
-                value: event?.target?.result as string,
-              });
-              setImageModalOpen(false);
-              setLoading(false);
-            }
-          };
-          blob && reader.readAsDataURL(blob);
+          addImageFromFile(item.getAsFile());
         }
       }
     };
 
     document.addEventListener("paste", callback);
     return () => document.removeEventListener("paste", callback);
-  }, [currentSlide, addElement, setLoading, setImageModalOpen]);
+  }, [addImageFromString, addImageFromFile]);
+
+  useEffect(() => {
+    const callback = (event: DragEvent) => {
+      event.preventDefault();
+
+      const items = event.dataTransfer?.items || [];
+      for (const index in items) {
+        const item = items[index];
+        if (item.kind === "file") {
+          addImageFromFile(item.getAsFile());
+        }
+      }
+    };
+
+    document.addEventListener("drop", callback);
+    return () => document.removeEventListener("drop", callback);
+  }, [addImageFromFile]);
+
+  useEffect(() => {
+    const callback = (event: DragEvent) => {
+      event.preventDefault();
+    };
+
+    document.addEventListener("dragover", callback);
+    return () => document.removeEventListener("dragover", callback);
+  }, []);
 
   return (
     <Container ref={ref}>

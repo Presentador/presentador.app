@@ -22,6 +22,10 @@ const BlockContainer = styled.div`
     color: ${({ theme }) => theme.secondaryHeaderText};
   }
 
+  img {
+    width: 100%;
+  }
+
   & > * {
     padding-bottom: 1em;
     max-width: 100%;
@@ -124,6 +128,12 @@ export const NormalBuilder: Builder = {
     }
     if (remainingElements.length === 1 && remainingHeading === 1) {
       return "singleHeader";
+    }
+    if (remainingElements.length === 1 && remainingImage === 1) {
+      return "image";
+    }
+    if (remainingElements.length === remainingImage) {
+      return "manyImages";
     }
 
     if (remainingElements.length === 2 && remainingHeading === 1) {
