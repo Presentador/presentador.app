@@ -16,6 +16,7 @@ import Save from "./Buttons/Save";
 import Undo from "./Buttons/Undo";
 import Redo from "./Buttons/Redo";
 import Load from "./Buttons/Load";
+import New from "./Buttons/New";
 import Settings from "./Buttons/Settings";
 
 const Container = styled.div`
@@ -79,6 +80,7 @@ function Menu({ togglePresent }: { togglePresent: () => void }) {
         >
           <PlayIcon />
         </StyledButton>
+        <New ref={fileHandle} />
         <Save ref={fileHandle} />
         <Load ref={fileHandle} />
         <Settings />
