@@ -33,7 +33,6 @@ const BlockContainer = styled.div`
 `;
 
 export function NormalRenderer({ children }: { children: JSX.Element[] }) {
-  console.log(children);
   return (
     <Container>
       {children.map((child, index) => (

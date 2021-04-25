@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useContext } from "react";
-import { ReactComponent as CodeblockIcon } from "bootstrap-icons/icons/text-paragraph.svg";
+import { ReactComponent as CodeblockIcon } from "bootstrap-icons/icons/code-slash.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { DeckContext } from "../../../context/deck";
+import { HistoryContext } from "../../../context/history";
 
 import StyledButton from "../StyledButton";
 
@@ -12,20 +12,26 @@ const Container = styled.div`
 `;
 
 function Codeblock() {
-  const { addElement } = useContext(SlidesContext);
-  const { currentSlide } = useContext(DeckContext);
+  const { currentSlide, addElement, removeElement } = useContext(SlidesContext);
+  const { addAction } = useContext(HistoryContext);
 
   return (
     <Container>
       <StyledButton
+        data-tooltip="Code block"
         title="Codeblock"
-        onClick={() =>
-          addElement(currentSlide, {
-            id: new Date().getTime(),
-            type: "codeblock",
-            value: "function main() { }",
-          })
-        }
+        onClick={() => {
+          const id = new Date().getTime();
+          addAction(
+            () =>
+              addElement(currentSlide, {
+                id,
+                type: "codeblock",
+                value: "// insert code block here",
+              }),
+            () => removeElement(currentSlide, id)
+          );
+        }}
       >
         <CodeblockIcon />
       </StyledButton>

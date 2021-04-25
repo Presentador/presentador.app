@@ -7,36 +7,38 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
 
-  .top {
-    background-color: ${({ theme }) => theme.primary};
-    flex: 1;
-    display: flex;
+const TopContainer = styled.div`
+  box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
+  padding: 1.5em;
+  background-color: ${({ theme }) => theme.primaryBackground};
+  color: ${({ theme }) => theme.primaryNormalText};
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-      display: flex;
-      align-items: flex-end;
-      color: white;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: ${({ theme }) => theme.primaryHeaderText};
   }
-  .bottom {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex: 2;
+`;
 
-    pre {
-      display: block;
-      width: 100%;
+const BottomContainer = styled.div`
+  display: flex;
+  flex: 2;
+  padding: 1.5em;
+
+  pre {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    code {
       height: 100%;
-
-      code {
-        height: 100%;
-      }
     }
   }
 `;
@@ -47,8 +49,8 @@ export function HeaderCodeblockRenderer({
   children: JSX.Element[];
 }) {
   const header = children.find((item) => item.type.displayName === "Header");
-  const paragraph = children.find(
-    (item) => item.type.displayName === "Paragraph"
+  const codeblock = children.find(
+    (item) => item.type.displayName === "Codeblock"
   );
 
   if (!header) {
@@ -57,19 +59,18 @@ export function HeaderCodeblockRenderer({
 
   return (
     <Container>
-      <div className="top">{header}</div>
-      <div className="bottom">{paragraph}</div>
+      <TopContainer>{header}</TopContainer>
+      <BottomContainer>{codeblock}</BottomContainer>
     </Container>
   );
 }
 
 export const HeaderCodeblockBuilder: Builder = {
   add: (type) => {
-    if (type === "paragraph") return "headerManyParagraphs";
-    if (type === "image") return "headerManyParagraphsImage";
     return "normal";
   },
   remove: (type) => {
+    if (type === "codeblock") return "singleHeader";
     return "normal";
   },
 };

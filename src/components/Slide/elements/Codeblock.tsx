@@ -6,7 +6,6 @@ import React, {
   useContext,
 } from "react";
 import styled from "styled-components";
-import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 import hightlight from "highlight.js";
 
@@ -14,11 +13,11 @@ import "highlight.js/styles/github.css";
 
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
-import EditableToolbar from "../EditableToolbar";
 
 const Container = styled.div`
   position: relative;
-  display: inline-block;
+  display: block;
+  width: 100%;
 `;
 
 const StyledButton = styled.button`
@@ -32,7 +31,7 @@ const StyledCode = styled.code<{ selected: boolean }>`
   display: block;
   width: 100%;
   font-size: 1.3em;
-  padding: 0.1em;
+  padding: 0.5em;
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
   line-height: 1.4em;
@@ -111,7 +110,6 @@ function Codeblock({
 
   return (
     <Container>
-      {selected && <EditableToolbar ref={editingElement} />}
       <pre>
         <StyledCode
           selected={selected}
