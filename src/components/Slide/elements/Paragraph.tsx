@@ -19,11 +19,13 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const StyledButton = styled.button`
-  padding: 0.5em;
+const Buttons = styled.div`
   position: absolute;
   top: -2em;
-  right: -2em;
+  right: 0;
+`;
+const StyledButton = styled.button`
+  padding: 0.5em;
 `;
 
 const StyledParagraph = styled.p<{ selected: boolean }>`
@@ -138,9 +140,11 @@ function Paragraph({
         }}
       />
       {selected && (
-        <StyledButton onMouseDown={remove}>
-          <TrashIcon />
-        </StyledButton>
+        <Buttons>
+          <StyledButton data-tooltip="Remove" onMouseDown={remove}>
+            <TrashIcon />
+          </StyledButton>
+        </Buttons>
       )}
     </Container>
   );

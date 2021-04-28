@@ -13,11 +13,13 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const StyledButton = styled.button`
-  padding: 0.5em;
+const Buttons = styled.div`
   position: absolute;
   top: -2em;
-  right: -2em;
+  right: 0;
+`;
+const StyledButton = styled.button`
+  padding: 0.5em;
 `;
 
 const StyledList = styled.div<{
@@ -138,9 +140,11 @@ function List({
         }}
       />
       {selected && (
-        <StyledButton onMouseDown={remove}>
-          <TrashIcon />
-        </StyledButton>
+        <Buttons data-tooltip="Remove">
+          <StyledButton onMouseDown={remove}>
+            <TrashIcon />
+          </StyledButton>
+        </Buttons>
       )}
     </Container>
   );

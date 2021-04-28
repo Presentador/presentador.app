@@ -29,11 +29,13 @@ const Container = styled.div`
   }
 `;
 
-const StyledButton = styled.button`
-  padding: 0.5em;
+const Buttons = styled.div`
   position: absolute;
   top: -2em;
-  right: -2em;
+  right: 0;
+`;
+const StyledButton = styled.button`
+  padding: 0.5em;
 `;
 
 const StyledFooterItem = styled.div<{ selected: boolean }>`
@@ -149,9 +151,11 @@ function FooterItem({
         }}
       />
       {selected && (
-        <StyledButton onMouseDown={remove}>
-          <TrashIcon />
-        </StyledButton>
+        <Buttons data-tooltip="Remove">
+          <StyledButton onMouseDown={remove}>
+            <TrashIcon />
+          </StyledButton>
+        </Buttons>
       )}
     </Container>
   );

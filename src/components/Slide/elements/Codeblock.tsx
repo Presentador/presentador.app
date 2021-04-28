@@ -20,11 +20,13 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const StyledButton = styled.button`
-  padding: 0.5em;
+const Buttons = styled.div`
   position: absolute;
   top: -2em;
-  right: -2em;
+  right: 0;
+`;
+const StyledButton = styled.button`
+  padding: 0.5em;
 `;
 
 const StyledCode = styled.code<{ selected: boolean }>`
@@ -123,9 +125,11 @@ function Codeblock({
         />
       </pre>
       {selected && (
-        <StyledButton onMouseDown={remove}>
-          <TrashIcon />
-        </StyledButton>
+        <Buttons data-tooltip="Remove">
+          <StyledButton onMouseDown={remove}>
+            <TrashIcon />
+          </StyledButton>
+        </Buttons>
       )}
     </Container>
   );

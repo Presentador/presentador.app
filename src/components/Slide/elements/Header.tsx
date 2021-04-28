@@ -24,8 +24,7 @@ const Container = styled.div`
 const Buttons = styled.div`
   position: absolute;
   top: -2em;
-  right: -2em;
-  width: 100px;
+  right: 0;
 `;
 const StyledButton = styled.button`
   padding: 0.5em;
@@ -172,13 +171,21 @@ function Header({
       />
       {selected && (
         <Buttons>
-          <StyledButton onMouseDown={increase} disabled={item.level === 1}>
+          <StyledButton
+            data-tooltip="Increase size"
+            onMouseDown={increase}
+            disabled={item.level === 1}
+          >
             <IncreaseIcon />
           </StyledButton>
-          <StyledButton onMouseDown={decrease} disabled={item.level === 6}>
+          <StyledButton
+            data-tooltip="Decrease size"
+            onMouseDown={decrease}
+            disabled={item.level === 6}
+          >
             <DecreaseIcon />
           </StyledButton>
-          <StyledButton onMouseDown={remove}>
+          <StyledButton data-tooltip="Remove" onMouseDown={remove}>
             <TrashIcon />
           </StyledButton>
         </Buttons>
