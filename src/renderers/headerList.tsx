@@ -12,8 +12,8 @@ const Container = styled.div`
 const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
   padding: 1.5em;
-  background-color: ${({ theme }) => theme.primaryBackground};
-  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -24,15 +24,15 @@ const TopContainer = styled.div`
   h4,
   h5,
   h6 {
-    color: ${({ theme }) => theme.primaryHeaderText};
+    color: ${({ theme }) => theme.colours.primaryHeaderText};
   }
 `;
 const BottomContainer = styled.div`
   flex: 2;
   padding: 1.5em;
   font-size: 1.1em;
-  background-color: ${({ theme }) => theme.secondaryBackground};
-  color: ${({ theme }) => theme.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
   line-height: 2em;
 `;
 

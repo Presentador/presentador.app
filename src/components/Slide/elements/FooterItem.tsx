@@ -42,7 +42,7 @@ const StyledFooterItem = styled.div<{ selected: boolean }>`
   padding: 0.5em;
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
-  color: ${({ theme }) => theme.lightText};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
 `;
 
 function FooterItem({

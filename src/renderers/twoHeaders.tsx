@@ -4,8 +4,8 @@ import { Builder } from "../types";
 
 const Container = styled.div`
   height: 100%;
-  color: ${({ theme }) => theme.primaryNormalText};
-  background-color: ${({ theme }) => theme.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
   color: white;
 
   display: flex;
@@ -18,7 +18,7 @@ const Container = styled.div`
   h4,
   h5,
   h6 {
-    color: ${({ theme }) => theme.primaryHeaderText};
+    color: ${({ theme }) => theme.colours.primaryHeaderText};
   }
 `;
 

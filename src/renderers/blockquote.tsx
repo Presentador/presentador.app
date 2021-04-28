@@ -9,14 +9,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: ${({ theme }) => theme.secondaryNormalText};
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
 
   blockquote {
     padding: 1em;
 
     &:before {
-      color: ${({ theme }) => theme.secondaryNormalText};
+      color: ${({ theme }) => theme.colours.secondaryNormalText};
     }
   }
 `;

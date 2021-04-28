@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { ReactComponent as GearIcon } from "bootstrap-icons/icons/gear.svg";
 
-import { DeckContext } from "../../../context/deck";
+import { DeckContext, ColourLabels } from "../../../context/deck";
 
 import StyledButton from "../StyledButton";
 
@@ -32,8 +32,8 @@ const RowContainer = styled.div`
   width: 100%;
 `;
 const FieldContainer = styled.div`
-  padding: 1em;
-  display: inline-block;
+  padding-top: 1em;
+  display: block;
   vertical-align: middle;
 `;
 
@@ -69,6 +69,15 @@ function Settings() {
     "600x800 - 3:4",
   ];
 
+  const labelsMap: Record<ColourLabels, string> = {
+    primaryHeaderText: "Primary header text",
+    primaryNormalText: "Primary normal text",
+    secondaryHeaderText: "Secondary header text",
+    secondaryNormalText: "Secondary normal text",
+    primaryBackground: "Primary background",
+    secondaryBackground: "Secondary background",
+  };
+
   return (
     <Container ref={ref}>
       <StyledButton
@@ -81,7 +90,9 @@ function Settings() {
         <Modal>
           <FormContainer>
             <RowContainer>
-              <FieldContainer>Size</FieldContainer>
+              <FieldContainer>
+                <b>Size</b>
+              </FieldContainer>
               <FieldContainer>
                 <select onChange={changeSize} defaultValue={size.join("x")}>
                   {sizesOptions.map((option, index) => (
@@ -93,20 +104,29 @@ function Settings() {
               </FieldContainer>
             </RowContainer>
             <RowContainer>
-              <FieldContainer>Colours</FieldContainer>
               <FieldContainer>
-                {Object.entries(colours).map((item, index) => (
-                  <div key={index}>
-                    {item[0]}:{" "}
-                    <input
-                      type="color"
-                      defaultValue={item[1]}
-                      onBlur={(e) =>
-                        setColours({ ...colours, [item[0]]: e.target.value })
-                      }
-                    />
-                  </div>
-                ))}
+                <b>Colours</b>
+              </FieldContainer>
+              <FieldContainer>
+                <table>
+                  {Object.entries(colours).map((item, index) => (
+                    <tr key={index}>
+                      <td width="100%">{labelsMap[item[0] as ColourLabels]}</td>
+                      <td>
+                        <input
+                          type="color"
+                          defaultValue={item[1]}
+                          onBlur={(e) =>
+                            setColours({
+                              ...colours,
+                              [item[0]]: e.target.value,
+                            })
+                          }
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </table>
               </FieldContainer>
             </RowContainer>
           </FormContainer>

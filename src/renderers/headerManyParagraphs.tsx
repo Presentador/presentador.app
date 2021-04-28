@@ -12,8 +12,8 @@ const Container = styled.div`
 const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
   padding: 1.5em;
-  color: ${({ theme }) => theme.primaryNormalText};
-  background-color: ${({ theme }) => theme.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -29,8 +29,8 @@ const TopContainer = styled.div`
 const BottomContainer = styled.div`
   flex: 2;
   padding: 1.5em;
-  color: ${({ theme }) => theme.secondaryNormalText};
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
   p {
     padding-bottom: 0.5em;
   }

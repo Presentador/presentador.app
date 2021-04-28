@@ -4,8 +4,8 @@ import { Builder } from "../types";
 
 const Container = styled.div`
   height: 100%;
-  color: ${({ theme }) => theme.primaryNormalText};
-  background-color: ${({ theme }) => theme.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
   color: white;
   padding: 1.5em;
 

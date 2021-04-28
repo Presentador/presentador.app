@@ -71,7 +71,7 @@ function Slide({
 
   return (
     <>
-      <ThemeProvider theme={colours}>
+      <ThemeProvider theme={{ colours }}>
         <SizeWrapper scaleSize={scale} width={size[0]} height={size[1]}>
           <StyledSlide className={slide.state}>
             <Wrapper>

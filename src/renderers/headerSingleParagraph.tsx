@@ -13,8 +13,8 @@ const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
 
   padding: 1.5em;
-  color: ${({ theme }) => theme.primaryNormalText};
-  background-color: ${({ theme }) => theme.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -24,14 +24,14 @@ const TopContainer = styled.div`
   h3,
   h4,
   h5 {
-    color: ${({ theme }) => theme.primaryHeaderText};
+    color: ${({ theme }) => theme.colours.primaryHeaderText};
   }
 `;
 const BottomContainer = styled.div`
   flex: 2;
   padding: 1.5em;
-  color: ${({ theme }) => theme.secondaryNormalText};
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
 `;
 
 export function HeaderSingleParagraphRenderer({

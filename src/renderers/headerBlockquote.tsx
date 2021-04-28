@@ -12,8 +12,8 @@ const Container = styled.div`
 const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
   padding: 1.5em;
-  background-color: ${({ theme }) => theme.primaryBackground};
-  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -23,7 +23,7 @@ const TopContainer = styled.div`
   h3,
   h4,
   h5 {
-    color: ${({ theme }) => theme.primaryHeaderText};
+    color: ${({ theme }) => theme.colours.primaryHeaderText};
   }
 `;
 const BottomContainer = styled.div`
@@ -34,10 +34,10 @@ const BottomContainer = styled.div`
   padding: 1.5em;
 
   blockquote {
-    color: ${({ theme }) => theme.secondaryNormalText};
+    color: ${({ theme }) => theme.colours.secondaryNormalText};
 
     &:before {
-      color: ${({ theme }) => theme.secondaryNormalText};
+      color: ${({ theme }) => theme.colours.secondaryNormalText};
     }
   }
 `;

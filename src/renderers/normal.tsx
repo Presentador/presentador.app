@@ -6,8 +6,8 @@ const Container = styled.div`
   height: 100%;
   background-color: white;
   padding: 1.5em;
-  color: ${({ theme }) => theme.secondaryNormalText};
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
 `;
 const BlockContainer = styled.div`
   display: block;
@@ -19,7 +19,7 @@ const BlockContainer = styled.div`
   h4,
   h5,
   h6 {
-    color: ${({ theme }) => theme.secondaryHeaderText};
+    color: ${({ theme }) => theme.colours.secondaryHeaderText};
   }
 
   img {

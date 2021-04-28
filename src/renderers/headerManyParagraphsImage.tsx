@@ -15,8 +15,8 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: ${({ theme }) => theme.primaryNormalText};
-  background-color: ${({ theme }) => theme.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
   color: white;
 
   h1,
@@ -26,11 +26,11 @@ const LeftContainer = styled.div`
   h5,
   h6 {
     flex: 1;
-    color: ${({ theme }) => theme.primaryHeaderText};
+    color: ${({ theme }) => theme.colours.primaryHeaderText};
   }
 
   .paragraphs {
-    color: ${({ theme }) => theme.primaryNormalText};
+    color: ${({ theme }) => theme.colours.primaryNormalText};
     flex: 2;
   }
 `;
@@ -40,8 +40,8 @@ const RightContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 1.5em;
-  color: ${({ theme }) => theme.secondaryNormalText};
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
 `;
 
 const ImageContainer = styled.div`

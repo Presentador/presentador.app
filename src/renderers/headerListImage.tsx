@@ -16,6 +16,8 @@ const LeftContainer = styled.div`
   justify-content: center;
   padding: 1em;
 
+  background: ${({ theme }) => theme.colours.primaryBackground};
+
   h1,
   h2,
   h3,
@@ -23,14 +25,14 @@ const LeftContainer = styled.div`
   h5,
   h6 {
     flex: 1;
-    color: ${({ theme }) => theme.darkText};
+    color: ${({ theme }) => theme.colours.primaryHeaderText};
     padding-bottom: 0.5em;
   }
 
   p,
   ul {
     padding-bottom: 0.5em;
-    color: ${({ theme }) => theme.lightText};
+    color: ${({ theme }) => theme.colours.primaryNormalText};
     flex: 1;
   }
 `;

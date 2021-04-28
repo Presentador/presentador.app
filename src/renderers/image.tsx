@@ -15,8 +15,8 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  color: ${({ theme }) => theme.secondaryNormalText};
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  color: ${({ theme }) => theme.colours.secondaryNormalText};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
 
   img {
     position: absolute;

@@ -12,8 +12,8 @@ const Container = styled.div`
 const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
   padding: 1.5em;
-  background-color: ${({ theme }) => theme.primaryBackground};
-  color: ${({ theme }) => theme.primaryNormalText};
+  background-color: ${({ theme }) => theme.colours.primaryBackground};
+  color: ${({ theme }) => theme.colours.primaryNormalText};
   flex: 1;
   display: flex;
   align-items: flex-end;
@@ -23,7 +23,7 @@ const TopContainer = styled.div`
   h3,
   h4,
   h5 {
-    color: ${({ theme }) => theme.primaryNormalText};
+    color: ${({ theme }) => theme.colours.primaryNormalText};
   }
 `;
 const BottomContainer = styled.div`
@@ -32,7 +32,7 @@ const BottomContainer = styled.div`
   justify-content: center;
   flex: 2;
   padding: 1.5em;
-  background-color: ${({ theme }) => theme.secondaryBackground};
+  background-color: ${({ theme }) => theme.colours.secondaryBackground};
 `;
 
 const ImageContainer = styled.div`

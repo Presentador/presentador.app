@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-type ColourLabels =
+export type ColourLabels =
   | "primaryHeaderText"
   | "primaryNormalText"
   | "secondaryHeaderText"
@@ -8,7 +8,7 @@ type ColourLabels =
   | "primaryBackground"
   | "secondaryBackground";
 
-type Colours = Record<ColourLabels, string>;
+export type Colours = Record<ColourLabels, string>;
 
 export function useDeckState() {
   const [present, setPresent] = useState(false);
