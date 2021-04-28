@@ -8,6 +8,8 @@ import React, {
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
+import { ReactComponent as IncreaseIcon } from "bootstrap-icons/icons/plus.svg";
+import { ReactComponent as DecreaseIcon } from "bootstrap-icons/icons/dash.svg";
 
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../../context/slides";
@@ -19,11 +21,14 @@ const Container = styled.div`
   display: inline-block;
 `;
 
-const StyledButton = styled.button`
-  padding: 0.5em;
+const Buttons = styled.div`
   position: absolute;
   top: -2em;
   right: -2em;
+  width: 100px;
+`;
+const StyledButton = styled.button`
+  padding: 0.5em;
 `;
 
 const StyledHeader = styled.div<{ level: number; selected: boolean }>`
@@ -58,9 +63,12 @@ function Header({
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
 
-  const { addElement, removeElement, changeElementValue } = useContext(
-    SlidesContext
-  );
+  const {
+    addElement,
+    removeElement,
+    changeElementValue,
+    changeHeaderSize,
+  } = useContext(SlidesContext);
   const { addAction } = useContext(HistoryContext);
 
   function editHeading() {
@@ -135,6 +143,15 @@ function Header({
     };
   }, [editingElement, selected, finishEditing]);
 
+  function increase(e: any) {
+    e.stopPropagation();
+    changeHeaderSize(slideNumber, item.id, (item.level as number) - 1);
+  }
+  function decrease(e: any) {
+    e.stopPropagation();
+    changeHeaderSize(slideNumber, item.id, (item.level as number) + 1);
+  }
+
   return (
     <Container>
       {selected && <EditableToolbar ref={editingElement} />}
@@ -154,9 +171,17 @@ function Header({
         }}
       />
       {selected && (
-        <StyledButton onMouseDown={remove}>
-          <TrashIcon />
-        </StyledButton>
+        <Buttons>
+          <StyledButton onMouseDown={increase} disabled={item.level === 1}>
+            <IncreaseIcon />
+          </StyledButton>
+          <StyledButton onMouseDown={decrease} disabled={item.level === 6}>
+            <DecreaseIcon />
+          </StyledButton>
+          <StyledButton onMouseDown={remove}>
+            <TrashIcon />
+          </StyledButton>
+        </Buttons>
       )}
     </Container>
   );

@@ -100,12 +100,30 @@ export function useSlidesState() {
     );
   }
 
+  function changeHeaderSize(slideNumber: number, id: number, size: number) {
+    setSlides((prev) =>
+      prev.map((slide, index) => {
+        if (index !== slideNumber) {
+          return slide;
+        }
+
+        return {
+          ...slide,
+          elements: slide.elements.map((item) =>
+            item.id === id ? { ...item, level: size } : item
+          ),
+        };
+      })
+    );
+  }
+
   return {
     slides,
     setSlides,
     addElement,
     removeElement,
     changeElementValue,
+    changeHeaderSize,
     addSlide,
     removeSlide,
     currentSlide,
@@ -123,6 +141,7 @@ export const SlidesContext = React.createContext<{
   addElement: (slideNumber: number, item: Element) => void;
   removeElement: (slideNumber: number, id: number) => void;
   changeElementValue: (slideNumber: number, id: number, value: string) => void;
+  changeHeaderSize: (slideNumber: number, id: number, size: number) => void;
 }>({
   currentSlide: 0,
   setCurrentSlide: () => {},
@@ -133,4 +152,5 @@ export const SlidesContext = React.createContext<{
   addElement: () => {},
   removeElement: () => {},
   changeElementValue: () => {},
+  changeHeaderSize: () => {},
 });

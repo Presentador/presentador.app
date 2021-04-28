@@ -30,6 +30,7 @@ function App() {
     removeSlide,
     removeElement,
     changeElementValue,
+    changeHeaderSize,
     addSlide,
     currentSlide,
     setCurrentSlide,
@@ -127,6 +128,7 @@ function App() {
             addElement,
             removeElement,
             changeElementValue,
+            changeHeaderSize,
             removeSlide,
             addSlide,
           }}
