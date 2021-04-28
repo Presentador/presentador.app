@@ -140,8 +140,8 @@ function List({
         }}
       />
       {selected && (
-        <Buttons data-tooltip="Remove">
-          <StyledButton onMouseDown={remove}>
+        <Buttons>
+          <StyledButton data-tooltip="Remove" onMouseDown={remove}>
             <TrashIcon />
           </StyledButton>
         </Buttons>
