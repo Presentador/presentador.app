@@ -35,30 +35,21 @@ const LeftContainer = styled.div`
 `;
 const RightContainer = styled.div`
   flex: 2;
-  display: flex;
-  justify-content: center;
   padding: 1.5em;
   color: ${({ theme }) => theme.colours.secondaryNormalText};
   background-color: ${({ theme }) => theme.colours.secondaryBackground};
 `;
 
 const ImageContainer = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   height: 100%;
+  width: 100%;
+  position: relative;
 
-  img {
+  & > div {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
   }
 `;
 

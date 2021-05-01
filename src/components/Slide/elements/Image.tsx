@@ -28,8 +28,7 @@ const Container = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
 `;
 
 const InnerContainer = styled.div`
@@ -79,7 +78,7 @@ function Image({
   }
 
   return (
-    <Container style={{ width: size[0], height: size[1] }}>
+    <Container style={{ maxWidth: size[0], maxHeight: size[1] }}>
       <InnerContainer>
         <StyledImage
           onMouseDown={() => {

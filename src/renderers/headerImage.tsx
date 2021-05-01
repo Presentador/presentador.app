@@ -36,13 +36,16 @@ const BottomContainer = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
   position: relative;
+
+  & > div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export function HeaderImageRenderer({ children }: { children: JSX.Element[] }) {
