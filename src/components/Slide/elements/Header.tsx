@@ -71,8 +71,11 @@ function Header({
   const { addAction } = useContext(HistoryContext);
 
   function editHeading() {
-    editingElement.current &&
-      editingElement.current.setAttribute("contenteditable", "true");
+    if (editingElement.current) {
+      if (editingElement.current.getAttribute("contenteditable") !== "true") {
+        editingElement.current.setAttribute("contenteditable", "true");
+      }
+    }
   }
 
   function remove() {
@@ -160,8 +163,12 @@ function Header({
         selected={selected}
         ref={editingElement}
         onKeyDown={checkMouseDown}
-        onMouseDown={() => !present && setSelected(true)}
-        onDoubleClick={() => !present && editHeading()}
+        onMouseDown={() => {
+          if (!present) {
+            setSelected(true);
+            editHeading();
+          }
+        }}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
             allowedTags: ["b", "i", "a"],

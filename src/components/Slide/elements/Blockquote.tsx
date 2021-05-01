@@ -64,8 +64,11 @@ function Blockquote({
   const { addAction } = useContext(HistoryContext);
 
   function editHeading() {
-    editingElement.current &&
-      editingElement.current.setAttribute("contenteditable", "true");
+    if (editingElement.current) {
+      if (editingElement.current.getAttribute("contenteditable") !== "true") {
+        editingElement.current.setAttribute("contenteditable", "true");
+      }
+    }
   }
 
   const finishEditing = useCallback(() => {
@@ -140,8 +143,12 @@ function Blockquote({
         selected={selected}
         onKeyDown={checkMouseDown}
         ref={editingElement}
-        onMouseDown={() => !present && setSelected(true)}
-        onDoubleClick={() => !present && editHeading()}
+        onMouseDown={() => {
+          if (!present) {
+            setSelected(true);
+            editHeading();
+          }
+        }}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
             allowedTags: ["b", "i", "a"],

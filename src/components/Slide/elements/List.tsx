@@ -60,8 +60,11 @@ function List({
   const { addAction } = useContext(HistoryContext);
 
   function editHeading() {
-    editingElement.current &&
-      editingElement.current.setAttribute("contenteditable", "true");
+    if (editingElement.current) {
+      if (editingElement.current.getAttribute("contenteditable") !== "true") {
+        editingElement.current.setAttribute("contenteditable", "true");
+      }
+    }
   }
 
   const finishEditing = useCallback(() => {
@@ -127,9 +130,13 @@ function List({
       <StyledList
         listType={item.listType}
         as={item.listType === "ordered" ? "ol" : "ul"}
-        onMouseDown={() => !present && setSelected(true)}
+        onMouseDown={() => {
+          if (!present) {
+            setSelected(true);
+            editHeading();
+          }
+        }}
         onKeyDown={(event: any) => event.stopPropagation()}
-        onDoubleClick={() => !present && editHeading()}
         selected={selected}
         ref={editingElement}
         dangerouslySetInnerHTML={{

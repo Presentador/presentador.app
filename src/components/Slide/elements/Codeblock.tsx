@@ -55,8 +55,11 @@ function Codeblock({
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
   function editHeading() {
-    editingElement.current &&
-      editingElement.current.setAttribute("contenteditable", "true");
+    if (editingElement.current) {
+      if (editingElement.current.getAttribute("contenteditable") !== "true") {
+        editingElement.current.setAttribute("contenteditable", "true");
+      }
+    }
   }
 
   const finishEditing = useCallback(() => {
@@ -117,8 +120,12 @@ function Codeblock({
           selected={selected}
           onKeyDown={(event) => event.stopPropagation()}
           ref={editingElement}
-          onMouseDown={() => !present && setSelected(true)}
-          onDoubleClick={() => !present && editHeading()}
+          onMouseDown={() => {
+            if (!present) {
+              setSelected(true);
+              editHeading();
+            }
+          }}
           dangerouslySetInnerHTML={{
             __html: item.value,
           }}
