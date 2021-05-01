@@ -18,11 +18,7 @@ const Container = styled.div`
     align-items: center;
     display: flex;
     padding: 0.5em;
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+    position: relative;
   }
 `;
 
