@@ -1,5 +1,6 @@
 import { useCallback, useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
+import { fileOpen } from "browser-fs-access";
 
 import { SlidesContext } from "../../../context/slides";
 import { DeckContext } from "../../../context/deck";
@@ -20,10 +21,10 @@ const Modal = styled.div`
   z-index: 999999;
   padding: 1em;
   width: 15em;
-  line-height: 120%;
+  line-height: 150%;
   border: 1px solid #ccc;
   background: #fff;
-  text-align: center;
+  text-align: left;
   border-radius: 3px;
   margin-top: 0.1em;
 `;
@@ -166,6 +167,16 @@ function Image() {
     return () => document.removeEventListener("dragover", callback);
   }, []);
 
+  async function loadLocalImage(event: any) {
+    event.preventDefault();
+
+    const blob = await fileOpen({
+      mimeTypes: ["image/*"],
+    });
+
+    addImageFromFile(blob);
+  }
+
   return (
     <Container ref={ref}>
       <StyledButton
@@ -176,8 +187,13 @@ function Image() {
       </StyledButton>
       {imageModalOpen && (
         <Modal>
-          Paste the image directly or its remote URL or drag and drop it as a
-          file.
+          {/* eslint-disable-next-line */}-{" "}
+          <a href="#" onClick={loadLocalImage}>
+            Load a local file <br />
+          </a>
+          - Paste the image directly or its remote URL
+          <br />
+          - Drag and drop it as a file anywhere in the page <br />
         </Modal>
       )}
     </Container>
