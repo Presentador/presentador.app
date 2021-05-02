@@ -16,14 +16,11 @@ import {
   HeaderCodeblockRenderer,
   HeaderCodeblockBuilder,
 } from "./headerCodeblock";
+
 import {
-  HeaderManyParagraphsImageRenderer,
-  HeaderManyParagraphsImageBuilder,
-} from "./headerManyParagraphsImage";
-import {
-  HeaderParagraphImageRenderer,
-  HeaderParagraphImageBuilder,
-} from "./headerParagraphImage";
+  HeaderParagraphsImageRenderer,
+  HeaderParagraphsImageBuilder,
+} from "./headerParagraphsImage";
 import { ImageRenderer, ImageBuilder } from "./image";
 import { ManyImagesRenderer, ManyImagesBuilder } from "./manyImages";
 import { HeaderImageRenderer, HeaderImageBuilder } from "./headerImage";
@@ -43,8 +40,7 @@ export const renderersMap: Record<State, any> = {
   normal: NormalRenderer,
   headerSingleParagraph: HeaderSingleParagraphRenderer,
   headerCodeblock: HeaderCodeblockRenderer,
-  headerManyParagraphsImage: HeaderManyParagraphsImageRenderer,
-  headerParagraphImage: HeaderParagraphImageRenderer,
+  headerParagraphsImage: HeaderParagraphsImageRenderer,
   image: ImageRenderer,
   manyImages: ManyImagesRenderer,
   headerImage: HeaderImageRenderer,
@@ -61,8 +57,7 @@ export const buildersMap: Record<State, Builder> = {
   normal: NormalBuilder,
   headerSingleParagraph: HeaderSingleParagraphBuilder,
   headerCodeblock: HeaderCodeblockBuilder,
-  headerManyParagraphsImage: HeaderManyParagraphsImageBuilder,
-  headerParagraphImage: HeaderParagraphImageBuilder,
+  headerParagraphsImage: HeaderParagraphsImageBuilder,
   image: ImageBuilder,
   manyImages: ManyImagesBuilder,
   headerImage: HeaderImageBuilder,

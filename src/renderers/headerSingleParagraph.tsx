@@ -59,7 +59,7 @@ export function HeaderSingleParagraphRenderer({
 export const HeaderSingleParagraphBuilder: Builder = {
   add: (type) => {
     if (type === "paragraph") return "headerManyParagraphs";
-    if (type === "image") return "headerParagraphImage";
+    if (type === "image") return "headerParagraphsImage";
     return "normal";
   },
   remove: (type) => {

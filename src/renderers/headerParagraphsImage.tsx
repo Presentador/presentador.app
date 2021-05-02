@@ -17,7 +17,6 @@ const LeftContainer = styled.div`
   justify-content: center;
   color: ${({ theme }) => theme.colours.primaryNormalText};
   background-color: ${({ theme }) => theme.colours.primaryBackground};
-  color: white;
 
   h1,
   h2,
@@ -28,12 +27,13 @@ const LeftContainer = styled.div`
     flex: 1;
     color: ${({ theme }) => theme.colours.primaryHeaderText};
   }
-
-  .paragraphs {
-    color: ${({ theme }) => theme.colours.primaryNormalText};
-    flex: 2;
-  }
 `;
+
+const ParagraphContainer = styled.div`
+  color: ${({ theme }) => theme.colours.primaryNormalText};
+  flex: 2;
+`;
+
 const RightContainer = styled.div`
   flex: 2;
   padding: 1.5em;
@@ -45,7 +45,7 @@ const RightContainer = styled.div`
   align-items: center;
 `;
 
-export function HeaderManyParagraphsImageRenderer({
+export function HeaderParagraphsImageRenderer({
   children,
 }: {
   children: JSX.Element[];
@@ -64,27 +64,25 @@ export function HeaderManyParagraphsImageRenderer({
     <Container>
       <LeftContainer>
         {header}
-        <div className="paragraphs">{paragraphs}</div>
+        <ParagraphContainer>{paragraphs}</ParagraphContainer>
       </LeftContainer>
       <RightContainer>{image}</RightContainer>
     </Container>
   );
 }
 
-export const HeaderManyParagraphsImageBuilder: Builder = {
+export const HeaderParagraphsImageBuilder: Builder = {
   add: (type) => {
-    if (type === "paragraph") return "headerManyParagraphs";
-    if (type === "image") return "headerManyParagraphsImage";
+    if (type === "paragraph") return "headerParagraphsImage";
+    if (type === "image") return "headerParagraphsImage";
     return "normal";
   },
   remove: (type, remainingElements) => {
     const remainingParagraphs = remainingElements.filter(
       (item) => item.type === "paragraph"
     ).length;
-    if (type === "paragraph" && remainingParagraphs === 1)
-      return "headerParagraphImage";
-    if (type === "paragraph" && remainingParagraphs > 1)
-      return "headerManyParagraphsImage";
+    if (type === "paragraph" && remainingParagraphs >= 1)
+      return "headerParagraphsImage";
     if (type === "image") return "headerManyParagraphs";
     return "normal";
   },

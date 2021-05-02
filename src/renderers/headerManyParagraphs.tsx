@@ -61,7 +61,7 @@ export function HeaderManyParagraphsRenderer({
 export const HeaderManyParagraphsBuilder: Builder = {
   add: (type) => {
     if (type === "paragraph") return "headerManyParagraphs";
-    if (type === "image") return "headerManyParagraphsImage";
+    if (type === "image") return "headerParagraphsImage";
     return "normal";
   },
   remove: (type, remainingElements) => {

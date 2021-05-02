@@ -95,13 +95,13 @@ export const NormalBuilder: Builder = {
 
       if (
         type === "heading" &&
-        existingParagraph > 1 &&
+        existingParagraph >= 1 &&
         existingImage === 1 &&
         !existingHeading &&
         !existingBlockquote &&
         !existingList
       )
-        return "headerManyParagraphsImage";
+        return "headerParagraphsImage";
     }
 
     return "normal";
