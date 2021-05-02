@@ -3628,11 +3628,6 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-caret-pos@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/caret-pos/-/caret-pos-2.0.0.tgz#f4a222a14951a1f5fa6543d73f79ec6892223326"
-  integrity sha512-cOIiBS1SjzXg+LXSiQAzGg89dHDKq/y4c30+tB5hkVN7GbtXh1BNypOmjti4LwAWQrvP4y+bNG7RJFxLGoL3bA==
-
 case-sensitive-paths-webpack-plugin@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.3.0.tgz#23ac613cc9a856e4f88ff8bb73bbb5e989825cf7"
@@ -10206,13 +10201,6 @@ react-scripts@4.0.3:
   optionalDependencies:
     fsevents "^2.1.3"
 
-react-text-selection-popover@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/react-text-selection-popover/-/react-text-selection-popover-2.0.1.tgz#a02f931aaf5843fdfe3513ff02fc3d3d770c614b"
-  integrity sha512-8G2ocUHqDRonHKow58oh+HVf8p4FGn67elFPwke/C0sNSfQhgy12VaSDBmLEAwPW2n7T5+MupmpG4SJkz6qpDA==
-  dependencies:
-    use-text-selection "^1.1.3"
-
 react@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
@@ -12235,11 +12223,6 @@ use-memo-one@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.2.tgz#0c8203a329f76e040047a35a1197defe342fab20"
   integrity sha512-u2qFKtxLsia/r8qG0ZKkbytbztzRb317XCkT7yP8wxL0tZ/CzK2G+WWie5vWvpyeP7+YoPIwbJoIHJ4Ba4k0oQ==
-
-use-text-selection@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/use-text-selection/-/use-text-selection-1.1.3.tgz#c8f756cda69d8ff017da0990bbd1c7fe8819aff0"
-  integrity sha512-pu75m3eyk/ZbJlUw7tsgvxXgNEwMEL+n0YDGsW5Y/N7VNkMqhZlvw7yrOAoeUZHxVaxRo3k7zrMAFm2KUMfq6A==
 
 use@^3.1.0:
   version "3.1.1"

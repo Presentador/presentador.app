@@ -1,7 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Popover } from "react-text-selection-popover";
-import { position } from "caret-pos";
 import { ReactComponent as BoldIcon } from "bootstrap-icons/icons/type-bold.svg";
 import { ReactComponent as ItalicIcon } from "bootstrap-icons/icons/type-italic.svg";
 import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.svg";
@@ -53,17 +51,19 @@ function saveSelection(containerEl: any) {
 }
 
 function restoreSelection(containerEl: any, savedSel: any) {
-  var charIndex = 0,
-    range = document.createRange();
+  const nodeStack = [containerEl];
+
+  const range = document.createRange();
   range.setStart(containerEl, 0);
   range.collapse(true);
-  var nodeStack = [containerEl],
-    node,
-    foundStart = false,
-    stop = false;
+
+  let charIndex = 0;
+  let node;
+  let foundStart = false;
+  let stop = false;
 
   while (!stop && (node = nodeStack.pop())) {
-    if (node.nodeType == 3) {
+    if (node.nodeType === 3) {
       var nextCharIndex = charIndex + node.length;
       if (
         !foundStart &&
@@ -101,7 +101,6 @@ function restoreSelection(containerEl: any, savedSel: any) {
 function EditableToolbar(_: any, ref: any) {
   const [showLinkText, setShowLinkText] = useState(false);
   const [linkText, setLinkText] = useState("");
-  const [textContent, setTextContent] = useState<string | null>(null);
   const [pos, setPos] = useState([0, 0]);
   const [range, setRange] = useState<Range | null>(null);
   const [selection, setSelection] = useState({});
@@ -121,14 +120,13 @@ function EditableToolbar(_: any, ref: any) {
                   Math.min(range.getClientRects()[0].top),
                   Math.min(range.getClientRects()[0].left),
                 ]);
-                setTextContent(range.cloneContents().textContent);
               }
             }
           }
         }
       });
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   if (!ref.current) {
     return <></>;
@@ -197,12 +195,8 @@ function EditableToolbar(_: any, ref: any) {
               e.stopPropagation();
               e.preventDefault();
               if (ref.current) {
-                ref.current.innerHTML = ref.current.innerHTML.replace(
-                  `${textContent}`,
-                  `<b>${textContent}</b>`
-                );
                 if (range) {
-                  restoreSelection(ref.current, selection);
+                  range.surroundContents(document.createElement("b"));
                 }
               }
             }}
@@ -214,10 +208,9 @@ function EditableToolbar(_: any, ref: any) {
               e.preventDefault();
               e.stopPropagation();
               if (ref.current) {
-                ref.current.innerHTML = ref.current.innerHTML.replace(
-                  `${textContent}`,
-                  `<i>${textContent}</i>`
-                );
+                if (range) {
+                  range.surroundContents(document.createElement("i"));
+                }
               }
             }}
           >
@@ -232,6 +225,9 @@ function EditableToolbar(_: any, ref: any) {
                   /<\/?[b|i]+(>|$)/g,
                   ""
                 );
+                if (range) {
+                  restoreSelection(ref.current, selection);
+                }
               }
             }}
           >
