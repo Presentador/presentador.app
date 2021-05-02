@@ -1,3 +1,4 @@
+import sanitizeHtml from "sanitize-html";
 import { forwardRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as BoldIcon } from "bootstrap-icons/icons/type-bold.svg";
@@ -150,6 +151,7 @@ function EditableToolbar(_: any, ref: any) {
             onChange={(e: any) => setLinkText(e.target.value)}
           />
           <ToolButton
+            data-tooltip="Insert"
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -167,6 +169,7 @@ function EditableToolbar(_: any, ref: any) {
             <CheckIcon />
           </ToolButton>
           <ToolButton
+            data-tooltip="Cancel"
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -182,6 +185,7 @@ function EditableToolbar(_: any, ref: any) {
       {!showLinkText && (
         <>
           <ToolButton
+            data-tooltip="Link"
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -191,6 +195,7 @@ function EditableToolbar(_: any, ref: any) {
             <LinkIcon />
           </ToolButton>
           <ToolButton
+            data-tooltip="Bold"
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -204,6 +209,7 @@ function EditableToolbar(_: any, ref: any) {
             <BoldIcon />
           </ToolButton>
           <ToolButton
+            data-tooltip="Italic"
             onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -217,14 +223,14 @@ function EditableToolbar(_: any, ref: any) {
             <ItalicIcon />
           </ToolButton>
           <ToolButton
+            data-tooltip="Clear formatting"
             onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
               if (ref.current) {
-                ref.current.innerHTML = ref.current.innerHTML.replace(
-                  /<\/?[b|i]+(>|$)/g,
-                  ""
-                );
+                ref.current.innerHTML = sanitizeHtml(ref.current.innerHTML, {
+                  allowedTags: ["li"],
+                });
                 if (range) {
                   restoreSelection(ref.current, selection);
                 }
