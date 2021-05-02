@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { useCallback, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";

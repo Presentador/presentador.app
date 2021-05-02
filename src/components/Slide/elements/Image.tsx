@@ -1,10 +1,4 @@
-import React, {
-  useLayoutEffect,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { useLayoutEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
