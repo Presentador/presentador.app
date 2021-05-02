@@ -4,21 +4,20 @@ import { Builder } from "../types";
 
 const Container = styled.div`
   height: 100%;
-  display: flex;
-  flex-direction: column;
   padding: 1.5em;
 `;
 
 const ImageContainer = styled.div`
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  color: ${({ theme }) => theme.colours.secondaryNormalText};
-  background-color: ${({ theme }) => theme.colours.secondaryBackground};
+  width: 100%;
+  height: 100%;
 
-  position: relative;
+  & > div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export function ImageRenderer({ children }: { children: JSX.Element[] }) {

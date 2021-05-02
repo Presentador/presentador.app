@@ -27,25 +27,12 @@ const TopContainer = styled.div`
   }
 `;
 const BottomContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
   flex: 2;
   padding: 1.5em;
   background-color: ${({ theme }) => theme.colours.secondaryBackground};
-`;
-
-const ImageContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  position: relative;
-
-  & > div {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export function HeaderImageRenderer({ children }: { children: JSX.Element[] }) {
@@ -59,9 +46,7 @@ export function HeaderImageRenderer({ children }: { children: JSX.Element[] }) {
   return (
     <Container>
       <TopContainer>{header}</TopContainer>
-      <BottomContainer>
-        <ImageContainer>{image}</ImageContainer>
-      </BottomContainer>
+      <BottomContainer>{image}</BottomContainer>
     </Container>
   );
 }

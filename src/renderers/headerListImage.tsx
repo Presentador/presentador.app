@@ -39,19 +39,10 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
   flex: 2;
   padding: 1.5em;
-`;
 
-const ImageContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  position: relative;
-
-  & > div {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export function HeaderListImageRenderer({
@@ -73,9 +64,7 @@ export function HeaderListImageRenderer({
         {header}
         {list}
       </LeftContainer>
-      <RightContainer>
-        <ImageContainer>{image}</ImageContainer>
-      </RightContainer>
+      <RightContainer>{image}</RightContainer>
     </Container>
   );
 }

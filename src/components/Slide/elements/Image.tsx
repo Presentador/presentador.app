@@ -1,17 +1,31 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, {
+  useLayoutEffect,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from "react";
 import styled from "styled-components";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
 import { SlidesContext } from "../../../context/slides";
-import { Element } from "../../../types";
 import { HistoryContext } from "../../../context/history";
+import { Element } from "../../../types";
+
+function getImageDimensions(url: string): Promise<[number, number]> {
+  return new Promise((resolve, reject) => {
+    let img = new Image();
+    img.onload = () => resolve([img.width, img.height]);
+    img.onerror = () => reject();
+    img.src = url;
+  });
+}
 
 const StyledImage = styled.img<{ selected: boolean }>`
   font-size: 1.3em;
   padding: 0.5em;
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
-  width: 100%;
 `;
 
 const Buttons = styled.div`
@@ -24,20 +38,16 @@ const StyledButton = styled.button`
 `;
 
 const Container = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
+  height: 100%;
 `;
 
 const InnerContainer = styled.div`
   position: relative;
-  height: 100%;
-  width: 100%;
+  display: inline-block;
 `;
 
-function Image({
+function Image2({
   slideNumber,
   item,
   present,
@@ -46,9 +56,10 @@ function Image({
   slideNumber: number;
   item: Element;
 }) {
+  const containerElement = useRef<HTMLDivElement | null>(null);
   const element = useRef<HTMLImageElement | null>(null);
   const [selected, setSelected] = useState(false);
-  const [size, setSize] = useState([0, 0]);
+  const [style, setStyle] = useState({});
 
   const { addElement, removeElement } = useContext(SlidesContext);
   const { addAction } = useContext(HistoryContext);
@@ -77,28 +88,57 @@ function Image({
     );
   }
 
+  async function getSize() {
+    const imageDimensions = await getImageDimensions(item.value);
+
+    if (containerElement.current) {
+      const maxWidth = containerElement.current.clientWidth;
+      const maxHeight = containerElement.current.clientHeight;
+
+      const ratio = Math.min(
+        1,
+        maxWidth / imageDimensions[0],
+        maxHeight / imageDimensions[1]
+      );
+
+      setStyle({
+        width: `${imageDimensions[0] * ratio}px`,
+        height: `${imageDimensions[1] * ratio}px`,
+      });
+    }
+  }
+
+  useLayoutEffect(() => {
+    console.log(1);
+    if (containerElement.current) {
+      getSize();
+    }
+  }, []); // eslint-disable-line
+
   return (
-    <Container style={{ maxWidth: size[0], maxHeight: size[1] }}>
+    <Container
+      style={
+        "width" in style
+          ? { height: "auto", width: "auto" }
+          : { height: "100%", width: "100%" }
+      }
+      ref={containerElement}
+    >
       <InnerContainer>
-        <StyledImage
-          onMouseDown={() => {
-            if (!present) {
-              setSelected(true);
-            }
-          }}
-          selected={selected}
-          src={item.value}
-          alt={"Image"}
-          onLoad={() => {
-            if (element.current) {
-              setSize([
-                element.current.naturalWidth,
-                element.current.naturalHeight,
-              ]);
-            }
-          }}
-          ref={element}
-        />
+        {"width" in style && (
+          <StyledImage
+            style={style}
+            onMouseDown={() => {
+              if (!present) {
+                setSelected(true);
+              }
+            }}
+            selected={selected}
+            src={item.value}
+            alt={"Image"}
+            ref={element}
+          />
+        )}
         {selected && (
           <Buttons>
             <StyledButton data-tooltip="Remove" onMouseDown={remove}>
@@ -111,6 +151,6 @@ function Image({
   );
 }
 
-Image.displayName = "Image";
+Image2.displayName = "Image";
 
-export default Image;
+export default Image2;

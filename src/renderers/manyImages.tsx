@@ -12,13 +12,21 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+`;
 
-  .image {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    padding: 0.5em;
-    position: relative;
+const ImageContainer = styled.div`
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 0.5em;
+  position: relative;
+
+  & > div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 
@@ -35,9 +43,9 @@ export function ManyImagesRenderer({ children }: { children: JSX.Element[] }) {
   return (
     <Container>
       {children.map((item, index) => (
-        <div key={index} className="image" style={{ flex: `${itemSize}` }}>
+        <ImageContainer key={index} style={{ flex: `${itemSize}` }}>
           {item}
-        </div>
+        </ImageContainer>
       ))}
     </Container>
   );
@@ -48,7 +56,13 @@ export const ManyImagesBuilder: Builder = {
     if (type === "image") return "manyImages";
     return "normal";
   },
-  remove: (type: string) => {
+  remove: (type: string, remainingElements) => {
+    if (remainingElements.length > 1) {
+      return "manyImages";
+    }
+    if (remainingElements.length === 1) {
+      return "image";
+    }
     return "normal";
   },
 };

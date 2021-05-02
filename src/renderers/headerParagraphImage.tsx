@@ -38,19 +38,10 @@ const RightContainer = styled.div`
   padding: 1.5em;
   color: ${({ theme }) => theme.colours.secondaryNormalText};
   background-color: ${({ theme }) => theme.colours.secondaryBackground};
-`;
 
-const ImageContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  position: relative;
-
-  & > div {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export function HeaderParagraphImageRenderer({
@@ -74,9 +65,7 @@ export function HeaderParagraphImageRenderer({
         {header}
         {paragraph}
       </LeftContainer>
-      <RightContainer>
-        <ImageContainer>{image}</ImageContainer>
-      </RightContainer>
+      <RightContainer>{image}</RightContainer>
     </Container>
   );
 }

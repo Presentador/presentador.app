@@ -8,6 +8,8 @@ const Container = styled.div`
   padding: 1.5em;
   color: ${({ theme }) => theme.colours.secondaryNormalText};
   background-color: ${({ theme }) => theme.colours.secondaryBackground};
+  display: flex;
+  flex-direction: column;
 `;
 const BlockContainer = styled.div`
   display: block;
@@ -22,10 +24,6 @@ const BlockContainer = styled.div`
     color: ${({ theme }) => theme.colours.secondaryHeaderText};
   }
 
-  img {
-    width: 100%;
-  }
-
   & > * {
     padding-bottom: 1em;
     max-width: 100%;
@@ -36,7 +34,12 @@ export function NormalRenderer({ children }: { children: JSX.Element[] }) {
   return (
     <Container>
       {children.map((child, index) => (
-        <BlockContainer key={index}>{child}</BlockContainer>
+        <BlockContainer
+          style={{ flex: `${child.type.displayName === "Image" ? 1 : 0}` }}
+          key={index}
+        >
+          {child}
+        </BlockContainer>
       ))}
     </Container>
   );
