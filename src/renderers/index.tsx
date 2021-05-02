@@ -3,15 +3,11 @@ import { Builder, State } from "../types";
 import { SingleHeaderRenderer, SingleHeaderBuilder } from "./singleHeader";
 import { TwoHeadersRenderer, TwoHeadersBuilder } from "./twoHeaders";
 import { NormalRenderer, NormalBuilder } from "./normal";
-import {
-  HeaderSingleParagraphRenderer,
-  HeaderSingleParagraphBuilder,
-} from "./headerSingleParagraph";
 import { BlockquoteRenderer, BlockquoteBuilder } from "./blockquote";
 import {
-  HeaderManyParagraphsRenderer,
-  HeaderManyParagraphsBuilder,
-} from "./headerManyParagraphs";
+  HeaderParagraphsRenderer,
+  HeaderParagraphsBuilder,
+} from "./headerParagraphs";
 import {
   HeaderCodeblockRenderer,
   HeaderCodeblockBuilder,
@@ -38,7 +34,6 @@ export const renderersMap: Record<State, any> = {
   singleHeader: SingleHeaderRenderer,
   twoHeaders: TwoHeadersRenderer,
   normal: NormalRenderer,
-  headerSingleParagraph: HeaderSingleParagraphRenderer,
   headerCodeblock: HeaderCodeblockRenderer,
   headerParagraphsImage: HeaderParagraphsImageRenderer,
   image: ImageRenderer,
@@ -47,7 +42,7 @@ export const renderersMap: Record<State, any> = {
   headerList: HeaderListRenderer,
   headerListImage: HeaderListImageRenderer,
   blockquote: BlockquoteRenderer,
-  headerManyParagraphs: HeaderManyParagraphsRenderer,
+  headerParagraphs: HeaderParagraphsRenderer,
   headerBlockquote: HeaderBlockquoteRenderer,
 };
 
@@ -55,7 +50,6 @@ export const buildersMap: Record<State, Builder> = {
   singleHeader: SingleHeaderBuilder,
   twoHeaders: TwoHeadersBuilder,
   normal: NormalBuilder,
-  headerSingleParagraph: HeaderSingleParagraphBuilder,
   headerCodeblock: HeaderCodeblockBuilder,
   headerParagraphsImage: HeaderParagraphsImageBuilder,
   image: ImageBuilder,
@@ -64,6 +58,6 @@ export const buildersMap: Record<State, Builder> = {
   headerList: HeaderListBuilder,
   headerListImage: HeaderListImageBuilder,
   blockquote: BlockquoteBuilder,
-  headerManyParagraphs: HeaderManyParagraphsBuilder,
+  headerParagraphs: HeaderParagraphsBuilder,
   headerBlockquote: HeaderBlockquoteBuilder,
 };

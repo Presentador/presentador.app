@@ -5,18 +5,16 @@ export type State =
   | "singleHeader"
   | "headerCodeblock"
   | "headerBlockquote"
-  | "headerManyParagraphs"
+  | "headerParagraphs"
   | "headerParagraphsImage"
   | "image"
   | "blockquote"
   | "manyImages"
   | "twoHeaders"
-  | "headerSingleParagraph"
   | "headerList"
   | "headerListImage"
   | "headerImage"
-  | "singleHeader"
-  | "headerManyParagraphs";
+  | "singleHeader";
 
 export type ElementType =
   | "heading"

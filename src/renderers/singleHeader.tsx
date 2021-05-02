@@ -44,7 +44,7 @@ export function SingleHeaderRenderer({
 export const SingleHeaderBuilder: Builder = {
   add: (type) => {
     if (type === "heading") return "twoHeaders";
-    if (type === "paragraph") return "headerSingleParagraph";
+    if (type === "paragraph") return "headerParagraphs";
     if (type === "list") return "headerList";
     if (type === "image") return "headerImage";
     if (type === "codeblock") return "headerCodeblock";

@@ -69,7 +69,7 @@ export const NormalBuilder: Builder = {
     if (existingElements.length === 1) {
       if (type === "heading" && existingHeading === 1) return "twoHeaders";
       if (type === "paragraph" && existingHeading === 1)
-        return "headerSingleParagraph";
+        return "headerParagraphs";
       if (type === "list" && existingHeading === 1) return "headerList";
       if (type === "image" && existingHeading === 1) return "headerImage";
       if (type === "heading" && existingList === 1) return "headerList";
@@ -78,8 +78,8 @@ export const NormalBuilder: Builder = {
         return "headerBlockquote";
       if (type === "blockquote" && existingHeading === 1)
         return "headerBlockquote";
-      if (type === "heading" && existingParagraph === 1)
-        return "headerSingleParagraph";
+      if (type === "heading" && existingParagraph >= 1)
+        return "headerParagraphs";
     }
 
     if (existingElements.length > 1) {
@@ -91,7 +91,7 @@ export const NormalBuilder: Builder = {
         !existingBlockquote &&
         !existingList
       )
-        return "headerManyParagraphs";
+        return "headerParagraphs";
 
       if (
         type === "heading" &&
@@ -146,8 +146,8 @@ export const NormalBuilder: Builder = {
       if (remainingImage === 1) {
         return "headerImage";
       }
-      if (remainingParagraph === 1) {
-        return "headerSingleParagraph";
+      if (remainingParagraph >= 1) {
+        return "headerParagraphs";
       }
       if (remainingList === 1) {
         return "headerList";
@@ -156,7 +156,7 @@ export const NormalBuilder: Builder = {
 
     if (remainingElements.length > 2 && remainingHeading === 1) {
       if (remainingParagraph > 1) {
-        return "headerManyParagraphs";
+        return "headerParagraphs";
       }
     }
 

@@ -84,7 +84,7 @@ export const HeaderParagraphsImageBuilder: Builder = {
     if (type === "paragraph" && remainingParagraphs >= 1)
       return "headerParagraphsImage";
     if (type === "paragraph" && remainingParagraphs === 0) return "headerImage";
-    if (type === "image") return "headerManyParagraphs";
+    if (type === "image") return "headerParagraphs";
     return "normal";
   },
 };

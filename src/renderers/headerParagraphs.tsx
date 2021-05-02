@@ -11,7 +11,6 @@ const Container = styled.div`
 
 const TopContainer = styled.div`
   box-shadow: 0px 2px 5px -2px rgba(0, 0, 0, 0.3);
-
   padding: 1.5em;
   color: ${({ theme }) => theme.colours.primaryNormalText};
   background-color: ${({ theme }) => theme.colours.primaryBackground};
@@ -24,7 +23,7 @@ const TopContainer = styled.div`
   h3,
   h4,
   h5 {
-    color: ${({ theme }) => theme.colours.primaryHeaderText};
+    color: white;
   }
 `;
 const BottomContainer = styled.div`
@@ -32,15 +31,18 @@ const BottomContainer = styled.div`
   padding: 1.5em;
   color: ${({ theme }) => theme.colours.secondaryNormalText};
   background-color: ${({ theme }) => theme.colours.secondaryBackground};
+  p {
+    padding-bottom: 0.5em;
+  }
 `;
 
-export function HeaderSingleParagraphRenderer({
+export function HeaderParagraphsRenderer({
   children,
 }: {
   children: JSX.Element[];
 }) {
   const header = children.find((item) => item.type.displayName === "Header");
-  const paragraph = children.find(
+  const paragraphs = children.filter(
     (item) => item.type.displayName === "Paragraph"
   );
 
@@ -51,20 +53,26 @@ export function HeaderSingleParagraphRenderer({
   return (
     <Container>
       <TopContainer>{header}</TopContainer>
-      <BottomContainer>{paragraph}</BottomContainer>
+      <BottomContainer>{paragraphs}</BottomContainer>
     </Container>
   );
 }
 
-export const HeaderSingleParagraphBuilder: Builder = {
+export const HeaderParagraphsBuilder: Builder = {
   add: (type) => {
-    if (type === "paragraph") return "headerManyParagraphs";
+    if (type === "paragraph") return "headerParagraphs";
     if (type === "image") return "headerParagraphsImage";
     return "normal";
   },
-  remove: (type) => {
-    if (type === "heading") return "normal";
-    if (type === "paragraph") return "singleHeader";
+  remove: (type, remainingElements) => {
+    const remainingParagraphs = remainingElements.filter(
+      (item) => item.type === "paragraph"
+    ).length;
+    if (type === "paragraph" && remainingParagraphs >= 1)
+      return "headerParagraphs";
+    if (type === "paragraph" && remainingParagraphs === 0)
+      return "singleHeader";
+
     return "normal";
   },
 };
