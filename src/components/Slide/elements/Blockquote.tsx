@@ -9,6 +9,7 @@ import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
+import useClickOutside from "./hooks/clickOutside";
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
@@ -62,6 +63,12 @@ function Blockquote({
     SlidesContext
   );
   const { addAction } = useContext(HistoryContext);
+
+  const { clickContainer } = useClickOutside(() => {
+    if (selected) {
+      finishEditing();
+    }
+  });
 
   function editHeading() {
     if (editingElement.current) {
@@ -119,25 +126,8 @@ function Blockquote({
     );
   }
 
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (
-        selected &&
-        editingElement.current &&
-        !editingElement.current.contains(event.target)
-      ) {
-        finishEditing();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [editingElement, selected, finishEditing]);
-
   return (
-    <Container>
+    <Container ref={clickContainer}>
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledBlockquote
         selected={selected}

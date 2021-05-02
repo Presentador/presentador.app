@@ -8,6 +8,7 @@ import React, {
 import styled from "styled-components";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
+import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
 import { HistoryContext } from "../../../context/history";
 import { Element } from "../../../types";
@@ -56,7 +57,6 @@ function Image2({
   slideNumber: number;
   item: Element;
 }) {
-  const containerElement = useRef<HTMLDivElement | null>(null);
   const element = useRef<HTMLImageElement | null>(null);
   const [selected, setSelected] = useState(false);
   const [style, setStyle] = useState({});
@@ -64,22 +64,11 @@ function Image2({
   const { addElement, removeElement } = useContext(SlidesContext);
   const { addAction } = useContext(HistoryContext);
 
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (
-        selected &&
-        element.current &&
-        !element.current.contains(event.target)
-      ) {
-        setSelected(false);
-      }
+  const { clickContainer } = useClickOutside(() => {
+    if (selected) {
+      setSelected(false);
     }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [element, selected]);
+  });
 
   function remove() {
     addAction(
@@ -91,9 +80,9 @@ function Image2({
   async function getSize() {
     const imageDimensions = await getImageDimensions(item.value);
 
-    if (containerElement.current) {
-      const maxWidth = containerElement.current.clientWidth;
-      const maxHeight = containerElement.current.clientHeight;
+    if (clickContainer.current) {
+      const maxWidth = clickContainer.current.clientWidth;
+      const maxHeight = clickContainer.current.clientHeight;
 
       const ratio = Math.min(
         1,
@@ -109,8 +98,7 @@ function Image2({
   }
 
   useLayoutEffect(() => {
-    console.log(1);
-    if (containerElement.current) {
+    if (clickContainer.current) {
       getSize();
     }
   }, []); // eslint-disable-line
@@ -122,7 +110,7 @@ function Image2({
           ? { height: "auto", width: "auto" }
           : { height: "100%", width: "100%" }
       }
-      ref={containerElement}
+      ref={clickContainer}
     >
       <InnerContainer>
         {"width" in style && (

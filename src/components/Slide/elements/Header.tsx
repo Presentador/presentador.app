@@ -1,16 +1,11 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useContext,
-} from "react";
+import React, { useCallback, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 import { ReactComponent as IncreaseIcon } from "bootstrap-icons/icons/plus.svg";
 import { ReactComponent as DecreaseIcon } from "bootstrap-icons/icons/dash.svg";
 
+import useClickOutside from "./hooks/clickOutside";
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
@@ -62,6 +57,12 @@ function Header({
   const editingElement = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState(false);
 
+  const { clickContainer } = useClickOutside(() => {
+    if (selected) {
+      finishEditing();
+    }
+  });
+
   const {
     addElement,
     removeElement,
@@ -89,22 +90,24 @@ function Header({
     if (editingElement.current) {
       editingElement.current.setAttribute("contenteditable", "false");
       setSelected(false);
-      if (editingElement.current.innerHTML === "") {
-        addAction(
-          () => removeElement(slideNumber, item.id),
-          () => addElement(slideNumber, item)
-        );
-      } else if (editingElement.current.innerHTML !== item.value) {
-        addAction(
-          () =>
-            editingElement.current &&
-            changeElementValue(
-              slideNumber,
-              item.id,
-              editingElement.current.innerHTML
-            ),
-          () => changeElementValue(slideNumber, item.id, item.value)
-        );
+      if (editingElement.current.innerHTML !== item.value) {
+        if (editingElement.current.innerHTML === "") {
+          addAction(
+            () => removeElement(slideNumber, item.id),
+            () => addElement(slideNumber, item)
+          );
+        } else if (editingElement.current.innerHTML !== item.value) {
+          addAction(
+            () =>
+              editingElement.current &&
+              changeElementValue(
+                slideNumber,
+                item.id,
+                editingElement.current.innerHTML
+              ),
+            () => changeElementValue(slideNumber, item.id, item.value)
+          );
+        }
       }
     }
   }, [
@@ -128,23 +131,6 @@ function Header({
 
   const Tag = `h${item.level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (
-        selected &&
-        editingElement.current &&
-        !editingElement.current.contains(event.target)
-      ) {
-        finishEditing();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [editingElement, selected, finishEditing]);
-
   function increase(e: any) {
     e.stopPropagation();
     changeHeaderSize(slideNumber, item.id, (item.level as number) - 1);
@@ -155,7 +141,7 @@ function Header({
   }
 
   return (
-    <Container>
+    <Container ref={clickContainer}>
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledHeader
         as={Tag}
@@ -164,7 +150,7 @@ function Header({
         ref={editingElement}
         onKeyDown={checkMouseDown}
         onMouseDown={() => {
-          if (!present) {
+          if (!present && !selected) {
             setSelected(true);
             editHeading();
           }

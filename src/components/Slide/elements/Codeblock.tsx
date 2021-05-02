@@ -11,6 +11,7 @@ import hightlight from "highlight.js";
 
 import "highlight.js/styles/github.css";
 
+import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
 
@@ -54,6 +55,12 @@ function Codeblock({
 
   const { removeElement, changeElementValue } = useContext(SlidesContext);
 
+  const { clickContainer } = useClickOutside(() => {
+    if (selected) {
+      finishEditing();
+    }
+  });
+
   function editHeading() {
     if (editingElement.current) {
       if (editingElement.current.getAttribute("contenteditable") !== "true") {
@@ -91,30 +98,13 @@ function Codeblock({
   }
 
   useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (
-        selected &&
-        editingElement.current &&
-        !editingElement.current.contains(event.target)
-      ) {
-        finishEditing();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [editingElement, selected, finishEditing]);
-
-  useEffect(() => {
     if (editingElement.current) {
       hightlight.highlightBlock(editingElement.current);
     }
   }, []);
 
   return (
-    <Container>
+    <Container ref={clickContainer}>
       <pre>
         <StyledCode
           selected={selected}

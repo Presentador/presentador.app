@@ -9,6 +9,7 @@ import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
+import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
 import EditableToolbar from "../EditableToolbar";
@@ -52,6 +53,12 @@ function Paragraph({
     SlidesContext
   );
   const { addAction } = useContext(HistoryContext);
+
+  const { clickContainer } = useClickOutside(() => {
+    if (selected) {
+      finishEditing();
+    }
+  });
 
   function editHeading() {
     if (editingElement.current) {
@@ -109,25 +116,8 @@ function Paragraph({
     }
   }
 
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (
-        selected &&
-        editingElement.current &&
-        !editingElement.current.contains(event.target)
-      ) {
-        finishEditing();
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [editingElement, selected, finishEditing]);
-
   return (
-    <Container>
+    <Container ref={clickContainer}>
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledParagraph
         selected={selected}
