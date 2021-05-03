@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
+import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.svg";
 
 import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
@@ -132,6 +133,21 @@ function Paragraph({
       />
       {selected && (
         <Buttons>
+          <StyledButton
+            data-tooltip="Clear formatting"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (editingElement.current) {
+                editingElement.current.innerHTML = sanitizeHtml(
+                  editingElement.current.innerHTML,
+                  {}
+                );
+              }
+            }}
+          >
+            <ClearFormattingIcon />
+          </StyledButton>
           <StyledButton data-tooltip="Remove" onMouseDown={remove}>
             <TrashIcon />
           </StyledButton>

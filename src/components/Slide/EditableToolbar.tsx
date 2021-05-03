@@ -3,19 +3,14 @@ import { forwardRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as BoldIcon } from "bootstrap-icons/icons/type-bold.svg";
 import { ReactComponent as ItalicIcon } from "bootstrap-icons/icons/type-italic.svg";
-import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.svg";
 import { ReactComponent as LinkIcon } from "bootstrap-icons/icons/link-45deg.svg";
 import { ReactComponent as CheckIcon } from "bootstrap-icons/icons/check.svg";
 import { ReactComponent as CancelIcon } from "bootstrap-icons/icons/x.svg";
 
 const StyledPopover = styled.div<{ left: number; top: number }>`
   position: absolute;
-  // left: ${({ left }) => left}px;
-  // top: ${({ top }) => top}px;
-  left: 0;
-  top: 0;
-  margin-left: -75px;
-  width: 150px;
+  left: ${({ left }) => left}px;
+  top: ${({ top }) => top}px;
   background: none;
   font-size: 0.7em;
   text-align: center;
@@ -25,6 +20,13 @@ const StyledPopover = styled.div<{ left: number; top: number }>`
 const ToolButton = styled.button`
   padding: 0.5em;
   margin-right: 0.2em;
+  vertical-align: middle;
+`;
+
+const LinkInput = styled.input`
+  margin-right: 0.2em;
+  vertical-align: middle;
+  padding: 0.5em;
 `;
 
 /**
@@ -105,21 +107,28 @@ function EditableToolbar(_: any, ref: any) {
   const [pos, setPos] = useState([0, 0]);
   const [range, setRange] = useState<Range | null>(null);
   const [selection, setSelection] = useState({});
+  const [textContent, setTextContent] = useState("");
 
   useEffect(() => {
     if (ref.current) {
       ref.current.addEventListener("mouseup", () => {
         if (window.getSelection) {
-          const sel = window.getSelection();
-          if (sel) {
-            if (sel.getRangeAt && sel.rangeCount) {
+          const selection = window.getSelection();
+          if (selection) {
+            const textContent = selection.toString().trim();
+            setTextContent(textContent);
+
+            if (selection.getRangeAt && selection.rangeCount) {
               setSelection(saveSelection(ref.current));
-              const range = sel.getRangeAt(0);
-              if (range) {
+              const range = selection.getRangeAt(0);
+              if (range && textContent !== "") {
+                const rects = range.getBoundingClientRect();
+                const parentPos = ref.current.getBoundingClientRect();
+
                 setRange(range);
                 setPos([
-                  Math.min(range.getClientRects()[0].top),
-                  Math.min(range.getClientRects()[0].left),
+                  rects.top - parentPos.top - 40,
+                  rects.left - parentPos.left + rects.width / 2,
                 ]);
               }
             }
@@ -132,11 +141,17 @@ function EditableToolbar(_: any, ref: any) {
   if (!ref.current) {
     return <></>;
   }
+
+  if (textContent === "") {
+    return <></>;
+  }
+
   return (
     <StyledPopover top={pos[0]} left={pos[1]}>
       {showLinkText && (
         <>
-          <input
+          <LinkInput
+            placeholder="https://example.com"
             type="text"
             onMouseDown={(e: any) => {
               e.stopPropagation();
@@ -161,6 +176,11 @@ function EditableToolbar(_: any, ref: any) {
                   const link = document.createElement("a");
                   link.href = linkText;
                   range.surroundContents(link);
+                  // remove span
+                  ref.current.innerHTML = sanitizeHtml(ref.current.innerHTML, {
+                    allowedTags: ["b", "i", "a", "li"],
+                    allowedAttributes: { a: ["href"] },
+                  });
                   restoreSelection(ref.current, selection);
                 }
               }
@@ -201,7 +221,29 @@ function EditableToolbar(_: any, ref: any) {
               e.preventDefault();
               if (ref.current) {
                 if (range) {
-                  range.surroundContents(document.createElement("b"));
+                  const currentHTML = Array.prototype.map
+                    .call(
+                      range.cloneContents().childNodes,
+                      (item) => item.innerHTML
+                    )
+                    .join();
+
+                  if (currentHTML.indexOf("<b>")) {
+                    const template = document.createElement("div");
+                    template.innerHTML = sanitizeHtml(currentHTML, {
+                      allowedTags: ["i", "a"],
+                      allowedAttributes: { a: ["href"] },
+                    });
+                    const frag = document.createDocumentFragment();
+                    let child;
+                    while ((child = template.firstChild)) {
+                      frag.appendChild(child);
+                    }
+                    range.deleteContents();
+                    range.insertNode(frag);
+                  } else {
+                    range.surroundContents(document.createElement("b"));
+                  }
                 }
               }
             }}
@@ -221,23 +263,6 @@ function EditableToolbar(_: any, ref: any) {
             }}
           >
             <ItalicIcon />
-          </ToolButton>
-          <ToolButton
-            data-tooltip="Clear formatting"
-            onMouseDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              if (ref.current) {
-                ref.current.innerHTML = sanitizeHtml(ref.current.innerHTML, {
-                  allowedTags: ["li"],
-                });
-                if (range) {
-                  restoreSelection(ref.current, selection);
-                }
-              }
-            }}
-          >
-            <ClearFormattingIcon />
           </ToolButton>
         </>
       )}
