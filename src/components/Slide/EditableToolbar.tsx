@@ -4,7 +4,6 @@ import { Popover } from "react-text-selection-popover";
 import { position } from "caret-pos";
 import { ReactComponent as BoldIcon } from "bootstrap-icons/icons/type-bold.svg";
 import { ReactComponent as ItalicIcon } from "bootstrap-icons/icons/type-italic.svg";
-import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.svg";
 
 const StyledPopover = styled.div<{ left: number; top: number }>`
   position: absolute;
@@ -69,22 +68,6 @@ function EditableToolbar(_: any, ref: any) {
               }}
             >
               <ItalicIcon />
-            </ToolButton>
-            <ToolButton
-              onMouseDown={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                if (ref.current) {
-                  const pos = position(ref.current);
-                  ref.current.innerHTML = ref.current.innerHTML.replace(
-                    /<\/?[b|i]+(>|$)/g,
-                    ""
-                  );
-                  position(ref.current, pos.pos);
-                }
-              }}
-            >
-              <ClearFormattingIcon />
             </ToolButton>
           </StyledPopover>
         );
