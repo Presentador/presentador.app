@@ -11,6 +11,7 @@ import hightlight from "highlight.js";
 
 import "highlight.js/styles/github.css";
 
+import { ActionsButton, ButtonsBar } from "../ActionsButton";
 import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
@@ -19,15 +20,6 @@ const Container = styled.div`
   position: relative;
   display: block;
   width: 100%;
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: -2em;
-  right: 0;
-`;
-const StyledButton = styled.button`
-  padding: 0.5em;
 `;
 
 const StyledCode = styled.code<{ selected: boolean }>`
@@ -65,6 +57,7 @@ function Codeblock({
     if (editingElement.current) {
       if (editingElement.current.getAttribute("contenteditable") !== "true") {
         editingElement.current.setAttribute("contenteditable", "true");
+        editingElement.current.focus();
       }
     }
   }
@@ -103,8 +96,24 @@ function Codeblock({
     }
   }, []);
 
+  function select() {
+    if (!present && !selected) {
+      setSelected(true);
+      editHeading();
+    }
+  }
+
   return (
-    <Container ref={clickContainer}>
+    <Container
+      ref={clickContainer}
+      tabIndex={0}
+      onFocus={select}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+          finishEditing();
+        }
+      }}
+    >
       <pre>
         <StyledCode
           selected={selected}
@@ -122,11 +131,11 @@ function Codeblock({
         />
       </pre>
       {selected && (
-        <Buttons>
-          <StyledButton data-tooltip="Remove" onMouseDown={remove}>
+        <ButtonsBar>
+          <ActionsButton data-tooltip="Remove" onClick={remove}>
             <TrashIcon />
-          </StyledButton>
-        </Buttons>
+          </ActionsButton>
+        </ButtonsBar>
       )}
     </Container>
   );

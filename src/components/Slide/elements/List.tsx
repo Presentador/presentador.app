@@ -4,6 +4,7 @@ import sanitizeHtml from "sanitize-html";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.svg";
 
+import { ActionsButton, ButtonsBar } from "../ActionsButton";
 import useClickOutside from "./hooks/clickOutside";
 import EditableToolbar from "../EditableToolbar";
 import { SlidesContext } from "../../../context/slides";
@@ -13,15 +14,6 @@ import { HistoryContext } from "../../../context/history";
 const Container = styled.div`
   position: relative;
   display: inline-block;
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: -2em;
-  right: 0;
-`;
-const StyledButton = styled.button`
-  padding: 0.5em;
 `;
 
 const StyledList = styled.div<{
@@ -71,6 +63,7 @@ function List({
     if (editingElement.current) {
       if (editingElement.current.getAttribute("contenteditable") !== "true") {
         editingElement.current.setAttribute("contenteditable", "true");
+        editingElement.current.focus();
       }
     }
   }
@@ -115,8 +108,24 @@ function List({
     );
   }
 
+  function select() {
+    if (!present && !selected) {
+      setSelected(true);
+      editHeading();
+    }
+  }
+
   return (
-    <Container ref={clickContainer}>
+    <Container
+      ref={clickContainer}
+      tabIndex={0}
+      onFocus={select}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+          finishEditing();
+        }
+      }}
+    >
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledList
         listType={item.listType}
@@ -138,8 +147,8 @@ function List({
         }}
       />
       {selected && (
-        <Buttons>
-          <StyledButton
+        <ButtonsBar>
+          <ActionsButton
             data-tooltip="Clear formatting"
             onMouseDown={(e) => {
               e.preventDefault();
@@ -153,11 +162,11 @@ function List({
             }}
           >
             <ClearFormattingIcon />
-          </StyledButton>
-          <StyledButton data-tooltip="Remove" onMouseDown={remove}>
+          </ActionsButton>
+          <ActionsButton data-tooltip="Remove" onClick={remove}>
             <TrashIcon />
-          </StyledButton>
-        </Buttons>
+          </ActionsButton>
+        </ButtonsBar>
       )}
     </Container>
   );

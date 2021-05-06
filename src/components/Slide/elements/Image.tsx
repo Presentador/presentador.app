@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState, useContext } from "react";
 import styled from "styled-components";
 import { ReactComponent as TrashIcon } from "bootstrap-icons/icons/trash.svg";
 
+import { ActionsButton, ButtonsBar } from "../ActionsButton";
 import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
 import { HistoryContext } from "../../../context/history";
@@ -21,15 +22,6 @@ const StyledImage = styled.img<{ selected: boolean }>`
   padding: 0.5em;
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: -2em;
-  right: 0;
-`;
-const StyledButton = styled.button`
-  padding: 0.5em;
 `;
 
 const Container = styled.div`
@@ -97,6 +89,12 @@ function Image2({
     }
   }, []); // eslint-disable-line
 
+  function select() {
+    if (!present && !selected) {
+      setSelected(true);
+    }
+  }
+
   return (
     <Container
       style={
@@ -105,16 +103,19 @@ function Image2({
           : { height: "100%", width: "100%" }
       }
       ref={clickContainer}
+      tabIndex={0}
+      onFocus={select}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+          setSelected(false);
+        }
+      }}
     >
       <InnerContainer>
         {"width" in style && (
           <StyledImage
             style={style}
-            onMouseDown={() => {
-              if (!present) {
-                setSelected(true);
-              }
-            }}
+            onMouseDown={select}
             selected={selected}
             src={item.value}
             alt={"Image"}
@@ -122,11 +123,11 @@ function Image2({
           />
         )}
         {selected && (
-          <Buttons>
-            <StyledButton data-tooltip="Remove" onMouseDown={remove}>
+          <ButtonsBar>
+            <ActionsButton data-tooltip="Remove" onClick={remove}>
               <TrashIcon />
-            </StyledButton>
-          </Buttons>
+            </ActionsButton>
+          </ButtonsBar>
         )}
       </InnerContainer>
     </Container>

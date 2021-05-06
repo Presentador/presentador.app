@@ -85,7 +85,21 @@ function Thumbnail({ active, number }: { active: boolean; number: number }) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           onMouseEnter={() => setHover(true)}
+          onFocus={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              setCurrentSlide(number);
+            }
+          }}
+          onBlur={(event) => {
+            if (
+              !event.currentTarget.contains(event.relatedTarget as Node) ||
+              !event.relatedTarget
+            ) {
+              setHover(false);
+            }
+          }}
           onClick={() => setCurrentSlide(number)}
         >
           <Slide slideNumber={number} present={true} scale={scale} />

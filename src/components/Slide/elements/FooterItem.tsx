@@ -6,6 +6,7 @@ import { ReactComponent as ClearFormattingIcon } from "bootstrap-icons/icons/x.s
 
 import EditableToolbar from "../EditableToolbar";
 
+import { ActionsButton, ButtonsBar } from "../ActionsButton";
 import useClickOutside from "./hooks/clickOutside";
 import { SlidesContext } from "../../../context/slides";
 import { Element } from "../../../types";
@@ -23,15 +24,6 @@ const Container = styled.div`
   &:first-child {
     text-align: left;
   }
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: -2em;
-  right: 0;
-`;
-const StyledButton = styled.button`
-  padding: 0.5em;
 `;
 
 const StyledFooterItem = styled.div<{ selected: boolean }>`
@@ -70,6 +62,7 @@ function FooterItem({
     if (editingElement.current) {
       if (editingElement.current.getAttribute("contenteditable") !== "true") {
         editingElement.current.setAttribute("contenteditable", "true");
+        editingElement.current.focus();
       }
     }
   }
@@ -122,8 +115,24 @@ function FooterItem({
     );
   }
 
+  function select() {
+    if (!present && !selected) {
+      setSelected(true);
+      editHeading();
+    }
+  }
+
   return (
-    <Container ref={clickContainer}>
+    <Container
+      ref={clickContainer}
+      tabIndex={0}
+      onFocus={select}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+          finishEditing();
+        }
+      }}
+    >
       {selected && <EditableToolbar ref={editingElement} />}
       <StyledFooterItem
         selected={selected}
@@ -143,10 +152,10 @@ function FooterItem({
         }}
       />
       {selected && (
-        <Buttons>
-          <StyledButton
+        <ButtonsBar>
+          <ActionsButton
             data-tooltip="Clear formatting"
-            onMouseDown={(e) => {
+            onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               if (editingElement.current) {
@@ -158,11 +167,11 @@ function FooterItem({
             }}
           >
             <ClearFormattingIcon />
-          </StyledButton>
-          <StyledButton data-tooltip="Remove" onMouseDown={remove}>
+          </ActionsButton>
+          <ActionsButton data-tooltip="Remove" onClick={remove}>
             <TrashIcon />
-          </StyledButton>
-        </Buttons>
+          </ActionsButton>
+        </ButtonsBar>
       )}
     </Container>
   );
