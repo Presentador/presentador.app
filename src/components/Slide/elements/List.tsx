@@ -34,6 +34,13 @@ const StyledList = styled.div<{
     list-style-type: ${({ listType }) =>
       listType === "ordered" ? "decimal" : "circle"};
   }
+
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
+  }
 `;
 
 function List({
@@ -121,7 +128,10 @@ function List({
       tabIndex={0}
       onFocus={select}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+        if (
+          !event.relatedTarget ||
+          !event.currentTarget.contains(event.relatedTarget as Node)
+        ) {
           finishEditing();
         }
       }}
@@ -141,8 +151,8 @@ function List({
         ref={editingElement}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a", "li"],
-            allowedAttributes: { a: ["href"] },
+            allowedTags: ["span", "a", "li"],
+            allowedAttributes: { a: ["href"], span: ["class"] },
           }),
         }}
       />

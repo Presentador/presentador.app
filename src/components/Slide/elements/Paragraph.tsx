@@ -22,6 +22,13 @@ const StyledParagraph = styled.p<{ selected: boolean }>`
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
   line-height: 1.4em;
+
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
+  }
 `;
 
 function Paragraph({
@@ -135,8 +142,8 @@ function Paragraph({
         }}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a"],
-            allowedAttributes: { a: ["href"] },
+            allowedTags: ["span", "a"],
+            allowedAttributes: { a: ["href"], span: ["class"] },
           }),
         }}
       />
@@ -148,10 +155,9 @@ function Paragraph({
               e.preventDefault();
               e.stopPropagation();
               if (editingElement.current) {
-                editingElement.current.innerHTML = sanitizeHtml(
-                  editingElement.current.innerHTML,
-                  {}
-                );
+                const div = document.createElement("div");
+                div.innerHTML = editingElement.current.innerHTML;
+                editingElement.current.innerHTML = div.textContent as string;
               }
             }}
           >

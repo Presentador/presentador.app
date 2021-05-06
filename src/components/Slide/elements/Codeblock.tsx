@@ -109,7 +109,10 @@ function Codeblock({
       tabIndex={0}
       onFocus={select}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+        if (
+          !event.relatedTarget ||
+          !event.currentTarget.contains(event.relatedTarget as Node)
+        ) {
           finishEditing();
         }
       }}

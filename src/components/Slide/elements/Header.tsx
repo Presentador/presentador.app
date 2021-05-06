@@ -43,10 +43,6 @@ const StyledHeader = styled.div<{ level: number; selected: boolean }>`
   .italic {
     font-style: italic;
   }
-  .rangySelectionBoundary {
-    background-color: dodgerblue;
-    color: white;
-  }
 `;
 
 function Header({
@@ -158,7 +154,10 @@ function Header({
       tabIndex={0}
       onFocus={select}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+        if (
+          !event.relatedTarget ||
+          !event.currentTarget.contains(event.relatedTarget as Node)
+        ) {
           finishEditing();
         }
       }}
@@ -173,8 +172,8 @@ function Header({
         onMouseDown={select}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a"],
-            allowedAttributes: { a: ["href"] },
+            allowedTags: ["span", "a"],
+            allowedAttributes: { a: ["href"], span: ["class"] },
           }),
         }}
       />
@@ -200,10 +199,9 @@ function Header({
               e.preventDefault();
               e.stopPropagation();
               if (editingElement.current) {
-                editingElement.current.innerHTML = sanitizeHtml(
-                  editingElement.current.innerHTML,
-                  {}
-                );
+                const div = document.createElement("div");
+                div.innerHTML = editingElement.current.innerHTML;
+                editingElement.current.innerHTML = div.textContent as string;
               }
             }}
           >

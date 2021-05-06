@@ -43,6 +43,7 @@ function EditableToolbar(_: any, ref: any) {
         const selection = rangySelectionSaveRestore.getSelection();
         const textContent = selection.toString().trim();
         setTextContent(textContent);
+        setShowLinkText(false);
 
         if (selection.getRangeAt && selection.rangeCount) {
           const range = selection.getAllRanges()[0].nativeRange;
@@ -83,6 +84,14 @@ function EditableToolbar(_: any, ref: any) {
           />
           <ToolButton
             data-tooltip="Insert"
+            disabled={
+              !linkText.match(
+                new RegExp(
+                  // eslint-disable-next-line
+                  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi
+                )
+              )
+            }
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -123,15 +132,23 @@ function EditableToolbar(_: any, ref: any) {
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              const applier = (rangyClassApplier as any).createClassApplier(
-                "link",
-                {
-                  elementTagName: "a",
-                  elementAttributes: { href: linkText },
+              const sel = rangySelectionSaveRestore.getSelection();
+              if (sel.anchorNode.parentNode.tagName === "A") {
+                console.log(sel.anchorNode.parentNode.getAttribute("href"));
+                const applier = (rangyClassApplier as any).createClassApplier(
+                  "link",
+                  {
+                    elementTagName: "a",
+                    elementAttributes: {
+                      href: sel.anchorNode.parentNode.getAttribute("href"),
+                    },
+                  }
+                );
+                if (applier.isAppliedToSelection()) {
+                  applier.undoToSelection();
+                } else {
+                  setShowLinkText(true);
                 }
-              );
-              if (applier.isAppliedToSelection()) {
-                applier.undoToSelection();
               } else {
                 setShowLinkText(true);
               }

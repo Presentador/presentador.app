@@ -13,7 +13,7 @@
         {
           "id": 20,
           "type": "list",
-          "value": "<li>It places your elements in the <b>right place</b> so you don't have to.</li><li>It's <b>open-source</b>.</li><li>Let's get started! Go on to the <b>next slide</b>.</li>",
+          "value": "<li>It places your elements in the <span class=\"bold\">right place</span> so you don't have to.</li><li>It's <span class=\"bold\">open-source</span>.</li><li>Let's get started! Go on to the <span class=\"bold\">next slide</span>.</li>",
           "level": 1
         }
       ]
@@ -69,7 +69,7 @@
         {
           "id": 1617459674409,
           "type": "blockquote",
-          "value": "Does making a presentation has to be so hard? <b>No</b>!"
+          "value": "Does making a presentation has to be so hard? <span class=\"bold\">No</span>!"
         }
       ],
       "state": "blockquote"

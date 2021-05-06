@@ -32,6 +32,13 @@ const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
     margin-right: 0.25em;
     vertical-align: -0.4em;
   }
+
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
+  }
 `;
 
 function Blockquote({
@@ -127,7 +134,10 @@ function Blockquote({
       tabIndex={0}
       onFocus={select}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+        if (
+          !event.relatedTarget ||
+          !event.currentTarget.contains(event.relatedTarget as Node)
+        ) {
           finishEditing();
         }
       }}
@@ -145,8 +155,8 @@ function Blockquote({
         }}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a"],
-            allowedAttributes: { a: ["href"] },
+            allowedTags: ["span", "a"],
+            allowedAttributes: { a: ["href"], span: ["class"] },
           }),
         }}
       />
@@ -158,10 +168,9 @@ function Blockquote({
               e.preventDefault();
               e.stopPropagation();
               if (editingElement.current) {
-                editingElement.current.innerHTML = sanitizeHtml(
-                  editingElement.current.innerHTML,
-                  {}
-                );
+                const div = document.createElement("div");
+                div.innerHTML = editingElement.current.innerHTML;
+                editingElement.current.innerHTML = div.textContent as string;
               }
             }}
           >

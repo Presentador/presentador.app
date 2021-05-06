@@ -33,6 +33,13 @@ const StyledFooterItem = styled.div<{ selected: boolean }>`
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
   color: ${({ theme }) => theme.colours.secondaryNormalText};
+
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
+  }
 `;
 
 function FooterItem({
@@ -128,7 +135,10 @@ function FooterItem({
       tabIndex={0}
       onFocus={select}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+        if (
+          !event.relatedTarget ||
+          !event.currentTarget.contains(event.relatedTarget as Node)
+        ) {
           finishEditing();
         }
       }}
@@ -146,8 +156,8 @@ function FooterItem({
         }}
         dangerouslySetInnerHTML={{
           __html: sanitizeHtml(item.value, {
-            allowedTags: ["b", "i", "a"],
-            allowedAttributes: { a: ["href"] },
+            allowedTags: ["span", "a"],
+            allowedAttributes: { a: ["href"], span: ["class"] },
           }),
         }}
       />
@@ -159,10 +169,9 @@ function FooterItem({
               e.preventDefault();
               e.stopPropagation();
               if (editingElement.current) {
-                editingElement.current.innerHTML = sanitizeHtml(
-                  editingElement.current.innerHTML,
-                  {}
-                );
+                const div = document.createElement("div");
+                div.innerHTML = editingElement.current.innerHTML;
+                editingElement.current.innerHTML = div.textContent as string;
               }
             }}
           >
