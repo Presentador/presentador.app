@@ -35,7 +35,18 @@ const StyledHeader = styled.div<{ level: number; selected: boolean }>`
 
   padding: 0.1em;
   border: 2px solid
-    ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")}; ;
+    ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
+
+  .bold {
+    font-weight: bold;
+  }
+  .italic {
+    font-style: italic;
+  }
+  .rangySelectionBoundary {
+    background-color: dodgerblue;
+    color: white;
+  }
 `;
 
 function Header({
