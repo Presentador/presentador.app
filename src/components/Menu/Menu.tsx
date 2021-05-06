@@ -43,7 +43,10 @@ const Right = styled.div`
 const ExternalLink = styled.a`
   color: #aaa;
 
-  &:hover {
+  &:hover,
+  &:focus,
+  &:active {
+    outline: none;
     color: black;
   }
 `;
