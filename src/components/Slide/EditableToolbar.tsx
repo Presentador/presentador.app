@@ -12,6 +12,8 @@ const StyledPopover = styled.div<{ left: number; top: number }>`
   position: absolute;
   left: ${({ left }) => left}px;
   top: ${({ top }) => top}px;
+  transform: translate(-50%, 0);
+  z-index: 9999999999;
   background: none;
   font-size: 0.7em;
   text-align: center;
