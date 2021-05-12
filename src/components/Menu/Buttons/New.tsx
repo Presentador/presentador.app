@@ -9,9 +9,11 @@ function New(_: any, ref: any) {
   const { setCurrentSlide, setSlides } = useContext(SlidesContext);
 
   async function newFile() {
-    setCurrentSlide(0);
-    ref.current = null;
-    setSlides([{ state: "normal", elements: [] }]);
+    if (window.confirm("Have you saved current work?")) {
+      setCurrentSlide(0);
+      ref.current = null;
+      setSlides([{ state: "normal", elements: [] }]);
+    }
   }
 
   return (
