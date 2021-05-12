@@ -15,7 +15,8 @@ import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
-  display: inline-block;
+  display: block;
+  width: 100%;
 `;
 
 const StyledHeader = styled.div<{ level: number; selected: boolean }>`
@@ -63,12 +64,8 @@ function Header({
     }
   });
 
-  const {
-    addElement,
-    removeElement,
-    changeElementValue,
-    changeHeaderSize,
-  } = useContext(SlidesContext);
+  const { addElement, removeElement, changeElementValue, changeHeaderSize } =
+    useContext(SlidesContext);
   const { addAction } = useContext(HistoryContext);
 
   function editHeading() {

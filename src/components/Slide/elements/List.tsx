@@ -13,7 +13,8 @@ import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
-  display: inline-block;
+  display: block;
+  width: 100%;
 `;
 
 const StyledList = styled.div<{
@@ -55,9 +56,8 @@ function List({
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLUListElement | null>(null);
 
-  const { addElement, removeElement, changeElementValue } = useContext(
-    SlidesContext
-  );
+  const { addElement, removeElement, changeElementValue } =
+    useContext(SlidesContext);
   const { addAction } = useContext(HistoryContext);
 
   const { clickContainer } = useClickOutside(() => {

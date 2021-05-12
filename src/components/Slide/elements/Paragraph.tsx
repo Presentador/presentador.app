@@ -13,7 +13,8 @@ import { HistoryContext } from "../../../context/history";
 
 const Container = styled.div`
   position: relative;
-  display: inline-block;
+  display: block;
+  width: 100%;
 `;
 
 const StyledParagraph = styled.p<{ selected: boolean }>`
@@ -43,9 +44,8 @@ function Paragraph({
   const [selected, setSelected] = useState(false);
   const editingElement = useRef<HTMLDivElement | null>(null);
 
-  const { addElement, removeElement, changeElementValue } = useContext(
-    SlidesContext
-  );
+  const { addElement, removeElement, changeElementValue } =
+    useContext(SlidesContext);
   const { addAction } = useContext(HistoryContext);
 
   const { clickContainer } = useClickOutside(() => {
