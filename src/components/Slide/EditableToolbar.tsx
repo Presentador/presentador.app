@@ -34,40 +34,107 @@ const LinkInput = styled.input`
 
 function EditableToolbar(_: any, ref: any) {
   const [showLinkText, setShowLinkText] = useState(false);
+  const [textSelected, setTextSelected] = useState(false);
   const [linkText, setLinkText] = useState("");
   const [pos, setPos] = useState([0, 0]);
   const [selection, setSelection] = useState({});
   const [textContent, setTextContent] = useState("");
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.addEventListener("mouseup", () => {
-        const selection = rangySelectionSaveRestore.getSelection();
-        const textContent = selection.toString().trim();
-        setTextContent(textContent);
-        setShowLinkText(false);
+    const handler = () => {
+      const selection = rangySelectionSaveRestore.getSelection();
+      const textContent = selection.toString().trim();
+      setTextContent(textContent);
+      setShowLinkText(false);
+      setTextSelected(false);
 
-        if (selection.getRangeAt && selection.rangeCount) {
-          const range = selection.getAllRanges()[0].nativeRange;
-          if (range && textContent !== "") {
-            const rects = range.getBoundingClientRect();
-            const parentPos = ref.current.getBoundingClientRect();
+      if (selection.getRangeAt && selection.rangeCount) {
+        const range = selection.getAllRanges()[0].nativeRange;
+        if (range && textContent !== "") {
+          const rects = range.getBoundingClientRect();
+          const parentPos = ref.current.getBoundingClientRect();
 
-            setPos([
-              rects.top - parentPos.top - 40,
-              rects.left - parentPos.left + rects.width / 2,
-            ]);
-          }
+          setTextSelected(true);
+          setPos([
+            rects.top - parentPos.top - 40,
+            rects.left - parentPos.left + rects.width / 2,
+          ]);
         }
-      });
+      }
+    };
+
+    const element = ref.current;
+    if (ref.current) {
+      element.addEventListener("mouseup", handler);
+      element.addEventListener("keyup", handler);
+
+      return () => {
+        element.removeEventListener("mouseup", handler);
+        element.removeEventListener("keyup", handler);
+      };
     }
   }, []); // eslint-disable-line
+
+  useEffect(() => {
+    const handler = (event: any) => {
+      if (event.key === "b" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        applyBold();
+      }
+      if (event.key === "i" && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        applyItalic();
+      }
+    };
+
+    const element = ref.current;
+    if (ref.current) {
+      element.addEventListener("keydown", handler);
+
+      return () => {
+        element.removeEventListener("keydown", handler);
+      };
+    }
+  }, []); // eslint-disable-line
+
+  function applyLink() {
+    const sel = rangySelectionSaveRestore.getSelection();
+    if (sel.anchorNode.parentNode.tagName === "A") {
+      const applier = (rangyClassApplier as any).createClassApplier("link", {
+        elementTagName: "a",
+        elementAttributes: {
+          href: sel.anchorNode.parentNode.getAttribute("href"),
+        },
+      });
+      if (applier.isAppliedToSelection()) {
+        applier.undoToSelection();
+      } else {
+        setShowLinkText(true);
+      }
+    } else {
+      setShowLinkText(true);
+    }
+  }
+
+  function applyItalic() {
+    const applier = (rangyClassApplier as any).createClassApplier("italic");
+    applier.toggleSelection();
+  }
+
+  function applyBold() {
+    const applier = (rangyClassApplier as any).createClassApplier("bold");
+    applier.toggleSelection();
+  }
 
   if (!ref.current) {
     return <></>;
   }
 
   if (textContent === "") {
+    return <></>;
+  }
+
+  if (!textSelected) {
     return <></>;
   }
 
@@ -97,18 +164,16 @@ function EditableToolbar(_: any, ref: any) {
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              if (ref.current) {
-                setShowLinkText(false);
-                rangySelectionSaveRestore.restoreSelection(selection);
-                const applier = (rangyClassApplier as any).createClassApplier(
-                  "link",
-                  {
-                    elementTagName: "a",
-                    elementAttributes: { href: linkText },
-                  }
-                );
-                applier.toggleSelection();
-              }
+              setShowLinkText(false);
+              rangySelectionSaveRestore.restoreSelection(selection);
+              const applier = (rangyClassApplier as any).createClassApplier(
+                "link",
+                {
+                  elementTagName: "a",
+                  elementAttributes: { href: linkText },
+                }
+              );
+              applier.toggleSelection();
             }}
           >
             <CheckIcon />
@@ -118,9 +183,7 @@ function EditableToolbar(_: any, ref: any) {
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              if (ref.current) {
-                setShowLinkText(false);
-              }
+              setShowLinkText(false);
             }}
           >
             <CancelIcon />
@@ -134,26 +197,7 @@ function EditableToolbar(_: any, ref: any) {
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              const sel = rangySelectionSaveRestore.getSelection();
-              if (sel.anchorNode.parentNode.tagName === "A") {
-                console.log(sel.anchorNode.parentNode.getAttribute("href"));
-                const applier = (rangyClassApplier as any).createClassApplier(
-                  "link",
-                  {
-                    elementTagName: "a",
-                    elementAttributes: {
-                      href: sel.anchorNode.parentNode.getAttribute("href"),
-                    },
-                  }
-                );
-                if (applier.isAppliedToSelection()) {
-                  applier.undoToSelection();
-                } else {
-                  setShowLinkText(true);
-                }
-              } else {
-                setShowLinkText(true);
-              }
+              applyLink();
             }}
           >
             <LinkIcon />
@@ -163,12 +207,7 @@ function EditableToolbar(_: any, ref: any) {
             onMouseDown={(e) => {
               e.stopPropagation();
               e.preventDefault();
-              if (ref.current) {
-                const applier = (rangyClassApplier as any).createClassApplier(
-                  "bold"
-                );
-                applier.toggleSelection();
-              }
+              applyBold();
             }}
           >
             <BoldIcon />
@@ -178,12 +217,7 @@ function EditableToolbar(_: any, ref: any) {
             onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              if (ref.current) {
-                const applier = (rangyClassApplier as any).createClassApplier(
-                  "italic"
-                );
-                applier.toggleSelection();
-              }
+              applyItalic();
             }}
           >
             <ItalicIcon />
