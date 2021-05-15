@@ -1,5 +1,5 @@
 import screenfull from "screenfull";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { SlidesContext, useSlidesState } from "../context/slides";
@@ -7,6 +7,7 @@ import { DeckContext, useDeckState } from "../context/deck";
 import { HistoryContext, useHistoryState } from "../context/history";
 
 import Menu from "./Menu/Menu";
+import PresentMenu from "./PresentMenu";
 import ThumbnailsBar from "./Thumbnails/ThumbnailsBar";
 import Slide from "./Slide/SlideWrapper";
 import LoadingBar from "./LoadingBar";
@@ -18,11 +19,14 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const SlideWrapper = styled.div`
+const SlideWrapper = styled.div<{ inactive: boolean }>`
   flex: 1;
+  ${({ inactive }) => inactive && `cursor: none;`}
 `;
 
 function App() {
+  const [inactive, setInactive] = useState(false);
+
   const {
     slides,
     setSlides,
@@ -53,6 +57,7 @@ function App() {
       if (screenfull.isEnabled) {
         if (!screenfull.isFullscreen) {
           setPresent(false);
+          setInactive(false);
         }
       }
     };
@@ -105,6 +110,29 @@ function App() {
     return () => document.removeEventListener("keydown", callback);
   }, [redo, undo]);
 
+  useEffect(() => {
+    let time: NodeJS.Timeout;
+    function resetTimer() {
+      setInactive(false);
+      clearTimeout(time);
+      time = setTimeout(() => {
+        setInactive(true);
+      }, 3000);
+    }
+    if (present) {
+      document.addEventListener("mousemove", resetTimer);
+      document.addEventListener("mousedown", resetTimer);
+      document.addEventListener("touchstart", resetTimer);
+      document.addEventListener("click", resetTimer);
+      return () => {
+        document.removeEventListener("mousemove", resetTimer);
+        document.removeEventListener("mousedown", resetTimer);
+        document.removeEventListener("touchstart", resetTimer);
+        document.removeEventListener("click", resetTimer);
+      };
+    }
+  }, [present]);
+
   return (
     <HistoryContext.Provider value={{ addAction, undo, redo }}>
       <DeckContext.Provider
@@ -135,17 +163,27 @@ function App() {
         >
           <Wrapper>
             <LoadingBar />
+            {present && !inactive && (
+              <PresentMenu
+                togglePresent={() => {
+                  setPresent(false);
+                  if (screenfull.isEnabled) {
+                    screenfull.exit();
+                  }
+                }}
+              />
+            )}
             {!present && (
               <Menu
                 togglePresent={() => {
-                  setPresent(!present);
+                  setPresent(true);
                   if (screenfull.isEnabled) {
                     screenfull.request();
                   }
                 }}
               />
             )}
-            <SlideWrapper>
+            <SlideWrapper inactive={inactive}>
               <Slide />
             </SlideWrapper>
             {!present && <ThumbnailsBar />}
