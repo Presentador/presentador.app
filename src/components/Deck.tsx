@@ -42,6 +42,8 @@ function App() {
 
   const { addAction, undo, redo } = useHistoryState();
   const {
+    template,
+    setTemplate,
     present,
     setPresent,
     size,
@@ -144,6 +146,8 @@ function App() {
     <HistoryContext.Provider value={{ addAction, undo, redo }}>
       <DeckContext.Provider
         value={{
+          template,
+          setTemplate,
           colours,
           setColours,
           loading,

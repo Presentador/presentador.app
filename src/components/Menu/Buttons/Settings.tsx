@@ -39,7 +39,8 @@ const FieldContainer = styled.div`
 
 function Settings() {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { size, setSize, colours, setColours } = useContext(DeckContext);
+  const { size, setSize, colours, setColours, template, setTemplate } =
+    useContext(DeckContext);
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -94,12 +95,27 @@ function Settings() {
                 <b>Size</b>
               </FieldContainer>
               <FieldContainer>
-                <select onChange={changeSize} defaultValue={size.join("x")}>
+                <select onChange={changeSize} value={size.join("x")}>
                   {sizesOptions.map((option, index) => (
                     <option key={index} value={option.split(" - ")[0]}>
                       {option}
                     </option>
                   ))}
+                </select>
+              </FieldContainer>
+            </RowContainer>
+            <RowContainer>
+              <FieldContainer>
+                <b>Templates</b>
+              </FieldContainer>
+              <FieldContainer>
+                <select
+                  onChange={(e) => setTemplate(e.target.value as any)}
+                  value={template}
+                >
+                  <option value="default">Default</option>
+                  <option value="dark">Dark</option>
+                  <option value="purple">Purple</option>
                 </select>
               </FieldContainer>
             </RowContainer>
@@ -115,8 +131,8 @@ function Settings() {
                       <td>
                         <input
                           type="color"
-                          defaultValue={item[1]}
-                          onBlur={(e) =>
+                          value={item[1]}
+                          onChange={(e) =>
                             setColours({
                               ...colours,
                               [item[0]]: e.target.value,
