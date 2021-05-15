@@ -174,6 +174,7 @@ function App() {
               <PresentMenu
                 togglePresent={() => {
                   setPresent(false);
+                  setInactive(false);
                   if (screenfull.isEnabled) {
                     screenfull.exit();
                   }
