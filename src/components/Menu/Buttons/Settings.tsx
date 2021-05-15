@@ -125,23 +125,27 @@ function Settings() {
               </FieldContainer>
               <FieldContainer>
                 <table>
-                  {Object.entries(colours).map((item, index) => (
-                    <tr key={index}>
-                      <td width="100%">{labelsMap[item[0] as ColourLabels]}</td>
-                      <td>
-                        <input
-                          type="color"
-                          value={item[1]}
-                          onChange={(e) =>
-                            setColours({
-                              ...colours,
-                              [item[0]]: e.target.value,
-                            })
-                          }
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                  <tbody>
+                    {Object.entries(colours).map((item, index) => (
+                      <tr key={index}>
+                        <td width="100%">
+                          {labelsMap[item[0] as ColourLabels]}
+                        </td>
+                        <td>
+                          <input
+                            type="color"
+                            value={item[1]}
+                            onChange={(e) =>
+                              setColours({
+                                ...colours,
+                                [item[0]]: e.target.value,
+                              })
+                            }
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </FieldContainer>
             </RowContainer>
