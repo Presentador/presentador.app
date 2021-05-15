@@ -40,6 +40,7 @@ function SlideWrapper() {
 
   const [scale, setScale] = useState(getScale());
 
+  // resize handler
   useEffect(() => {
     function updateSize() {
       const scale = getScale();
@@ -50,6 +51,7 @@ function SlideWrapper() {
     return () => window.removeEventListener("resize", updateSize);
   }, [setScale, size, getScale]);
 
+  // initial scale
   useEffect(() => {
     const scale = getScale();
     setScale(scale);

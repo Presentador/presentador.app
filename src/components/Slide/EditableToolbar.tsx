@@ -40,6 +40,7 @@ function EditableToolbar(_: any, ref: any) {
   const [selection, setSelection] = useState({});
   const [textContent, setTextContent] = useState("");
 
+  // user text selection handling
   useEffect(() => {
     const handler = () => {
       const selection = rangySelectionSaveRestore.getSelection();
@@ -75,6 +76,7 @@ function EditableToolbar(_: any, ref: any) {
     }
   }, []); // eslint-disable-line
 
+  // keyboard shortcuts
   useEffect(() => {
     const handler = (event: any) => {
       if (event.key === "b" && (event.metaKey || event.ctrlKey)) {

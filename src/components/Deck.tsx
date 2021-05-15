@@ -52,6 +52,7 @@ function App() {
     setColours,
   } = useDeckState();
 
+  // fullscreen change handling
   useEffect(() => {
     const callback = () => {
       if (screenfull.isEnabled) {
@@ -72,6 +73,7 @@ function App() {
     return unsubscribe;
   }, [present, setPresent]);
 
+  // presentation keyboard controls shortcuts
   useEffect(() => {
     const callback = (event: any) => {
       if (event.code === "ArrowLeft") {
@@ -96,9 +98,13 @@ function App() {
     return () => window.removeEventListener("keydown", callback);
   }, [currentSlide, slides, setCurrentSlide, present]);
 
+  // undo/redo keyboard shortcuts
   useEffect(() => {
-    function callback(event: any) {
-      if (event.metaKey === true && event.key === "z") {
+    function callback(event: KeyboardEvent) {
+      if (
+        (event.ctrlKey === true || event.metaKey === true) &&
+        event.key === "z"
+      ) {
         if (event.shiftKey === true) {
           redo();
         } else {
@@ -110,6 +116,7 @@ function App() {
     return () => document.removeEventListener("keydown", callback);
   }, [redo, undo]);
 
+  // inactive detection
   useEffect(() => {
     let time: NodeJS.Timeout;
     function resetTimer() {
