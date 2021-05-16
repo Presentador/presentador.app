@@ -11,6 +11,7 @@ import PresentMenu from "./PresentMenu";
 import ThumbnailsBar from "./Thumbnails/ThumbnailsBar";
 import Slide from "./Slide/SlideWrapper";
 import LoadingBar from "./LoadingBar";
+import ProgressBar from "./ProgressBar";
 
 const Wrapper = styled.div`
   background: #eee;
@@ -175,6 +176,7 @@ function App() {
         >
           <Wrapper>
             <LoadingBar />
+            <ProgressBar />
             {present && !inactive && (
               <PresentMenu
                 togglePresent={() => {
