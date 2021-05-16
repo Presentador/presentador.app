@@ -24,6 +24,7 @@ const StyledBlockquote = styled.blockquote<{ selected: boolean }>`
   border: 2px solid
     ${({ selected }) => (selected ? "#15aabf" : "rgba(0, 0, 0, 0)")};
   quotes: "“" "”" "‘" "’";
+  text-align: center;
 
   &:before {
     color: #ccc;
