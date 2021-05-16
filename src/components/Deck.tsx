@@ -13,8 +13,8 @@ import Slide from "./Slide/SlideWrapper";
 import LoadingBar from "./LoadingBar";
 import ProgressBar from "./ProgressBar";
 
-const Wrapper = styled.div`
-  background: #eee;
+const Wrapper = styled.div<{ present: boolean }>`
+  background: ${({ present }) => (present ? `#333` : "#eee")};
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -174,7 +174,7 @@ function App() {
             addSlide,
           }}
         >
-          <Wrapper>
+          <Wrapper present={present}>
             <LoadingBar />
             <ProgressBar />
             {present && !inactive && (
