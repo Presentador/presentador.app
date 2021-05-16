@@ -13,6 +13,7 @@ const StyledProgressBarContainer = styled.div`
   height: 0.5em;
   right: 0;
   bottom: 0;
+  z-index: 999999999;
 `;
 const StyledProgressBarItem = styled.div<{ active: boolean }>`
   ${({ active }) => active && `background: #15aabf;`}
