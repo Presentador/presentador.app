@@ -1,5 +1,5 @@
 import screenfull from "screenfull";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { SlidesContext, useSlidesState } from "../context/slides";
@@ -26,6 +26,7 @@ const SlideWrapper = styled.div<{ inactive: boolean }>`
 
 function App() {
   const [inactive, setInactive] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
     slides,
@@ -61,6 +62,7 @@ function App() {
         if (!screenfull.isFullscreen) {
           setPresent(false);
           setInactive(false);
+          timerRef.current && clearTimeout(timerRef.current);
         }
       }
     };
@@ -120,11 +122,10 @@ function App() {
 
   // inactive detection
   useEffect(() => {
-    let time: NodeJS.Timeout;
     function resetTimer() {
       setInactive(false);
-      clearTimeout(time);
-      time = setTimeout(() => {
+      timerRef.current && clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
         setInactive(true);
       }, 3000);
     }
